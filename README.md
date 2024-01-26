@@ -7,5 +7,11 @@ An application which leverages the ECF library to provide a user-friendly GUI fo
 - ECF ([link](https://ecf.readthedocs.io/))
 - tkinter
 
+### How to install
+- clone this repository
+- cd to this repository
+- pip install -r requirements.txt 
+- python3 app.py
+
 ## Author
 - Josip Ivančević
