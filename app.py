@@ -1,53 +1,174 @@
 import tkinter as tk
-import customtkinter as ctk
-from tkinter import filedialog
+from tkinter import ttk, filedialog
 
 def browse_file(entry):
-    filename = filedialog.askopenfilename()
-    entry.set(filename)
+    filepath = filedialog.askopenfilename()
+    entry.delete(0, tk.END)
+    entry.insert(0, filepath)
 
-root = ctk.CTk()
+# Set up the main window
+root = tk.Tk()
 root.title("Symbolic Regression Interface")
-root.grid_columnconfigure(1, weight=1)  # Make the second column expandable
+root.geometry("800x600")
 
-# Padding settings
-padx, pady = 10, 5  # Padding for x and y dimensions
 
-# Line 1: Function Set
-ctk.CTkLabel(root, text="Function set").grid(row=0, column=0, sticky="w", padx=padx, pady=pady)
-function_set = ["+", "-", "*", "/", "sin", "cos"]
-chk_vars = [tk.BooleanVar() for _ in function_set]
-for i, func in enumerate(function_set):
-    ctk.CTkCheckBox(root, text=func, variable=chk_vars[i]).grid(row=0, column=i+1, sticky="w", padx=padx, pady=pady)
+# Setup style for active and inactive buttons
+style = ttk.Style()
+style.theme_use('clam')  
+style.configure("Active.TButton", background="#4CAF50", relief="sunken")
+style.configure("Inactive.TButton", background="#f0f0f0", relief="raised")
 
-# Line 2: Terminal Set
-ctk.CTkLabel(root, text="Terminal set").grid(row=1, column=0, sticky="w", padx=padx, pady=pady)
-terminal_entry_var = tk.StringVar()
-ctk.CTkEntry(root, textvariable=terminal_entry_var).grid(row=1, column=1, columnspan=6, sticky="w", padx=padx, pady=pady)
+def show_input():
+    results_frame.grid_remove()  # Hide the results frame
+    input_frame.grid(row=1, column=1, sticky='ew')  # Show the input frame
+    # Set button styles
+    input_button.config(style="Active.TButton")
+    results_button.config(style="Inactive.TButton")
+    root.update_idletasks()  # Update UI immediately
+    function_frame.update_idletasks()
 
-# Line 3: Input File
-ctk.CTkLabel(root, text="Input file").grid(row=2, column=0, sticky="w", padx=padx, pady=pady)
-input_file_var = tk.StringVar()
-input_file_entry = ctk.CTkEntry(root, textvariable=input_file_var)
-input_file_entry.grid(row=2, column=1, columnspan=5, sticky="w", padx=padx, pady=pady)
-ctk.CTkButton(root, text="Browse", command=lambda: browse_file(input_file_var)).grid(row=2, column=6, padx=padx, pady=pady)
+def show_results():
+    input_frame.grid_remove()  # Hide the input frame
+    results_frame.grid(row=1, column=1, sticky='ew')  # Show the input frame
+    # Set button styles
+    input_button.config(style="Inactive.TButton")
+    results_button.config(style="Active.TButton")
+    root.update_idletasks()  # Update UI immediately
 
-# Line 4: Error Weights File
-ctk.CTkLabel(root, text="Error weights file").grid(row=3, column=0, sticky="w", padx=padx, pady=pady)
-error_file_var = tk.StringVar()
-error_file_entry = ctk.CTkEntry(root, textvariable=error_file_var)
-error_file_entry.grid(row=3, column=1, columnspan=5, sticky="w", padx=padx, pady=pady)
-ctk.CTkButton(root, text="Browse", command=lambda: browse_file(error_file_var)).grid(row=3, column=6, padx=padx, pady=pady)
 
-# Line 5: Error Metric
-ctk.CTkLabel(root, text="Error metric").grid(row=4, column=0, sticky="w", padx=padx, pady=pady)
-error_metric_var = tk.StringVar()
-error_metric_options = ["Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)"]
-error_metric_dropdown = ctk.CTkOptionMenu(root, variable=error_metric_var, values=error_metric_options)
-error_metric_dropdown.grid(row=4, column=1, columnspan=6, sticky="w", padx=padx, pady=pady)
-error_metric_var.set(error_metric_options[0])  # default value
+# Create columns with weights and an empty column as buffer
+root.columnconfigure(0, weight=1)
+root.columnconfigure(1, weight=10)  # Main content column should have more weight
+root.columnconfigure(2, weight=1)
 
-# Line 6: Run Button
-ctk.CTkButton(root, text="Run").grid(row=5, column=0, columnspan=7, padx=padx, pady=pady)
+
+# Navigation buttons
+nav_frame = ttk.Frame(root)
+nav_frame.grid(row=0, column=0, columnspan=3, sticky='ew')  # Ensure the frame expands with the window
+nav_frame.columnconfigure(0, weight=1)  # Input Button column
+nav_frame.columnconfigure(1, weight=1)  # Results Button column
+
+input_button = ttk.Button(nav_frame, text="Input", command=show_input, style="Active.TButton")
+input_button.grid(row=0, column=0, padx=10, pady=10, sticky='e')
+results_button = ttk.Button(nav_frame, text="Results", command=show_results, style="Inactive.TButton")
+results_button.grid(row=0, column=1, padx=10, pady=10, sticky='w')
+
+
+
+# INPUT TAB
+input_frame = ttk.Frame(root)
+input_frame.grid(row=1, column=1, sticky='ewns', padx=20, pady=10)
+
+# Create columns with weights and an empty column as buffer
+input_frame.columnconfigure(0, weight=1)
+input_frame.columnconfigure(1, weight=3)
+input_frame.columnconfigure(2, weight=3)
+input_frame.columnconfigure(3, weight=1)
+
+# Part 1: Input Frame
+data_frame = ttk.Frame(input_frame)
+data_frame.grid(row=0, column=1, sticky='ew', padx=20, pady=10)
+
+# Input file widgets
+ttk.Label(data_frame, text="Input file").grid(row=0, column=0, sticky='w', pady=5)
+input_file_entry = ttk.Entry(data_frame, width=40)
+input_file_entry.grid(row=0, column=1, sticky='ew')
+ttk.Button(data_frame, text="Browse", command=lambda: browse_file(input_file_entry)).grid(row=0, column=2, padx=10)
+
+# Error weights file widgets
+ttk.Label(data_frame, text="Error weights file").grid(row=1, column=0, sticky='w', pady=5)
+error_file_entry = ttk.Entry(data_frame, width=40)
+error_file_entry.grid(row=1, column=1, sticky='ew')
+ttk.Button(data_frame, text="Browse", command=lambda: browse_file(error_file_entry)).grid(row=1, column=2, padx=10)
+    
+# Input variables
+ttk.Label(data_frame, text="Input variables").grid(row=2, column=0, sticky='w', pady=5)
+variable_frame = ttk.Frame(data_frame)
+variable_frame.grid(row=2, column=1, sticky='ew')
+
+# Variables with checkboxes
+vars = ["x1", "x2"]
+checkbox_vars = {}  # To keep track of the checkbox states
+for i, var in enumerate(vars):
+    tk.Label(variable_frame, text=var).grid(row=0, column=2*i, sticky='w')
+    checkbox_vars[var] = tk.BooleanVar()  # Create a variable to track the state of the checkbox
+    tk.Checkbutton(variable_frame, variable=checkbox_vars[var]).grid(row=0, column=1+2*i, sticky='w')
+
+# Additional terminals
+tk.Label(variable_frame, text="Additional terminals").grid(row=1, column=0, columnspan=2, sticky='w', pady=(10, 0))
+additional_terminals_entry = ttk.Entry(variable_frame)
+additional_terminals_entry.grid(row=1, column=2, columnspan=4, sticky='ew', padx=(5, 0))
+
+# Insert a horizontal separator
+separator = ttk.Separator(input_frame)  # parent widget should be input_frame to span entire grid width
+separator.grid(row=1, column=0, columnspan=5, sticky='ew', pady=10)  # adjust columnspan according to your grid setup
+
+# Part 2: Search Options Frame
+search_frame = ttk.Frame(input_frame)
+search_frame.grid(row=2, column=1, sticky='ew', padx=20, pady=10)
+
+# Search metric
+ttk.Label(search_frame, text="Search metric").grid(row=0, column=0, sticky='w', pady=5)
+metric_var = tk.StringVar()
+metric_dropdown = ttk.OptionMenu(search_frame, metric_var, "Mean squared error (MSE)", "Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)")
+metric_dropdown.grid(row=0, column=1, sticky='ew')
+
+# Train/test split
+ttk.Label(search_frame, text="Train/test split").grid(row=1, column=0, sticky='w', pady=5)
+split_var = tk.StringVar()
+split_dropdown = ttk.OptionMenu(search_frame, split_var, "50/50", "50/50", "80/20", "100/0")
+split_dropdown.grid(row=1, column=1, sticky='ew')
+
+# Test sample
+ttk.Label(search_frame, text="Test sample").grid(row=2, column=0, sticky='w', pady=5)
+sample_var = tk.StringVar()
+sample_dropdown = ttk.OptionMenu(search_frame, sample_var, "Chosen randomly", "Chosen randomly", "Chosen sequentially")
+sample_dropdown.grid(row=2, column=1, sticky='ew')
+
+# Create a canvas and scrollbar
+function_canvas = tk.Canvas(search_frame, borderwidth=0, background="#FF0000")
+function_canvas.grid(row=3, column=0, columnspan=2, sticky="ew", pady=10)
+
+vsb = tk.Scrollbar(search_frame, orient="vertical", command=function_canvas.yview, background="#008000")
+vsb.grid(row=3, column=2, sticky='ns')
+function_canvas.configure(yscrollcommand=vsb.set)
+function_canvas.configure(width=300, height=200)
+
+# Frame within the canvas
+function_frame = ttk.Frame(function_canvas)
+function_canvas.create_window((0, 0), window=function_frame, anchor="nw")
+function_frame.columnconfigure(0, weight=15)
+function_frame.columnconfigure(1, weight=1)
+
+functions = [
+    ("Addition", "+"), ("Multiplication", "*"), ("Division", "/"),
+    ("sin(x)", "sin"), ("cos(x)", "cos"), ("cos(x)", "cos1"), ("cos(x)", "cos2"), ("cos(x)", "co3s"), ("cos(x)", "co23s"), ("cos(x)", "23cos"), ("cos(x)", "co23s"), ("cos(x)", "co3s"), 
+]
+checkbox_vars = {}
+for i, (label, func) in enumerate(functions):
+    label_widget = ttk.Label(function_frame, text=label)
+    label_widget.grid(row=i, column=0, sticky='ew')
+    checkbox_vars[func] = tk.BooleanVar()
+    checkbox_widget = ttk.Checkbutton(function_frame, variable=checkbox_vars[func])
+    checkbox_widget.grid(row=i, column=1, sticky='e')
+
+function_frame.update_idletasks()
+function_canvas.config(scrollregion=function_canvas.bbox("all"))
+
+
+
+
+# RESULTS TAB
+results_frame = ttk.Frame(root)
+results_frame.grid(row=1, column=1, sticky='ewns', padx=20, pady=10)
+ttk.Label(results_frame, text="Hello World").pack()
+
+
+
+
+# Start with the input frame showing by default
+results_frame.grid_remove()
 
 root.mainloop()
+
+

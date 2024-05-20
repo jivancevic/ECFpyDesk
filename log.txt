@@ -1,0 +1,2421 @@
+Start time: Thu May 16 12:43:30 2024
+
+Evaluating initial population...
+Generation: 0
+Elapsed time: 0
+Deme: 0
+Evaluations: 100
+Stats: fitness
+	max: 2.47495
+	min: 0.0606473
+	avg: 0.190912
+	stdev: 0.231909
+
+Best in 0
+<Individual size="1">
+	<FitnessMin value="0.0606473"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 - x1 x1 x1 </Tree>
+</Individual>
+
+Generation: 1
+Elapsed time: 0
+Deme: 0
+Evaluations: 200
+Stats: fitness
+	max: 0.449494
+	min: 0.0606473
+	avg: 0.155094
+	stdev: 0.0456988
+
+Best in 1
+<Individual size="1">
+	<FitnessMin value="0.0606473"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 - x1 x1 x1 </Tree>
+</Individual>
+
+Generation: 2
+Elapsed time: 0
+Deme: 0
+Evaluations: 300
+Stats: fitness
+	max: 0.186605
+	min: 0.0592988
+	avg: 0.13195
+	stdev: 0.0287789
+
+Best in 2
+<Individual size="1">
+	<FitnessMin value="0.0592988"/>
+	<Tree size="6">cos * + x2 x1 x1 </Tree>
+</Individual>
+
+Generation: 3
+Elapsed time: 0
+Deme: 0
+Evaluations: 400
+Stats: fitness
+	max: 0.18595
+	min: 0.0527668
+	avg: 0.119029
+	stdev: 0.0325812
+
+Best in 3
+<Individual size="1">
+	<FitnessMin value="0.0527668"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 4
+Elapsed time: 0
+Deme: 0
+Evaluations: 500
+Stats: fitness
+	max: 2.47495
+	min: 0.0527668
+	avg: 0.129529
+	stdev: 0.241647
+
+Best in 4
+<Individual size="1">
+	<FitnessMin value="0.0527668"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 5
+Elapsed time: 0
+Deme: 0
+Evaluations: 600
+Stats: fitness
+	max: 0.186605
+	min: 0.0527668
+	avg: 0.0920111
+	stdev: 0.0371585
+
+Best in 5
+<Individual size="1">
+	<FitnessMin value="0.0527668"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 6
+Elapsed time: 0
+Deme: 0
+Evaluations: 700
+Stats: fitness
+	max: 0.186605
+	min: 0.0527668
+	avg: 0.084723
+	stdev: 0.0365294
+
+Best in 6
+<Individual size="1">
+	<FitnessMin value="0.0527668"/>
+	<Tree size="20">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 7
+Elapsed time: 0
+Deme: 0
+Evaluations: 800
+Stats: fitness
+	max: 2.47495
+	min: 0.0503282
+	avg: 0.113676
+	stdev: 0.244952
+
+Best in 7
+<Individual size="1">
+	<FitnessMin value="0.0503282"/>
+	<Tree size="18">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 8
+Elapsed time: 0
+Deme: 0
+Evaluations: 900
+Stats: fitness
+	max: 0.186446
+	min: 0.0503282
+	avg: 0.0790733
+	stdev: 0.0380208
+
+Best in 8
+<Individual size="1">
+	<FitnessMin value="0.0503282"/>
+	<Tree size="18">* * + cos - x1 x2 + D_0.184059 - D_-0.562364 D_-0.4934 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 9
+Elapsed time: 0
+Deme: 0
+Evaluations: 1000
+Stats: fitness
+	max: 2.47495
+	min: 0.0443876
+	avg: 0.121484
+	stdev: 0.34156
+
+Best in 9
+<Individual size="1">
+	<FitnessMin value="0.0443876"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 10
+Elapsed time: 0
+Deme: 0
+Evaluations: 1100
+Stats: fitness
+	max: 0.186605
+	min: 0.0443876
+	avg: 0.074557
+	stdev: 0.0416638
+
+Best in 10
+<Individual size="1">
+	<FitnessMin value="0.0443876"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 11
+Elapsed time: 0
+Deme: 0
+Evaluations: 1200
+Stats: fitness
+	max: 2.47495
+	min: 0.0438575
+	avg: 0.105824
+	stdev: 0.246134
+
+Best in 11
+<Individual size="1">
+	<FitnessMin value="0.0438575"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 12
+Elapsed time: 0
+Deme: 0
+Evaluations: 1300
+Stats: fitness
+	max: 0.18106
+	min: 0.0438575
+	avg: 0.0702433
+	stdev: 0.0377681
+
+Best in 12
+<Individual size="1">
+	<FitnessMin value="0.0438575"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 13
+Elapsed time: 0
+Deme: 0
+Evaluations: 1400
+Stats: fitness
+	max: 0.18595
+	min: 0.0438575
+	avg: 0.0693495
+	stdev: 0.0379272
+
+Best in 13
+<Individual size="1">
+	<FitnessMin value="0.0438575"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 14
+Elapsed time: 0
+Deme: 0
+Evaluations: 1500
+Stats: fitness
+	max: 0.185837
+	min: 0.0438575
+	avg: 0.0646997
+	stdev: 0.0313882
+
+Best in 14
+<Individual size="1">
+	<FitnessMin value="0.0438575"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 + D_0.205947 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 15
+Elapsed time: 0
+Deme: 0
+Evaluations: 1600
+Stats: fitness
+	max: 0.186605
+	min: 0.0430418
+	avg: 0.0651106
+	stdev: 0.0359764
+
+Best in 15
+<Individual size="1">
+	<FitnessMin value="0.0430418"/>
+	<Tree size="18">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 16
+Elapsed time: 0
+Deme: 0
+Evaluations: 1700
+Stats: fitness
+	max: 0.185559
+	min: 0.0430418
+	avg: 0.0651849
+	stdev: 0.0369946
+
+Best in 16
+<Individual size="1">
+	<FitnessMin value="0.0430418"/>
+	<Tree size="18">* * + cos - x1 x2 * - x1 x2 D_-0.216809 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 17
+Elapsed time: 0
+Deme: 0
+Evaluations: 1800
+Stats: fitness
+	max: 0.186605
+	min: 0.0421212
+	avg: 0.0674894
+	stdev: 0.042799
+
+Best in 17
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 18
+Elapsed time: 0
+Deme: 0
+Evaluations: 1900
+Stats: fitness
+	max: 0.186605
+	min: 0.0421212
+	avg: 0.0646074
+	stdev: 0.041251
+
+Best in 18
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 19
+Elapsed time: 0
+Deme: 0
+Evaluations: 2000
+Stats: fitness
+	max: 0.186605
+	min: 0.0421212
+	avg: 0.0623518
+	stdev: 0.0396459
+
+Best in 19
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 20
+Elapsed time: 0
+Deme: 0
+Evaluations: 2100
+Stats: fitness
+	max: 0.186262
+	min: 0.0421212
+	avg: 0.061809
+	stdev: 0.0387554
+
+Best in 20
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 21
+Elapsed time: 0
+Deme: 0
+Evaluations: 2200
+Stats: fitness
+	max: 0.186109
+	min: 0.0421212
+	avg: 0.0608953
+	stdev: 0.0371766
+
+Best in 21
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 22
+Elapsed time: 0
+Deme: 0
+Evaluations: 2300
+Stats: fitness
+	max: 0.449494
+	min: 0.0421212
+	avg: 0.0737111
+	stdev: 0.0601616
+
+Best in 22
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 23
+Elapsed time: 0
+Deme: 0
+Evaluations: 2400
+Stats: fitness
+	max: 0.185225
+	min: 0.0421212
+	avg: 0.0630443
+	stdev: 0.0412772
+
+Best in 23
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 24
+Elapsed time: 0
+Deme: 0
+Evaluations: 2500
+Stats: fitness
+	max: 0.449494
+	min: 0.0421212
+	avg: 0.0677823
+	stdev: 0.0657275
+
+Best in 24
+<Individual size="1">
+	<FitnessMin value="0.0421212"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.288163 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 25
+Elapsed time: 0
+Deme: 0
+Evaluations: 2600
+Stats: fitness
+	max: 0.449494
+	min: 0.0418646
+	avg: 0.0722387
+	stdev: 0.0681437
+
+Best in 25
+<Individual size="1">
+	<FitnessMin value="0.0418646"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - x2 + D_0.205947 * D_-0.987257 x1 x1 </Tree>
+</Individual>
+
+Generation: 26
+Elapsed time: 0
+Deme: 0
+Evaluations: 2700
+Stats: fitness
+	max: 0.449494
+	min: 0.0416161
+	avg: 0.0820714
+	stdev: 0.0814749
+
+Best in 26
+<Individual size="1">
+	<FitnessMin value="0.0416161"/>
+	<Tree size="18">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 27
+Elapsed time: 0
+Deme: 0
+Evaluations: 2800
+Stats: fitness
+	max: 0.186578
+	min: 0.0416161
+	avg: 0.0629375
+	stdev: 0.0421083
+
+Best in 27
+<Individual size="1">
+	<FitnessMin value="0.0416161"/>
+	<Tree size="18">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 - D_0.288163 x1 x1 </Tree>
+</Individual>
+
+Generation: 28
+Elapsed time: 0
+Deme: 0
+Evaluations: 2900
+Stats: fitness
+	max: 0.449494
+	min: 0.0414365
+	avg: 0.0703974
+	stdev: 0.058257
+
+Best in 28
+<Individual size="1">
+	<FitnessMin value="0.0414365"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.4934 - + D_0.288163 * D_-0.863793 x1 x2 x1 </Tree>
+</Individual>
+
+Generation: 29
+Elapsed time: 0
+Deme: 0
+Evaluations: 3000
+Stats: fitness
+	max: 0.449494
+	min: 0.0409917
+	avg: 0.0713156
+	stdev: 0.0669852
+
+Best in 29
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 30
+Elapsed time: 0
+Deme: 0
+Evaluations: 3100
+Stats: fitness
+	max: 0.185837
+	min: 0.0409917
+	avg: 0.0647528
+	stdev: 0.0436541
+
+Best in 30
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 31
+Elapsed time: 0
+Deme: 0
+Evaluations: 3200
+Stats: fitness
+	max: 0.186605
+	min: 0.0409917
+	avg: 0.071182
+	stdev: 0.0486535
+
+Best in 31
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 32
+Elapsed time: 0
+Deme: 0
+Evaluations: 3300
+Stats: fitness
+	max: 0.186605
+	min: 0.0409917
+	avg: 0.0717413
+	stdev: 0.0501591
+
+Best in 32
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 33
+Elapsed time: 0
+Deme: 0
+Evaluations: 3400
+Stats: fitness
+	max: 0.186605
+	min: 0.0409917
+	avg: 0.0685592
+	stdev: 0.047729
+
+Best in 33
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 34
+Elapsed time: 0
+Deme: 0
+Evaluations: 3500
+Stats: fitness
+	max: 0.449494
+	min: 0.0409917
+	avg: 0.0704148
+	stdev: 0.0682604
+
+Best in 34
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 35
+Elapsed time: 0
+Deme: 0
+Evaluations: 3600
+Stats: fitness
+	max: 0.1772
+	min: 0.0409917
+	avg: 0.0581314
+	stdev: 0.0360477
+
+Best in 35
+<Individual size="1">
+	<FitnessMin value="0.0409917"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 36
+Elapsed time: 0
+Deme: 0
+Evaluations: 3700
+Stats: fitness
+	max: 0.186398
+	min: 0.0409548
+	avg: 0.0651217
+	stdev: 0.0460564
+
+Best in 36
+<Individual size="1">
+	<FitnessMin value="0.0409548"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 37
+Elapsed time: 0
+Deme: 0
+Evaluations: 3800
+Stats: fitness
+	max: 0.186605
+	min: 0.0409548
+	avg: 0.0650923
+	stdev: 0.0471759
+
+Best in 37
+<Individual size="1">
+	<FitnessMin value="0.0409548"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.863793 x1 x1 </Tree>
+</Individual>
+
+Generation: 38
+Elapsed time: 0
+Deme: 0
+Evaluations: 3900
+Stats: fitness
+	max: 0.186605
+	min: 0.0408735
+	avg: 0.0644651
+	stdev: 0.0455295
+
+Best in 38
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 39
+Elapsed time: 0
+Deme: 0
+Evaluations: 4000
+Stats: fitness
+	max: 0.449494
+	min: 0.0408735
+	avg: 0.0627148
+	stdev: 0.0564257
+
+Best in 39
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 40
+Elapsed time: 0
+Deme: 0
+Evaluations: 4100
+Stats: fitness
+	max: 0.449494
+	min: 0.0408735
+	avg: 0.0709667
+	stdev: 0.0595709
+
+Best in 40
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 41
+Elapsed time: 0
+Deme: 0
+Evaluations: 4200
+Stats: fitness
+	max: 0.449494
+	min: 0.0408735
+	avg: 0.0762229
+	stdev: 0.0713235
+
+Best in 41
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 42
+Elapsed time: 0
+Deme: 0
+Evaluations: 4300
+Stats: fitness
+	max: 0.449494
+	min: 0.0408735
+	avg: 0.064979
+	stdev: 0.0568725
+
+Best in 42
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 43
+Elapsed time: 0
+Deme: 0
+Evaluations: 4400
+Stats: fitness
+	max: 0.449494
+	min: 0.0408735
+	avg: 0.0678499
+	stdev: 0.067221
+
+Best in 43
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 44
+Elapsed time: 0
+Deme: 0
+Evaluations: 4500
+Stats: fitness
+	max: 0.186099
+	min: 0.0408735
+	avg: 0.0669095
+	stdev: 0.0447208
+
+Best in 44
+<Individual size="1">
+	<FitnessMin value="0.0408735"/>
+	<Tree size="22">* * + cos - x1 x2 * - x1 x2 - D_-0.956352 D_-0.617247 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 45
+Elapsed time: 0
+Deme: 0
+Evaluations: 4600
+Stats: fitness
+	max: 0.185078
+	min: 0.0408396
+	avg: 0.0522321
+	stdev: 0.0295046
+
+Best in 45
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 46
+Elapsed time: 0
+Deme: 0
+Evaluations: 4700
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0673063
+	stdev: 0.0574637
+
+Best in 46
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 47
+Elapsed time: 0
+Deme: 0
+Evaluations: 4800
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0728917
+	stdev: 0.0593773
+
+Best in 47
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 48
+Elapsed time: 0
+Deme: 0
+Evaluations: 4900
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0648363
+	stdev: 0.0417048
+
+Best in 48
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 49
+Elapsed time: 0
+Deme: 0
+Evaluations: 5000
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0711268
+	stdev: 0.0562385
+
+Best in 49
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 50
+Elapsed time: 0
+Deme: 0
+Evaluations: 5100
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0675011
+	stdev: 0.0568988
+
+Best in 50
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 51
+Elapsed time: 0
+Deme: 0
+Evaluations: 5200
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0613282
+	stdev: 0.0401898
+
+Best in 51
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 52
+Elapsed time: 0
+Deme: 0
+Evaluations: 5300
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0628247
+	stdev: 0.0425515
+
+Best in 52
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 53
+Elapsed time: 0
+Deme: 0
+Evaluations: 5400
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0621631
+	stdev: 0.0416538
+
+Best in 53
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 54
+Elapsed time: 0
+Deme: 0
+Evaluations: 5500
+Stats: fitness
+	max: 0.185346
+	min: 0.0408396
+	avg: 0.0579546
+	stdev: 0.034532
+
+Best in 54
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 55
+Elapsed time: 0
+Deme: 0
+Evaluations: 5600
+Stats: fitness
+	max: 0.186194
+	min: 0.0408396
+	avg: 0.0688368
+	stdev: 0.0478537
+
+Best in 55
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 56
+Elapsed time: 0
+Deme: 0
+Evaluations: 5700
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0660975
+	stdev: 0.057343
+
+Best in 56
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 57
+Elapsed time: 0
+Deme: 0
+Evaluations: 5800
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.057331
+	stdev: 0.0370648
+
+Best in 57
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 58
+Elapsed time: 0
+Deme: 0
+Evaluations: 5900
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0597338
+	stdev: 0.0422204
+
+Best in 58
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 59
+Elapsed time: 0
+Deme: 0
+Evaluations: 6000
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0627583
+	stdev: 0.0414046
+
+Best in 59
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 60
+Elapsed time: 0
+Deme: 0
+Evaluations: 6100
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.066061
+	stdev: 0.0422256
+
+Best in 60
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 61
+Elapsed time: 0
+Deme: 0
+Evaluations: 6200
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0714412
+	stdev: 0.0598825
+
+Best in 61
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 62
+Elapsed time: 0
+Deme: 0
+Evaluations: 6300
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0635956
+	stdev: 0.0421552
+
+Best in 62
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 63
+Elapsed time: 0
+Deme: 0
+Evaluations: 6400
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0624754
+	stdev: 0.0414351
+
+Best in 63
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 64
+Elapsed time: 0
+Deme: 0
+Evaluations: 6500
+Stats: fitness
+	max: 0.975148
+	min: 0.0408396
+	avg: 0.0797844
+	stdev: 0.108018
+
+Best in 64
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 65
+Elapsed time: 0
+Deme: 0
+Evaluations: 6600
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0766481
+	stdev: 0.0722026
+
+Best in 65
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 66
+Elapsed time: 1
+Deme: 0
+Evaluations: 6700
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0704975
+	stdev: 0.0485913
+
+Best in 66
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 67
+Elapsed time: 1
+Deme: 0
+Evaluations: 6800
+Stats: fitness
+	max: 0.186224
+	min: 0.0408396
+	avg: 0.0714122
+	stdev: 0.0508287
+
+Best in 67
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 68
+Elapsed time: 1
+Deme: 0
+Evaluations: 6900
+Stats: fitness
+	max: 0.186079
+	min: 0.0408396
+	avg: 0.0675281
+	stdev: 0.0487637
+
+Best in 68
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 69
+Elapsed time: 1
+Deme: 0
+Evaluations: 7000
+Stats: fitness
+	max: 0.186525
+	min: 0.0408396
+	avg: 0.0640817
+	stdev: 0.0445246
+
+Best in 69
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 70
+Elapsed time: 1
+Deme: 0
+Evaluations: 7100
+Stats: fitness
+	max: 0.185987
+	min: 0.0408396
+	avg: 0.0598182
+	stdev: 0.0406817
+
+Best in 70
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 71
+Elapsed time: 1
+Deme: 0
+Evaluations: 7200
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0629087
+	stdev: 0.0548071
+
+Best in 71
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 72
+Elapsed time: 1
+Deme: 0
+Evaluations: 7300
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0666253
+	stdev: 0.0466337
+
+Best in 72
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 73
+Elapsed time: 1
+Deme: 0
+Evaluations: 7400
+Stats: fitness
+	max: 0.186509
+	min: 0.0408396
+	avg: 0.0630797
+	stdev: 0.0429507
+
+Best in 73
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 74
+Elapsed time: 1
+Deme: 0
+Evaluations: 7500
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0601891
+	stdev: 0.040996
+
+Best in 74
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 75
+Elapsed time: 1
+Deme: 0
+Evaluations: 7600
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0662018
+	stdev: 0.0458904
+
+Best in 75
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 76
+Elapsed time: 1
+Deme: 0
+Evaluations: 7700
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0624851
+	stdev: 0.0531284
+
+Best in 76
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 77
+Elapsed time: 1
+Deme: 0
+Evaluations: 7800
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0744326
+	stdev: 0.0495788
+
+Best in 77
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 78
+Elapsed time: 1
+Deme: 0
+Evaluations: 7900
+Stats: fitness
+	max: 0.186367
+	min: 0.0408396
+	avg: 0.070086
+	stdev: 0.0466874
+
+Best in 78
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 79
+Elapsed time: 1
+Deme: 0
+Evaluations: 8000
+Stats: fitness
+	max: 0.184827
+	min: 0.0408396
+	avg: 0.0643479
+	stdev: 0.0418034
+
+Best in 79
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 80
+Elapsed time: 1
+Deme: 0
+Evaluations: 8100
+Stats: fitness
+	max: 0.186592
+	min: 0.0408396
+	avg: 0.0681732
+	stdev: 0.0469674
+
+Best in 80
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 81
+Elapsed time: 1
+Deme: 0
+Evaluations: 8200
+Stats: fitness
+	max: 0.186476
+	min: 0.0408396
+	avg: 0.05825
+	stdev: 0.0391334
+
+Best in 81
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 82
+Elapsed time: 1
+Deme: 0
+Evaluations: 8300
+Stats: fitness
+	max: 0.185837
+	min: 0.0408396
+	avg: 0.0588618
+	stdev: 0.0381127
+
+Best in 82
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 83
+Elapsed time: 1
+Deme: 0
+Evaluations: 8400
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0692344
+	stdev: 0.058578
+
+Best in 83
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 84
+Elapsed time: 1
+Deme: 0
+Evaluations: 8500
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0610713
+	stdev: 0.0418604
+
+Best in 84
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 85
+Elapsed time: 1
+Deme: 0
+Evaluations: 8600
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0629687
+	stdev: 0.0445554
+
+Best in 85
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 86
+Elapsed time: 1
+Deme: 0
+Evaluations: 8700
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0718652
+	stdev: 0.0592413
+
+Best in 86
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 87
+Elapsed time: 1
+Deme: 0
+Evaluations: 8800
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0682216
+	stdev: 0.0471478
+
+Best in 87
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 88
+Elapsed time: 1
+Deme: 0
+Evaluations: 8900
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0677267
+	stdev: 0.0659191
+
+Best in 88
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 89
+Elapsed time: 1
+Deme: 0
+Evaluations: 9000
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0699987
+	stdev: 0.0660871
+
+Best in 89
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 90
+Elapsed time: 1
+Deme: 0
+Evaluations: 9100
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0720195
+	stdev: 0.0607797
+
+Best in 90
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 91
+Elapsed time: 1
+Deme: 0
+Evaluations: 9200
+Stats: fitness
+	max: 0.186604
+	min: 0.0408396
+	avg: 0.058731
+	stdev: 0.0385585
+
+Best in 91
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 92
+Elapsed time: 1
+Deme: 0
+Evaluations: 9300
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0708939
+	stdev: 0.0601174
+
+Best in 92
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 93
+Elapsed time: 1
+Deme: 0
+Evaluations: 9400
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0671111
+	stdev: 0.0580857
+
+Best in 93
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 94
+Elapsed time: 1
+Deme: 0
+Evaluations: 9500
+Stats: fitness
+	max: 2.47495
+	min: 0.0408396
+	avg: 0.0933838
+	stdev: 0.250289
+
+Best in 94
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 95
+Elapsed time: 1
+Deme: 0
+Evaluations: 9600
+Stats: fitness
+	max: 2.47495
+	min: 0.0408396
+	avg: 0.0891555
+	stdev: 0.245358
+
+Best in 95
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 96
+Elapsed time: 1
+Deme: 0
+Evaluations: 9700
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.062112
+	stdev: 0.0406395
+
+Best in 96
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 97
+Elapsed time: 1
+Deme: 0
+Evaluations: 9800
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0621513
+	stdev: 0.0524497
+
+Best in 97
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 98
+Elapsed time: 1
+Deme: 0
+Evaluations: 9900
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0698437
+	stdev: 0.0598352
+
+Best in 98
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 99
+Elapsed time: 1
+Deme: 0
+Evaluations: 10000
+Stats: fitness
+	max: 0.18595
+	min: 0.0408396
+	avg: 0.0634741
+	stdev: 0.0440075
+
+Best in 99
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 100
+Elapsed time: 1
+Deme: 0
+Evaluations: 10100
+Stats: fitness
+	max: 0.186605
+	min: 0.0408396
+	avg: 0.0615384
+	stdev: 0.0418413
+
+Best in 100
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 101
+Elapsed time: 1
+Deme: 0
+Evaluations: 10200
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0608972
+	stdev: 0.056547
+
+Best in 101
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 102
+Elapsed time: 1
+Deme: 0
+Evaluations: 10300
+Stats: fitness
+	max: 0.186085
+	min: 0.0408396
+	avg: 0.0576508
+	stdev: 0.036254
+
+Best in 102
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 103
+Elapsed time: 1
+Deme: 0
+Evaluations: 10400
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0598088
+	stdev: 0.0507273
+
+Best in 103
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 104
+Elapsed time: 1
+Deme: 0
+Evaluations: 10500
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0646094
+	stdev: 0.0565083
+
+Best in 104
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 105
+Elapsed time: 1
+Deme: 0
+Evaluations: 10600
+Stats: fitness
+	max: 0.449494
+	min: 0.0408396
+	avg: 0.0600563
+	stdev: 0.0553707
+
+Best in 105
+<Individual size="1">
+	<FitnessMin value="0.0408396"/>
+	<Tree size="20">* * + cos - x1 x2 * - x1 x2 D_-0.351178 - x2 + D_0.288163 * D_-0.80053 x1 x1 </Tree>
+</Individual>
+
+Generation: 106
+Elapsed time: 1
+Deme: 0
+Evaluations: 10700
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0587326
+	stdev: 0.0416349
+
+Best in 106
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 107
+Elapsed time: 1
+Deme: 0
+Evaluations: 10800
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0674246
+	stdev: 0.0597517
+
+Best in 107
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 108
+Elapsed time: 1
+Deme: 0
+Evaluations: 10900
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.058975
+	stdev: 0.0388051
+
+Best in 108
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 109
+Elapsed time: 1
+Deme: 0
+Evaluations: 11000
+Stats: fitness
+	max: 0.182953
+	min: 0.040835
+	avg: 0.0575118
+	stdev: 0.0374253
+
+Best in 109
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 110
+Elapsed time: 1
+Deme: 0
+Evaluations: 11100
+Stats: fitness
+	max: 0.184976
+	min: 0.040835
+	avg: 0.0598404
+	stdev: 0.037309
+
+Best in 110
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 111
+Elapsed time: 1
+Deme: 0
+Evaluations: 11200
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0626887
+	stdev: 0.0522833
+
+Best in 111
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 112
+Elapsed time: 1
+Deme: 0
+Evaluations: 11300
+Stats: fitness
+	max: 0.185987
+	min: 0.040835
+	avg: 0.0561208
+	stdev: 0.0354367
+
+Best in 112
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 113
+Elapsed time: 1
+Deme: 0
+Evaluations: 11400
+Stats: fitness
+	max: 0.186237
+	min: 0.040835
+	avg: 0.0592658
+	stdev: 0.0408967
+
+Best in 113
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 114
+Elapsed time: 1
+Deme: 0
+Evaluations: 11500
+Stats: fitness
+	max: 0.185837
+	min: 0.040835
+	avg: 0.0607071
+	stdev: 0.0403458
+
+Best in 114
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 115
+Elapsed time: 1
+Deme: 0
+Evaluations: 11600
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0577418
+	stdev: 0.0390207
+
+Best in 115
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 116
+Elapsed time: 1
+Deme: 0
+Evaluations: 11700
+Stats: fitness
+	max: 0.18595
+	min: 0.040835
+	avg: 0.0538838
+	stdev: 0.0344471
+
+Best in 116
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 117
+Elapsed time: 1
+Deme: 0
+Evaluations: 11800
+Stats: fitness
+	max: 0.185837
+	min: 0.040835
+	avg: 0.061105
+	stdev: 0.0424154
+
+Best in 117
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 118
+Elapsed time: 1
+Deme: 0
+Evaluations: 11900
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0651318
+	stdev: 0.0560531
+
+Best in 118
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 119
+Elapsed time: 1
+Deme: 0
+Evaluations: 12000
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0640004
+	stdev: 0.0427043
+
+Best in 119
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 120
+Elapsed time: 1
+Deme: 0
+Evaluations: 12100
+Stats: fitness
+	max: 0.186159
+	min: 0.040835
+	avg: 0.0653495
+	stdev: 0.0447392
+
+Best in 120
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 121
+Elapsed time: 1
+Deme: 0
+Evaluations: 12200
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0613386
+	stdev: 0.0530733
+
+Best in 121
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 122
+Elapsed time: 1
+Deme: 0
+Evaluations: 12300
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0559816
+	stdev: 0.0358535
+
+Best in 122
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 123
+Elapsed time: 1
+Deme: 0
+Evaluations: 12400
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0627156
+	stdev: 0.0467837
+
+Best in 123
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 124
+Elapsed time: 1
+Deme: 0
+Evaluations: 12500
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0657106
+	stdev: 0.0465471
+
+Best in 124
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 125
+Elapsed time: 1
+Deme: 0
+Evaluations: 12600
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0568939
+	stdev: 0.0334812
+
+Best in 125
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 126
+Elapsed time: 1
+Deme: 0
+Evaluations: 12700
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0608491
+	stdev: 0.0394992
+
+Best in 126
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 127
+Elapsed time: 1
+Deme: 0
+Evaluations: 12800
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0641682
+	stdev: 0.0439732
+
+Best in 127
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 128
+Elapsed time: 1
+Deme: 0
+Evaluations: 12900
+Stats: fitness
+	max: 0.186315
+	min: 0.040835
+	avg: 0.0581027
+	stdev: 0.0390903
+
+Best in 128
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 129
+Elapsed time: 1
+Deme: 0
+Evaluations: 13000
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0623769
+	stdev: 0.0540153
+
+Best in 129
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 130
+Elapsed time: 1
+Deme: 0
+Evaluations: 13100
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0582854
+	stdev: 0.0376657
+
+Best in 130
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 131
+Elapsed time: 1
+Deme: 0
+Evaluations: 13200
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0683323
+	stdev: 0.0476508
+
+Best in 131
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 132
+Elapsed time: 1
+Deme: 0
+Evaluations: 13300
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0618001
+	stdev: 0.0413608
+
+Best in 132
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 133
+Elapsed time: 1
+Deme: 0
+Evaluations: 13400
+Stats: fitness
+	max: 0.1851
+	min: 0.040835
+	avg: 0.0586323
+	stdev: 0.0378091
+
+Best in 133
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 134
+Elapsed time: 1
+Deme: 0
+Evaluations: 13500
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0585032
+	stdev: 0.0397466
+
+Best in 134
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 135
+Elapsed time: 1
+Deme: 0
+Evaluations: 13600
+Stats: fitness
+	max: 0.186602
+	min: 0.040835
+	avg: 0.0675253
+	stdev: 0.0451783
+
+Best in 135
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 136
+Elapsed time: 1
+Deme: 0
+Evaluations: 13700
+Stats: fitness
+	max: 0.182953
+	min: 0.040835
+	avg: 0.0636526
+	stdev: 0.0413247
+
+Best in 136
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 137
+Elapsed time: 1
+Deme: 0
+Evaluations: 13800
+Stats: fitness
+	max: 0.186514
+	min: 0.040835
+	avg: 0.072538
+	stdev: 0.0508255
+
+Best in 137
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 138
+Elapsed time: 1
+Deme: 0
+Evaluations: 13900
+Stats: fitness
+	max: 0.186585
+	min: 0.040835
+	avg: 0.0590765
+	stdev: 0.0412018
+
+Best in 138
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 139
+Elapsed time: 1
+Deme: 0
+Evaluations: 14000
+Stats: fitness
+	max: 0.18595
+	min: 0.040835
+	avg: 0.0599414
+	stdev: 0.040601
+
+Best in 139
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 140
+Elapsed time: 1
+Deme: 0
+Evaluations: 14100
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0605801
+	stdev: 0.0531592
+
+Best in 140
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 141
+Elapsed time: 1
+Deme: 0
+Evaluations: 14200
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.068847
+	stdev: 0.0590744
+
+Best in 141
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 142
+Elapsed time: 1
+Deme: 0
+Evaluations: 14300
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0644695
+	stdev: 0.0658095
+
+Best in 142
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 143
+Elapsed time: 1
+Deme: 0
+Evaluations: 14400
+Stats: fitness
+	max: 0.449494
+	min: 0.040835
+	avg: 0.0633799
+	stdev: 0.0654942
+
+Best in 143
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 144
+Elapsed time: 1
+Deme: 0
+Evaluations: 14500
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0616846
+	stdev: 0.0425807
+
+Best in 144
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 145
+Elapsed time: 1
+Deme: 0
+Evaluations: 14600
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0556976
+	stdev: 0.0346662
+
+Best in 145
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 146
+Elapsed time: 1
+Deme: 0
+Evaluations: 14700
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0580499
+	stdev: 0.0401835
+
+Best in 146
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 147
+Elapsed time: 1
+Deme: 0
+Evaluations: 14800
+Stats: fitness
+	max: 0.186548
+	min: 0.040835
+	avg: 0.0636749
+	stdev: 0.0458399
+
+Best in 147
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 148
+Elapsed time: 1
+Deme: 0
+Evaluations: 14900
+Stats: fitness
+	max: 0.186575
+	min: 0.040835
+	avg: 0.0655252
+	stdev: 0.0470715
+
+Best in 148
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Generation: 149
+Elapsed time: 1
+Deme: 0
+Evaluations: 15000
+Stats: fitness
+	max: 0.186605
+	min: 0.040835
+	avg: 0.0626957
+	stdev: 0.0433563
+
+Best in 149
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+(((cos((x1 - x2)) + (D_-0.351178 * (x1 - x2))) * (x2 - (D_0.288163 + (D_-0.782177 * x1)))) * x1)
+Linear scaling parameters: scale=0.821188 offset=-0.784834
+
+<Individual size="1">
+	<FitnessMin value="0.040835"/>
+	<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+</Individual>
+
+Termination: max evaluations reached (15000)
+
+Best of run: 
+<HallOfFame size="1">
+	<Individual size="1" gen="106">
+		<FitnessMin value="0.040835"/>
+		<Tree size="20">* * + cos - x1 x2 * D_-0.351178 - x1 x2 - x2 + D_0.288163 * D_-0.782177 x1 x1 </Tree>
+	</Individual>
+</HallOfFame>
+
