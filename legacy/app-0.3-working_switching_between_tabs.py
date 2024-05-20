@@ -6,35 +6,19 @@ def browse_file(entry):
     entry.delete(0, tk.END)
     entry.insert(0, filepath)
 
+
+def show_input():
+    results_frame.grid_remove()  # Hide the results frame
+    input_frame.grid(row=1, column=0, sticky='ew')  # Show the input frame
+
+def show_results():
+    input_frame.grid_remove()  # Hide the input frame
+    results_frame.grid(row=1, column=0, sticky='ew')  # Show the input frame
+
 # Set up the main window
 root = tk.Tk()
 root.title("Symbolic Regression Interface")
 root.geometry("800x600")
-
-
-# Setup style for active and inactive buttons
-style = ttk.Style()
-style.theme_use('clam')  
-style.configure("Active.TButton", background="#4CAF50", relief="sunken")
-style.configure("Inactive.TButton", background="#f0f0f0", relief="raised")
-
-def show_input():
-    results_frame.grid_remove()  # Hide the results frame
-    input_frame.grid(row=1, column=1, sticky='ew')  # Show the input frame
-    # Set button styles
-    input_button.config(style="Active.TButton")
-    results_button.config(style="Inactive.TButton")
-    root.update_idletasks()  # Update UI immediately
-    function_frame.update_idletasks()
-
-def show_results():
-    input_frame.grid_remove()  # Hide the input frame
-    results_frame.grid(row=1, column=1, sticky='ew')  # Show the input frame
-    # Set button styles
-    input_button.config(style="Inactive.TButton")
-    results_button.config(style="Active.TButton")
-    root.update_idletasks()  # Update UI immediately
-
 
 # Create columns with weights and an empty column as buffer
 root.columnconfigure(0, weight=1)
@@ -48,16 +32,15 @@ nav_frame.grid(row=0, column=0, columnspan=3, sticky='ew')  # Ensure the frame e
 nav_frame.columnconfigure(0, weight=1)  # Input Button column
 nav_frame.columnconfigure(1, weight=1)  # Results Button column
 
-input_button = ttk.Button(nav_frame, text="Input", command=show_input, style="Active.TButton")
+input_button = ttk.Button(nav_frame, text="Input", command=show_input)
 input_button.grid(row=0, column=0, padx=10, pady=10, sticky='e')
-results_button = ttk.Button(nav_frame, text="Results", command=show_results, style="Inactive.TButton")
+results_button = ttk.Button(nav_frame, text="Results", command=show_results)
 results_button.grid(row=0, column=1, padx=10, pady=10, sticky='w')
-
 
 
 # INPUT TAB
 input_frame = ttk.Frame(root)
-input_frame.grid(row=1, column=1, sticky='ewns', padx=20, pady=10)
+input_frame.grid(row=1, column=0, sticky='ewns', padx=20, pady=10)
 
 # Create columns with weights and an empty column as buffer
 input_frame.columnconfigure(0, weight=1)
@@ -99,13 +82,10 @@ tk.Label(variable_frame, text="Additional terminals").grid(row=1, column=0, colu
 additional_terminals_entry = ttk.Entry(variable_frame)
 additional_terminals_entry.grid(row=1, column=2, columnspan=4, sticky='ew', padx=(5, 0))
 
-# Insert a horizontal separator
-separator = ttk.Separator(input_frame)  # parent widget should be input_frame to span entire grid width
-separator.grid(row=1, column=0, columnspan=5, sticky='ew', pady=10)  # adjust columnspan according to your grid setup
 
 # Part 2: Search Options Frame
 search_frame = ttk.Frame(input_frame)
-search_frame.grid(row=2, column=1, sticky='ew', padx=20, pady=10)
+search_frame.grid(row=1, column=1, sticky='ew', padx=20, pady=10)
 
 # Search metric
 ttk.Label(search_frame, text="Search metric").grid(row=0, column=0, sticky='w', pady=5)
@@ -125,11 +105,12 @@ sample_var = tk.StringVar()
 sample_dropdown = ttk.OptionMenu(search_frame, sample_var, "Chosen randomly", "Chosen randomly", "Chosen sequentially")
 sample_dropdown.grid(row=2, column=1, sticky='ew')
 
+
 # Create a canvas and scrollbar
-function_canvas = tk.Canvas(search_frame, borderwidth=0, background="#FF0000")
+function_canvas = tk.Canvas(search_frame, borderwidth=0, background="#ffffff")
 function_canvas.grid(row=3, column=0, columnspan=2, sticky="ew", pady=10)
 
-vsb = tk.Scrollbar(search_frame, orient="vertical", command=function_canvas.yview, background="#008000")
+vsb = tk.Scrollbar(search_frame, orient="vertical", command=function_canvas.yview)
 vsb.grid(row=3, column=2, sticky='ns')
 function_canvas.configure(yscrollcommand=vsb.set)
 function_canvas.configure(width=300, height=200)
@@ -137,20 +118,16 @@ function_canvas.configure(width=300, height=200)
 # Frame within the canvas
 function_frame = ttk.Frame(function_canvas)
 function_canvas.create_window((0, 0), window=function_frame, anchor="nw")
-function_frame.columnconfigure(0, weight=15)
-function_frame.columnconfigure(1, weight=1)
 
 functions = [
     ("Addition", "+"), ("Multiplication", "*"), ("Division", "/"),
-    ("sin(x)", "sin"), ("cos(x)", "cos"), ("cos(x)", "cos1"), ("cos(x)", "cos2"), ("cos(x)", "co3s"), ("cos(x)", "co23s"), ("cos(x)", "23cos"), ("cos(x)", "co23s"), ("cos(x)", "co3s"), 
+    ("sin(x)", "sin"), ("cos(x)", "cos")
 ]
 checkbox_vars = {}
 for i, (label, func) in enumerate(functions):
-    label_widget = ttk.Label(function_frame, text=label)
-    label_widget.grid(row=i, column=0, sticky='ew')
+    ttk.Label(function_frame, text=label).grid(row=i, column=0, sticky='w')
     checkbox_vars[func] = tk.BooleanVar()
-    checkbox_widget = ttk.Checkbutton(function_frame, variable=checkbox_vars[func])
-    checkbox_widget.grid(row=i, column=1, sticky='e')
+    ttk.Checkbutton(function_frame, variable=checkbox_vars[func]).grid(row=i, column=1)
 
 function_frame.update_idletasks()
 function_canvas.config(scrollregion=function_canvas.bbox("all"))
@@ -160,7 +137,7 @@ function_canvas.config(scrollregion=function_canvas.bbox("all"))
 
 # RESULTS TAB
 results_frame = ttk.Frame(root)
-results_frame.grid(row=1, column=1, sticky='ewns', padx=20, pady=10)
+results_frame.grid(row=1, column=0, sticky='ewns', padx=20, pady=10)
 ttk.Label(results_frame, text="Hello World").pack()
 
 
