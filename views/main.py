@@ -9,9 +9,11 @@ class View(ctk.CTk):
         self.title("ECFpyDesk")
         self.geometry("800x600")
 
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=10)  # Main content column should have more weight
-        self.columnconfigure(2, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=10)  # Main content column should have more weight
+        self.grid_columnconfigure(2, weight=1)
+        self.grid_rowconfigure(0)
+        self.grid_rowconfigure(1)
 
         # Initialize the navigation frame
         self.navigation_frame = NavigationView(self)

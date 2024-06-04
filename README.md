@@ -5,13 +5,16 @@ An application which leverages the ECF library to provide a user-friendly GUI fo
 - Python
 - C++
 - ECF ([link](https://ecf.readthedocs.io/))
-- tkinter
+- tkinter/customtkinter
 
 ### How to install
 - clone this repository
 - cd to this repository
 - pip install -r requirements.txt 
-- python3 app.py
+- python3 main.py
+
+### Adding custom functions
+- add corresponding numpy function inside utils/plot.py
 
 ## Author
 - Josip Ivančević

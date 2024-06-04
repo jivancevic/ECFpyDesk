@@ -1,20 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
 <ECF>
 	<Algorithm>
   		<SteadyStateTournament>
-			<Entry key="tsize">3</Entry> <!-- velicina turnira -->
+			<Entry key="tsize">3</Entry> 
 		</SteadyStateTournament>
 	</Algorithm>
  
 	<Genotype>
 		<Tree>
 			<Entry key="maxdepth">5</Entry>
-			<Entry key="functionset">+ - * / cos </Entry>
+			<Entry key="functionset">+ * /</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
 
 	<Registry>
-		<Entry key="input_file">srm/data_2var.txt</Entry>
+		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
 		<Entry key="linear_scaling">true</Entry>
 
 
@@ -26,7 +27,7 @@
 		<Entry key="term.stagnation">5000</Entry>
 		<Entry key="term.fitnessval">0.0000001</Entry>
 		<Entry key="log.level">3</Entry>
-		<Entry key="log.filename">log.txt</Entry>
+		<Entry key="log.filename">srm/log.txt</Entry>
 		<Entry key="log.frequency">1</Entry>
 		<Entry key="batch.repeats">0</Entry>
 		<Entry key="batch.statsfile">stats.txt</Entry>
