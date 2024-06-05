@@ -1,5 +1,6 @@
 import customtkinter as ctk
-from tkinter import ttk
+import tkinter as tk
+from tkinter import font
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
@@ -38,17 +39,20 @@ class ResultsView(ctk.CTkFrame):
         # Solution info frame setup
         info_frame = ctk.CTkFrame(self)
         info_frame.grid(row=1, column=0, sticky="nsew")
-        #info_frame.grid_rowconfigure(0, weight=1)  # Allow the textbox row to expand
+        info_frame.rowconfigure(0, weight=1)
+        info_frame.rowconfigure(1, weight=2)
         #info_frame.grid_columnconfigure(1, weight=1)  # Allow the column to expand
         
         labels = ["Function", "Mean error", "Mean error (relative)", "RMS error", "Classification accuracy"]
         self.info_vars = {label: ctk.StringVar(value="0") for label in labels[1:]}  # Except 'Function' which will use a Textbox
-        self.function_display = ctk.CTkTextbox(info_frame, state='disabled', wrap='word', fg_color='transparent')
-        self.function_display.grid(row=0, column=1, sticky='nsew', padx=(0, 20), pady=10)  # Fill the cell
+
+        self.function_display = ctk.CTkTextbox(info_frame, state='disabled', wrap='word', fg_color='transparent', height=100)
+        self.function_display.grid(row=0, column=1, sticky='ew', pady=5)  # Fill the cell
+
         for i, label in enumerate(labels):
-            ctk.CTkLabel(info_frame, text=label).grid(row=i, column=0, sticky='w', padx=(10, 0), pady=5)
+            ctk.CTkLabel(info_frame, text=label).grid(row=i, column=0, sticky='w', pady=5)
             if label in self.info_vars:
-                ctk.CTkLabel(info_frame, textvariable=self.info_vars[label]).grid(row=i, column=1, sticky='ew', padx=(0, 20), pady=5)
+                ctk.CTkLabel(info_frame, textvariable=self.info_vars[label]).grid(row=i, column=1, sticky='ew', pady=5)
 
         # Plotting area - resizing to fit into 25% of the space in the bottom right
         self.figure = plt.Figure(figsize=(2, 2))  # Adjust figsize to scale with the parent frame
@@ -63,15 +67,18 @@ class ResultsView(ctk.CTkFrame):
         self.controller = controller
 
     def update_info(self, function, error):
-        self.function_display.configure(state='normal')  # Enable editing temporarily
-        self.function_display.delete(1.0, "end")  # Clear previous content
-        self.function_display.insert("end", function)  # Insert new function text
-        self.function_display.configure(state='disabled')  # Disable editing
+        # Enable the textbox to modify its contents
+        self.function_display.configure(state='normal')
+        self.function_display.delete(1.0, "end")
+        self.function_display.insert("end", function)
 
+        # Update other information variables
         self.info_vars["Mean error"].set(f"{float(error):.4f}")
-        # Reset other fields
         for key in ["Mean error (relative)", "RMS error", "Classification accuracy"]:
             self.info_vars[key].set("0")
+
+        # Refresh the layout
+        self.function_display.update_idletasks()  # Ensure UI updates the layout
 
         # Update the plot if required
         self.update_plot(function=function)
