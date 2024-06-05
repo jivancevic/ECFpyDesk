@@ -1,4 +1,4 @@
-Start time: Wed Jun  5 16:04:33 2024
+Start time: Wed Jun  5 21:31:34 2024
 
 Evaluating initial population...
 Generation: 0
@@ -6,17 +6,17 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 500
 Stats: fitness
-	max: 1.58747e+12
-	min: 0.186605
-	avg: 3.17807e+09
-	stdev: 7.09936e+10
+	max: 1.90788e+09
+	min: 0.188545
+	avg: 3.91385e+06
+	stdev: 8.53272e+07
 
 Best in 0
-sin(-0.537604)
+((((0.948847 - (((x1 * x2) - x2) - cos(sin(-0.238676)))) - x2) * cos(((((x2 * 0.628103) + x1) - x2) + sin(((-0.0534442 + x2) - x1))))) * -0.409364)
 
 <Individual size="1">
-	<FitnessMin value="0.186605"/>
-	<Tree size="2">sin D_-0.537604 </Tree>
+	<FitnessMin value="0.188545"/>
+	<Tree size="31">* * - - D_0.948847 - - * x1 x2 x2 cos sin D_-0.238676 x2 cos + - + * x2 D_0.628103 x1 x2 sin - + D_-0.0534442 x2 x1 D_-0.409364 </Tree>
 </Individual>
 
 Generation: 1
@@ -24,15 +24,15 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 1001
 Stats: fitness
-	max: 426134
-	min: 0.186605
-	avg: 1317.22
-	stdev: 21559
+	max: 21763
+	min: 0.165026
+	avg: 53.1192
+	stdev: 983.742
 
 Best in 1
 <Individual size="1">
-	<FitnessMin value="0.186605"/>
-	<Tree size="2">sin D_-0.537604 </Tree>
+	<FitnessMin value="0.165026"/>
+	<Tree size="77">+ cos - sin cos - x2 * x1 D_-0.0598062 sin / - / x2 x2 + D_0.232761 x2 sin - x2 D_0.689464 * + / cos * - x2 x2 - D_0.908584 D_-0.696705 cos + / D_-0.935897 D_-0.348851 sin D_0.0817798 cos cos cos sin D_0.793329 - cos sin - sin x1 - x1 x2 + + sin cos x1 - + D_-0.559917 x1 + D_-0.443883 x1 * cos + x2 x1 - sin D_-0.213461 cos x1 </Tree>
 </Individual>
 
 Generation: 10
@@ -40,17 +40,17 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 5501
 Stats: fitness
-	max: 2.86657
-	min: 0.0704316
-	avg: 0.285203
-	stdev: 0.317652
+	max: 249.441
+	min: 0.0793406
+	avg: 0.932585
+	stdev: 11.344
 
 Best in 10
-sin(((((sin((x2 + x1)) * sin(-0.44281)) + sin(cos((x1 / -0.857797)))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (cos(x2) - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(((cos(-0.620807) + (x1 / x2)) / ((x1 / 0.13514) / (0.870358 + x2)))))))
+(((sin(cos(x1)) - sin((((x2 / x2) - (0.232761 + x2)) / sin((x2 - 0.689464))))) * cos(((((x2 * 0.628103) + x1) - x2) + sin(-0.498673)))) * (((cos(((x2 - x2) * (0.908584 - -0.696705))) / cos(((-0.935897 / -0.348851) + sin(0.0817798)))) + cos(cos(-0.584042))) * (cos(sin((x2 - (x1 + x2)))) - ((sin(cos(x1)) + ((-0.559917 + x1) - (-0.443883 + x1))) + (cos((x2 + x1)) * (sin(-0.213461) - cos(x1)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.0704316"/>
-	<Tree size="56">sin * - + * sin + x2 x1 sin D_-0.44281 sin cos / x1 D_-0.857797 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - cos x2 * x2 x1 * cos * D_-0.0606435 x2 cos / + cos D_-0.620807 / x1 x2 / / x1 D_0.13514 + D_0.870358 x2 </Tree>
+	<FitnessMin value="0.0793406"/>
+	<Tree size="81">* * - sin cos x1 sin / - / x2 x2 + D_0.232761 x2 sin - x2 D_0.689464 cos + - + * x2 D_0.628103 x1 x2 sin D_-0.498673 * + / cos * - x2 x2 - D_0.908584 D_-0.696705 cos + / D_-0.935897 D_-0.348851 sin D_0.0817798 cos cos D_-0.584042 - cos sin - x2 + x1 x2 + + sin cos x1 - + D_-0.559917 x1 + D_-0.443883 x1 * cos + x2 x1 - sin D_-0.213461 cos x1 </Tree>
 </Individual>
 
 Generation: 20
@@ -58,17 +58,17 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 10502
 Stats: fitness
-	max: 6.35034
-	min: 0.00614983
-	avg: 0.187554
-	stdev: 0.425426
+	max: 652.243
+	min: 0.0474957
+	avg: 2.41321
+	stdev: 30.9844
 
 Best in 20
-sin(((((x2 * sin(x1)) + sin(cos((x1 / -0.857797)))) - ((sin((x1 - x2)) + cos(x1)) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(sin(-0.44281)))))
+(cos(sin(x1)) * (((cos(((x2 - x2) * (0.634671 - -0.696705))) / cos(((-0.935897 / -0.348851) + sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((sin(cos(x1)) + ((-0.313907 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(x1)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00614983"/>
-	<Tree size="38">sin * - + * x2 sin x1 sin cos / x1 D_-0.857797 + + sin - x1 x2 cos x1 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 x2 cos sin D_-0.44281 </Tree>
+	<FitnessMin value="0.0474957"/>
+	<Tree size="56">* cos sin x1 * + / cos * - x2 x2 - D_0.634671 D_-0.696705 cos + / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + sin cos x1 - + D_-0.313907 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos x1 </Tree>
 </Individual>
 
 Generation: 30
@@ -76,17 +76,17 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 15503
 Stats: fitness
-	max: 2.30602
-	min: 0.00338577
-	avg: 0.122388
-	stdev: 0.332602
+	max: 158.874
+	min: 0.0404119
+	avg: 0.71144
+	stdev: 7.3168
 
 Best in 30
-sin(((((x2 * sin(x1)) + sin(cos(0.535853))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(((-0.0606435 * -0.537604) - 0.535853)))))
+(cos(sin(x1)) * (((cos(((x2 - x2) * (1.60744 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(-0.389607) + ((-0.313907 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.559917 + x1) - cos(x1)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00338577"/>
-	<Tree size="41">sin * - + * x2 sin x1 sin cos D_0.535853 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 x2 cos - * D_-0.0606435 D_-0.537604 D_0.535853 </Tree>
+	<FitnessMin value="0.0404119"/>
+	<Tree size="55">* cos sin x1 * + / cos * - x2 x2 - D_1.60744 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos D_-0.389607 - + D_-0.313907 x1 + x1 x1 * cos + x2 x1 - + D_-0.559917 x1 cos x1 </Tree>
 </Individual>
 
 Generation: 40
@@ -94,17 +94,17 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 20504
 Stats: fitness
-	max: 4.6476
-	min: 0.00221349
-	avg: 0.134957
-	stdev: 0.409651
+	max: 25257.7
+	min: 0.0238032
+	avg: 53.1085
+	stdev: 1129.86
 
 Best in 40
-sin(((((x2 * x1) + sin(cos(0.535853))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * -0.537604) - 0.535853))))
+(cos((-0.390636 - x2)) * (((cos(((x2 - x2) * (-0.935897 / 0.869534))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(-0.389607) + ((-0.313907 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(x1)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00221349"/>
-	<Tree size="35">sin * - + * x2 x1 sin cos D_0.535853 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 D_-0.537604 D_0.535853 </Tree>
+	<FitnessMin value="0.0238032"/>
+	<Tree size="56">* cos - D_-0.390636 x2 * + / cos * - x2 x2 / D_-0.935897 D_0.869534 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos D_-0.389607 - + D_-0.313907 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos x1 </Tree>
 </Individual>
 
 Generation: 50
@@ -112,17 +112,17 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 25505
 Stats: fitness
-	max: 4.63162
-	min: 0.00204334
-	avg: 0.117613
-	stdev: 0.355252
+	max: 305044
+	min: 0.021545
+	avg: 611.856
+	stdev: 13641.9
 
 Best in 50
-sin(((((x2 * x1) + sin(cos((-0.537604 / -0.857797)))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * x2) - 0.535853))))
+(cos(sin((cos(-0.584042) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.935897 - -0.696705))) / cos(((-0.935897 / -0.348851) + cos(x1)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.296852 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.213461)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00204334"/>
-	<Tree size="37">sin * - + * x2 x1 sin cos / D_-0.537604 D_-0.857797 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.021545"/>
+	<Tree size="61">* cos sin - cos D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.935897 D_-0.696705 cos + / D_-0.935897 D_-0.348851 cos x1 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.296852 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.213461 </Tree>
 </Individual>
 
 Generation: 60
@@ -130,35 +130,35 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 30506
 Stats: fitness
-	max: 5.14775
-	min: 0.0019358
-	avg: 0.10405
-	stdev: 0.372904
+	max: 375.113
+	min: 0.017532
+	avg: 2.38283
+	stdev: 20.4569
 
 Best in 60
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * x2) - 0.535853))))
+(cos(sin((cos(-0.584042) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.935897 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.000592455 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.213461)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.0019358"/>
-	<Tree size="35">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.017532"/>
+	<Tree size="61">* cos sin - cos D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.935897 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.000592455 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.213461 </Tree>
 </Individual>
 
 Generation: 70
-Elapsed time: 2
+Elapsed time: 1
 Deme: 0
 Evaluations: 35507
 Stats: fitness
-	max: 5.18178
-	min: 0.00190841
-	avg: 0.120481
-	stdev: 0.397027
+	max: 1816.18
+	min: 0.0174449
+	avg: 4.96638
+	stdev: 81.6104
 
 Best in 70
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (x2 / x1))) * cos((0.535853 - (-0.0606435 * x2))))))
+(cos(sin((cos(-0.935897) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.935897 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.000592455 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.213461)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00190841"/>
-	<Tree size="42">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 / x2 x1 cos - D_0.535853 * D_-0.0606435 x2 </Tree>
+	<FitnessMin value="0.0174449"/>
+	<Tree size="61">* cos sin - cos D_-0.935897 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.935897 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.000592455 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.213461 </Tree>
 </Individual>
 
 Generation: 80
@@ -166,17 +166,17 @@ Elapsed time: 2
 Deme: 0
 Evaluations: 40508
 Stats: fitness
-	max: 2.47495
-	min: 0.00190707
-	avg: 0.103068
-	stdev: 0.332106
+	max: 916.093
+	min: 0.0162196
+	avg: 4.59962
+	stdev: 45.1637
 
 Best in 80
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (cos(x1) + cos(x1)))) * cos(((-0.0606435 * x2) - 0.535853)))))
+(cos(sin((cos(-0.777831) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.935897 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.000592455 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00190707"/>
-	<Tree size="44">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 + cos x1 cos x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.0162196"/>
+	<Tree size="61">* cos sin - cos D_-0.777831 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.935897 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.000592455 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 90
@@ -184,17 +184,17 @@ Elapsed time: 2
 Deme: 0
 Evaluations: 45509
 Stats: fitness
-	max: 2.32224
-	min: 0.00190362
-	avg: 0.117248
-	stdev: 0.356489
+	max: 14068.4
+	min: 0.0146995
+	avg: 44.1481
+	stdev: 719.62
 
 Best in 90
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+(cos(sin((cos(cos((x2 + x1))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.696705 - -0.348851))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.213461)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00190362"/>
-	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.0146995"/>
+	<Tree size="64">* cos sin - cos cos + x2 x1 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.696705 D_-0.348851 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.213461 </Tree>
 </Individual>
 
 Generation: 100
@@ -202,17 +202,17 @@ Elapsed time: 2
 Deme: 0
 Evaluations: 50510
 Stats: fitness
-	max: 4.17132
-	min: 0.00189872
-	avg: 0.114542
-	stdev: 0.376672
+	max: 89.6126
+	min: 0.0145132
+	avg: 0.846533
+	stdev: 6.96648
 
 Best in 100
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0865349 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+(cos(sin((cos(cos((x2 + x1))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.696705 - -0.348851))) / cos(((-0.935897 / 0.0946539) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(0.457982) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00189872"/>
-	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0865349 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.0145132"/>
+	<Tree size="64">* cos sin - cos cos + x2 x1 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.696705 D_-0.348851 cos - / D_-0.935897 D_0.0946539 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_0.457982 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 110
@@ -220,35 +220,35 @@ Elapsed time: 2
 Deme: 0
 Evaluations: 55511
 Stats: fitness
-	max: 2.45566
-	min: 0.00189767
-	avg: 0.102633
-	stdev: 0.32392
+	max: 170.041
+	min: 0.0126715
+	avg: 1.44207
+	stdev: 11.5832
 
 Best in 110
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.696705))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.348851 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00189767"/>
-	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.0126715"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.696705 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.348851 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 120
-Elapsed time: 2
+Elapsed time: 3
 Deme: 0
 Evaluations: 60512
 Stats: fitness
-	max: 5.77269
-	min: 0.00189767
-	avg: 0.128576
-	stdev: 0.420576
+	max: 373.742
+	min: 0.0126554
+	avg: 2.20497
+	stdev: 21.002
 
 Best in 120
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.686319))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.348851 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00189767"/>
-	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.0126554"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.686319 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.348851 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 130
@@ -256,17 +256,17 @@ Elapsed time: 3
 Deme: 0
 Evaluations: 65513
 Stats: fitness
-	max: 2.23279
-	min: 0.00189279
-	avg: 0.122616
-	stdev: 0.349623
+	max: 715626
+	min: 0.012638
+	avg: 1431.76
+	stdev: 32003.7
 
 Best in 130
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0760359 * x2) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.522809))) - (x1 - x2)))) * ((cos(0.908584) + (cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798))))) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00189279"/>
-	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0760359 x2 D_0.535853 </Tree>
+	<FitnessMin value="0.012638"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.522809 - x1 x2 * + cos D_0.908584 / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 140
@@ -274,17 +274,17 @@ Elapsed time: 3
 Deme: 0
 Evaluations: 70514
 Stats: fitness
-	max: 19400.7
-	min: 0.00185178
-	avg: 39.1858
-	stdev: 867.622
+	max: 55.1533
+	min: 0.012589
+	avg: 0.535268
+	stdev: 3.95237
 
 Best in 140
-sin((((sin(cos(0.659111)) + (x2 * x1)) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00185178"/>
-	<Tree size="45">sin * - + sin cos D_0.659111 * x2 x1 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+	<FitnessMin value="0.012589"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 150
@@ -292,71 +292,71 @@ Elapsed time: 3
 Deme: 0
 Evaluations: 75515
 Stats: fitness
-	max: 5.77269
-	min: 0.0018443
-	avg: 0.109015
-	stdev: 0.397368
+	max: 138.182
+	min: 0.012589
+	avg: 0.791803
+	stdev: 7.45197
 
 Best in 150
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + cos(x1)))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.000592455)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.0018443"/>
-	<Tree size="47">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 cos x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+	<FitnessMin value="0.012589"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.000592455 </Tree>
 </Individual>
 
 Generation: 160
-Elapsed time: 3
+Elapsed time: 4
 Deme: 0
 Evaluations: 80516
 Stats: fitness
-	max: 2.44616
-	min: 0.00183207
-	avg: 0.111522
-	stdev: 0.333174
+	max: 294.494
+	min: 0.0125882
+	avg: 0.878524
+	stdev: 13.2528
 
 Best in 160
-sin(((((x2 * x1) + cos(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.106746)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00183207"/>
-	<Tree size="46">sin * - + * x2 x1 cos cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+	<FitnessMin value="0.0125882"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.106746 </Tree>
 </Individual>
 
 Generation: 170
-Elapsed time: 3
+Elapsed time: 4
 Deme: 0
 Evaluations: 85517
 Stats: fitness
-	max: 2.85488
-	min: 0.00182367
-	avg: 0.0970702
-	stdev: 0.312786
+	max: 118.934
+	min: 0.0125878
+	avg: 0.850454
+	stdev: 6.57852
 
 Best in 170
-sin(((((x2 * x1) + cos(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.514048)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(0.0817798)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00182367"/>
-	<Tree size="46">sin * - + * x2 x1 cos cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.514048 </Tree>
+	<FitnessMin value="0.0125878"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_0.0817798 </Tree>
 </Individual>
 
 Generation: 180
-Elapsed time: 3
+Elapsed time: 4
 Deme: 0
 Evaluations: 90518
 Stats: fitness
-	max: 2.45049
-	min: 0.00178304
-	avg: 0.120358
-	stdev: 0.336878
+	max: 6894.09
+	min: 0.0125878
+	avg: 14.1625
+	stdev: 308.306
 
 Best in 180
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.514048)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(0.0817798)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(0.0817798)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00178304"/>
-	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.514048 </Tree>
+	<FitnessMin value="0.0125878"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_0.0817798 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_0.0817798 </Tree>
 </Individual>
 
 Generation: 190
@@ -364,44 +364,44 @@ Elapsed time: 4
 Deme: 0
 Evaluations: 95519
 Stats: fitness
-	max: 8.63209
-	min: 0.00177274
-	avg: 0.126604
-	stdev: 0.567054
+	max: 277.43
+	min: 0.012585
+	avg: 0.983143
+	stdev: 12.5442
 
 Best in 190
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.103657 * (x2 + x1)) - 0.514048)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(-1.48709)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(0.0817798)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00177274"/>
-	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.103657 + x2 x1 D_0.514048 </Tree>
+	<FitnessMin value="0.012585"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_-1.48709 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_0.0817798 </Tree>
 </Individual>
 
 Generation: 200
-Elapsed time: 4
+Elapsed time: 5
 Deme: 0
 Evaluations: 100520
 Stats: fitness
-	max: 3.09111
-	min: 0.00177274
-	avg: 0.122612
-	stdev: 0.346907
+	max: 1836.18
+	min: 0.0125845
+	avg: 5.55384
+	stdev: 85.0913
 
 Best in 200
-sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.103657 * (x2 + x1)) - 0.514048)))))
+(cos(sin((cos(cos((x2 - -0.584042))) - (x1 - x2)))) * (((cos(((x2 - -0.696705) * (-0.347526 - -0.696705))) / cos(((-0.935897 / -0.348851) - sin(-1.48709)))) + cos(0.908584)) * (cos(sin((cos(-0.584042) - (x1 - x2)))) - ((cos(cos(x1)) + ((-0.106746 + x1) - (x1 + x1))) + (cos((x2 + x1)) * ((-0.686319 + x1) - cos(-0.0763718)))))))
 
 <Individual size="1">
-	<FitnessMin value="0.00177274"/>
-	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.103657 + x2 x1 D_0.514048 </Tree>
+	<FitnessMin value="0.0125845"/>
+	<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_-1.48709 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.0763718 </Tree>
 </Individual>
 
 Termination: max generation reached (200)
 
 Best of run: 
 <HallOfFame size="1">
-	<Individual size="1" gen="184">
-		<FitnessMin value="0.00177274"/>
-		<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.103657 + x2 x1 D_0.514048 </Tree>
+	<Individual size="1" gen="197">
+		<FitnessMin value="0.0125845"/>
+		<Tree size="64">* cos sin - cos cos - x2 D_-0.584042 - x1 x2 * + / cos * - x2 D_-0.696705 - D_-0.347526 D_-0.696705 cos - / D_-0.935897 D_-0.348851 sin D_-1.48709 cos D_0.908584 - cos sin - cos D_-0.584042 - x1 x2 + + cos cos x1 - + D_-0.106746 x1 + x1 x1 * cos + x2 x1 - + D_-0.686319 x1 cos D_-0.0763718 </Tree>
 	</Individual>
 </HallOfFame>
 
