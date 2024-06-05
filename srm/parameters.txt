@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='utf-8'?>
 <ECF>
 	<Algorithm>
   		<SteadyStateTournament>
@@ -8,28 +7,80 @@
  
 	<Genotype>
 		<Tree>
-			<Entry key="maxdepth">5</Entry>
-			<Entry key="functionset">+ * /</Entry>
+			<Entry key="maxdepth">7</Entry>
+			<Entry key="functionset">+ - * / avg log sqrt min max pos sin cos</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
 
-	<Registry>
-		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
-		<Entry key="linear_scaling">true</Entry>
+		<GEPChromosome>
+			<Entry key="headlength">3</Entry>
+			<Entry key="genes">3</Entry>
+			<Entry key="functionset">* + - / sin cos</Entry>
+			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+			<Entry key="linkingfunctions">+ * - </Entry>
+			<Entry key="linklength">3</Entry>
+			<Entry key="crx.onepoint">0.3</Entry>
+			<Entry key="crx.twopoint">0.4</Entry>
+			<Entry key="crx.gene">0.3</Entry>
+			<Entry key="mut.simple">0.5</Entry>
+			<Entry key="mut.gauss">0.5</Entry>
+		</GEPChromosome>
+		<APGenotype>
+			<Entry key="lbound">-1</Entry>
+			<Entry key="ubound">1</Entry>
+			<Entry key="dimension">16</Entry>
+			<Entry key="functionset">+ - / * sin cos</Entry>
+			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+		</APGenotype>
 
+	<Entry key="mutation.protected">1 </Entry>
+	<Entry key="crossover.protected">1 </Entry>
+
+	<Registry>
+		<Entry key="input_file" />
+		<Entry key="linear_scaling">false</Entry>
+		<Entry key="bestfile">log2.txt</Entry>
 
 		<Entry key="randomizer.seed">0</Entry>
-		<Entry key="population.size">100</Entry>
+		<Entry key="population.size">500</Entry>
 		<Entry key="population.demes">1</Entry>
 		<Entry key="mutation.indprob">0.5</Entry>
-		<Entry key="term.eval">15000</Entry>
+		<Entry key="term.maxgen">200</Entry>
+		<Entry key="term.eval">5000000</Entry>
 		<Entry key="term.stagnation">5000</Entry>
 		<Entry key="term.fitnessval">0.0000001</Entry>
 		<Entry key="log.level">3</Entry>
-		<Entry key="log.filename">srm/log.txt</Entry>
-		<Entry key="log.frequency">1</Entry>
-		<Entry key="batch.repeats">0</Entry>
+		<Entry key="log.filename">log.txt</Entry>
+		<Entry key="log.frequency">10</Entry>
+		<Entry key="batch.repeats">1</Entry>
 		<Entry key="batch.statsfile">stats.txt</Entry>
 	</Registry>
 </ECF>
+
+	<GEP>
+		<Entry key="crxprob">0.7</Entry>
+		<Entry key="selpressure">10</Entry>
+		<Entry key="inv.prob">0.15</Entry>
+		<Entry key="erc.inv.prob">0.15</Entry>
+		<Entry key="trans.is.prob">0.15</Entry>
+		<Entry key="trans.ris.prob">0.15</Entry>
+		<Entry key="trans.gene.prob">0.15</Entry>
+		<Entry key="trans.erc.prob">0.15</Entry>
+		<Entry key="trans.max.length">3</Entry>
+		<Entry key="inv.max.length">3</Entry>
+	</GEP>
+
+	<GEPChromosome>
+		<Entry key="headlength">3</Entry>
+		<Entry key="genes">5</Entry>
+		<Entry key="functionset">* + - / sin cos</Entry>
+		<Entry key="terminalset">x1 x2</Entry>
+		<Entry key="linkingfunctions">+ * - </Entry>
+		<Entry key="linklength">5</Entry>
+		<Entry key="crx.onepoint">0.3</Entry>
+		<Entry key="crx.twopoint">0.4</Entry>
+		<Entry key="crx.gene">0.3</Entry>
+		<Entry key="mut.simple">0.5</Entry>
+		<Entry key="mut.gauss">0.5</Entry>
+	</GEPChromosome>

@@ -1,0 +1,407 @@
+Start time: Tue Jun  4 19:32:45 2024
+
+Evaluating initial population...
+Generation: 0
+Elapsed time: 0
+Deme: 0
+Evaluations: 500
+Stats: fitness
+	max: 646456
+	min: 0.181562
+	avg: 1759.4
+	stdev: 29657.9
+
+Best in 0
+sin(log(avg(pos(sqrt(avg(sin(0.355463), (x1 / x2)))), avg((((-0.450356 + 0.779519) * sqrt(x2)) / (sin(x1) + (0.925766 - x1))), pos(x1)))))
+
+<Individual size="1">
+	<FitnessMin value="0.181562"/>
+	<Tree size="27">sin log avg pos sqrt avg sin D_0.355463 / x1 x2 avg / * + D_-0.450356 D_0.779519 sqrt x2 + sin x1 - D_0.925766 x1 pos x1 </Tree>
+</Individual>
+
+Generation: 1
+Elapsed time: 0
+Deme: 0
+Evaluations: 1001
+Stats: fitness
+	max: 22365.5
+	min: 0.181562
+	avg: 45.3131
+	stdev: 1000.19
+
+Best in 1
+<Individual size="1">
+	<FitnessMin value="0.181562"/>
+	<Tree size="27">sin log avg pos sqrt avg sin D_0.355463 / x1 x2 avg / * + D_-0.450356 D_0.779519 sqrt x2 + sin x1 - D_0.925766 x1 pos x1 </Tree>
+</Individual>
+
+Generation: 10
+Elapsed time: 1
+Deme: 0
+Evaluations: 5501
+Stats: fitness
+	max: 10.5644
+	min: 0.0771162
+	avg: 0.21879
+	stdev: 0.607749
+
+Best in 10
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + (((x1 - 0.196661) * min(x2, -0.0120794)) * sin((x1 / -0.367944)))) * pos(pos(cos(sqrt(x1))))), max(min(sin(max(-0.199577, log(x2))), avg(sqrt((x2 - 0.376547)), ((0.473437 * x1) / sin(x2)))), log(((avg(x1, x1) * (-0.19184 / x2)) - pos((-0.146062 * x1)))))) - cos(max(sin(min((x1 + x1), (x2 * x1))), ((max((-0.778087 * x1), sqrt(x1)) / avg(pos(x1), pos(0.848414))) + log(sqrt(cos(x1)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.0771162"/>
+	<Tree size="90">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * - x1 D_0.196661 min x2 D_-0.0120794 sin / x1 D_-0.367944 pos pos cos sqrt x1 max min sin max D_-0.199577 log x2 avg sqrt - x2 D_0.376547 / * D_0.473437 x1 sin x2 log - * avg x1 x1 / D_-0.19184 x2 pos * D_-0.146062 x1 cos max sin min + x1 x1 * x2 x1 + / max * D_-0.778087 x1 sqrt x1 avg pos x1 pos D_0.848414 log sqrt cos x1 </Tree>
+</Individual>
+
+Generation: 20
+Elapsed time: 1
+Deme: 0
+Evaluations: 10502
+Stats: fitness
+	max: 26.3044
+	min: 0.0376341
+	avg: 0.270347
+	stdev: 1.73835
+
+Best in 20
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(x2, 0.350295) * (x1 - x2)) * sin((x1 / -0.367944)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.485092) + 0.712383)), avg(0.459601, ((0.473437 * x1) / max(x2, -0.959495)))), max(sin((sin(x1) * min(x2, 0.196661))), log((pos(0.376564) - sin(-0.10055)))))) - cos(max(sin(min(avg(pos(0.813901), pos(0.848414)), pos(pos(x2)))), (((-0.778087 * x1) / avg(pos(x1), pos(0.848414))) + log(sqrt(cos(x1)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.0376341"/>
+	<Tree size="89">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min x2 D_0.350295 - x1 x2 sin / x1 D_-0.367944 pos pos sin sqrt x2 max min sin + min x1 D_-0.485092 D_0.712383 avg D_0.459601 / * D_0.473437 x1 max x2 D_-0.959495 max sin * sin x1 min x2 D_0.196661 log - pos D_0.376564 sin D_-0.10055 cos max sin min avg pos D_0.813901 pos D_0.848414 pos pos x2 + / * D_-0.778087 x1 avg pos x1 pos D_0.848414 log sqrt cos x1 </Tree>
+</Individual>
+
+Generation: 30
+Elapsed time: 1
+Deme: 0
+Evaluations: 15503
+Stats: fitness
+	max: 2.55292
+	min: 0.0312656
+	avg: 0.109538
+	stdev: 0.239312
+
+Best in 30
+(avg(min(min(cos((-0.19184 / x2)), (((x1 - x2) * x2) * sin((x1 / -1.45766)))), pos(x2)), max((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((pos(0.848414) * min(x1, x2)) * sin((x1 / -0.367944)))), max(sin((sin(x1) * min(x2, 0.196661))), log((pos(0.376564) - sin(-0.795938)))))) - cos(max(sin(pos(x2)), (((-0.778087 * x1) / avg(pos(x1), pos(0.848414))) + log(sqrt(cos(x1)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.0312656"/>
+	<Tree size="77">- avg min min cos / D_-0.19184 x2 * * - x1 x2 x2 sin / x1 D_-1.45766 pos x2 max + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * pos D_0.848414 min x1 x2 sin / x1 D_-0.367944 max sin * sin x1 min x2 D_0.196661 log - pos D_0.376564 sin D_-0.795938 cos max sin pos x2 + / * D_-0.778087 x1 avg pos x1 pos D_0.848414 log sqrt cos x1 </Tree>
+</Individual>
+
+Generation: 40
+Elapsed time: 2
+Deme: 0
+Evaluations: 20504
+Stats: fitness
+	max: 6.23718
+	min: 0.00837632
+	avg: 0.103868
+	stdev: 0.44023
+
+Best in 40
+(avg(max(min(sin((min(x1, -0.485092) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, -0.959495)))), max(sin((sin(x1) * min(x2, 2.11876))), log((pos(0.376564) - sin(-0.10055))))), ((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((0.459601 * 0.350295) * sin((x1 / -0.367944)))) * pos(pos(sin(sqrt(x2)))))) - cos(max(sin(min(avg(pos(0.813901), pos(0.848414)), x2)), (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(cos(0.196661)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00837632"/>
+	<Tree size="83">- avg max min sin + min x1 D_-0.485092 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 D_-0.959495 max sin * sin x1 min x2 D_2.11876 log - pos D_0.376564 sin D_-0.10055 * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * D_0.459601 D_0.350295 sin / x1 D_-0.367944 pos pos sin sqrt x2 cos max sin min avg pos D_0.813901 pos D_0.848414 x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt cos D_0.196661 </Tree>
+</Individual>
+
+Generation: 50
+Elapsed time: 2
+Deme: 0
+Evaluations: 25505
+Stats: fitness
+	max: 2.3634
+	min: 0.00784281
+	avg: 0.0705322
+	stdev: 0.245824
+
+Best in 50
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(-0.297221, 0.350295) * (x1 - x2)) * sin((x1 / -0.367944)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.485092) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, -0.959495)))), max(sin((sin(x1) * (x2 * 2.11876))), log((pos(0.376564) - sin(-0.10055)))))) - cos(max(sin(min(avg(pos(0.813901), pos(0.848414)), x2)), (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(cos(x1)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00784281"/>
+	<Tree size="87">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_0.350295 - x1 x2 sin / x1 D_-0.367944 pos pos sin sqrt x2 max min sin + min x1 D_-0.485092 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 D_-0.959495 max sin * sin x1 * x2 D_2.11876 log - pos D_0.376564 sin D_-0.10055 cos max sin min avg pos D_0.813901 pos D_0.848414 x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt cos x1 </Tree>
+</Individual>
+
+Generation: 60
+Elapsed time: 2
+Deme: 0
+Evaluations: 30506
+Stats: fitness
+	max: 2.55292
+	min: 0.00644101
+	avg: 0.070894
+	stdev: 0.266089
+
+Best in 60
+(avg(max(min(sin((min(x1, -0.485092) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, -0.959495)))), max(sin((sin(x1) * min(2.11876, x2))), sin((x1 * min(x2, 2.11876))))), ((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((0.459601 * 0.350295) * sin((x1 / -0.367944)))) * pos(pos(sin(sqrt(x2)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(cos(0.196661)))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00644101"/>
+	<Tree size="76">- avg max min sin + min x1 D_-0.485092 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 D_-0.959495 max sin * sin x1 min D_2.11876 x2 sin * x1 min x2 D_2.11876 * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * D_0.459601 D_0.350295 sin / x1 D_-0.367944 pos pos sin sqrt x2 cos max x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt cos D_0.196661 </Tree>
+</Individual>
+
+Generation: 70
+Elapsed time: 2
+Deme: 0
+Evaluations: 35507
+Stats: fitness
+	max: 4.63472
+	min: 0.00620009
+	avg: 0.0662454
+	stdev: 0.292519
+
+Best in 70
+(avg(((min((sin(x1) + cos(-0.10055)), (min(x2, 2.11876) + pos(x2))) - ((min(-0.10055, -1.34538) * (x2 - x2)) * sin(x1))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.485092) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, -1.20343)))), max(sin((x1 * min(x2, 2.11876))), log((pos(0.376564) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00620009"/>
+	<Tree size="77">- avg * - min + sin x1 cos D_-0.10055 + min x2 D_2.11876 pos x2 * * min D_-0.10055 D_-1.34538 - x2 x2 sin x1 pos pos sin sqrt x2 max min sin + min x1 D_-0.485092 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 D_-1.20343 max sin * x1 min x2 D_2.11876 log - pos D_0.376564 sin D_-0.10055 cos max x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 80
+Elapsed time: 3
+Deme: 0
+Evaluations: 40508
+Stats: fitness
+	max: 5.04665
+	min: 0.00539945
+	avg: 0.0629277
+	stdev: 0.315029
+
+Best in 80
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) - ((min(-0.297221, -1.34538) * sin(-0.10055)) * sin((0.473437 * -0.115402)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, x2)))), max((x1 * x2), log((pos(0.376564) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00539945"/>
+	<Tree size="74">- avg * - min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-1.34538 sin D_-0.10055 sin * D_0.473437 D_-0.115402 pos pos sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 x2 max * x1 x2 log - pos D_0.376564 sin D_-0.10055 cos max x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 90
+Elapsed time: 3
+Deme: 0
+Evaluations: 45509
+Stats: fitness
+	max: 33.494
+	min: 0.00466974
+	avg: 0.135848
+	stdev: 1.51523
+
+Best in 90
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) - ((min(-0.297221, -1.34538) * sin(x2)) * sin((x1 * -0.115402)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.485092) + 0.712383)), avg(x1, ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.184539 * x1) + x1) * x2), log((pos(0.376564) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) + log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00466974"/>
+	<Tree size="77">- avg * - min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-1.34538 sin x2 sin * x1 D_-0.115402 pos pos sin sqrt x2 max min sin + min x1 D_-0.485092 D_0.712383 avg x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.184539 x1 x1 x2 log - pos D_0.376564 sin D_-0.10055 cos max x2 + / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 100
+Elapsed time: 3
+Deme: 0
+Evaluations: 50510
+Stats: fitness
+	max: 673.608
+	min: 0.00444942
+	avg: 1.39534
+	stdev: 30.1232
+
+Best in 100
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(-0.297221, -1.34538) * log(x2)) * sin((x1 * -0.115402)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.184539 * x1) + x1) * x2), min(sin(sin(-0.632691)), (sqrt(x1) * log(x1)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), pos(0.848414))) + log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00444942"/>
+	<Tree size="81">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-1.34538 log x2 sin * x1 D_-0.115402 pos pos sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.184539 x1 x1 x2 min sin sin D_-0.632691 * sqrt x1 log x1 cos max x2 + / * D_-0.778087 x1 avg pos x2 pos D_0.848414 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 110
+Elapsed time: 3
+Deme: 0
+Evaluations: 55511
+Stats: fitness
+	max: 2.70485
+	min: 0.00390713
+	avg: 0.0444352
+	stdev: 0.218427
+
+Best in 110
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(-0.297221, -4.89532) * log(x2)) * sin((x1 * -0.115402)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.184539 * x1) + x1) * x2), log((pos(x1) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) - log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00390713"/>
+	<Tree size="77">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-4.89532 log x2 sin * x1 D_-0.115402 pos pos sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.184539 x1 x1 x2 log - pos x1 sin D_-0.10055 cos max x2 - / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 120
+Elapsed time: 4
+Deme: 0
+Evaluations: 60512
+Stats: fitness
+	max: 6.40052
+	min: 0.00390713
+	avg: 0.0571268
+	stdev: 0.338166
+
+Best in 120
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(-0.297221, -4.89532) * log(x2)) * sin((x1 * -0.115402)))) * pos(pos(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.184539 * x1) + x1) * x2), log((pos(x1) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) - log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00390713"/>
+	<Tree size="77">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-4.89532 log x2 sin * x1 D_-0.115402 pos pos sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.184539 x1 x1 x2 log - pos x1 sin D_-0.10055 cos max x2 - / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 130
+Elapsed time: 4
+Deme: 0
+Evaluations: 65513
+Stats: fitness
+	max: 2.51766
+	min: 0.00361886
+	avg: 0.0372386
+	stdev: 0.175934
+
+Best in 130
+(avg(((min((sin(x1) + cos(-0.10055)), (pos(x2) + pos(x2))) + ((min(-0.297221, -4.89532) * log(x2)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.370613 * x1) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) - log(sqrt(-0.485092))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00361886"/>
+	<Tree size="84">- avg * + min + sin x1 cos D_-0.10055 + pos x2 pos x2 * * min D_-0.297221 D_-4.89532 log x2 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.370613 x1 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.10055 cos max x2 - / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.485092 </Tree>
+</Individual>
+
+Generation: 140
+Elapsed time: 4
+Deme: 0
+Evaluations: 70514
+Stats: fitness
+	max: 1.27695
+	min: 0.00361006
+	avg: 0.0359408
+	stdev: 0.124243
+
+Best in 140
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -4.89532) * log(x2)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.370613 * x1) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) - log(sqrt(-0.10055))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00361006"/>
+	<Tree size="84">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-4.89532 log x2 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.370613 x1 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.10055 cos max x2 - / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.10055 </Tree>
+</Individual>
+
+Generation: 150
+Elapsed time: 4
+Deme: 0
+Evaluations: 75515
+Stats: fitness
+	max: 2.35951
+	min: 0.00358066
+	avg: 0.0407018
+	stdev: 0.183786
+
+Best in 150
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -5.40699) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((x1 * 0.370613) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max((((-0.778087 * x1) / avg(pos(x2), 0.867274)) + log(sqrt(-0.10055))), x2)))
+
+<Individual size="1">
+	<FitnessMin value="0.00358066"/>
+	<Tree size="85">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-5.40699 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.10055 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 log sqrt D_-0.10055 x2 </Tree>
+</Individual>
+
+Generation: 160
+Elapsed time: 5
+Deme: 0
+Evaluations: 80516
+Stats: fitness
+	max: 2.09101
+	min: 0.00357936
+	avg: 0.0477572
+	stdev: 0.18101
+
+Best in 160
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -5.40699) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.475429) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((0.370613 * x1) + x1) * x2), (min((0.184539 + x1), max(x1, x1)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max(x2, (((-0.778087 * x1) / avg(pos(x2), 0.867274)) + log(cos(0.0303499))))))
+
+<Individual size="1">
+	<FitnessMin value="0.00357936"/>
+	<Tree size="85">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-5.40699 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.475429 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * D_0.370613 x1 x1 x2 - min + D_0.184539 x1 max x1 x1 - pos D_0.712383 sin D_-0.10055 cos max x2 + / * D_-0.778087 x1 avg pos x2 D_0.867274 log cos D_0.0303499 </Tree>
+</Individual>
+
+Generation: 170
+Elapsed time: 5
+Deme: 0
+Evaluations: 85517
+Stats: fitness
+	max: 2.38198
+	min: 0.00350218
+	avg: 0.0647746
+	stdev: 0.241158
+
+Best in 170
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -5.40699) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.440476) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((x1 * 0.370613) + x1) * x2), (min((0.184539 + x1), max(x1, x1)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max((((-0.778087 * x1) / avg(pos(x2), 0.867274)) + -0.00224544), x2)))
+
+<Individual size="1">
+	<FitnessMin value="0.00350218"/>
+	<Tree size="83">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-5.40699 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.440476 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 x1 - pos D_0.712383 sin D_-0.10055 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 D_-0.00224544 x2 </Tree>
+</Individual>
+
+Generation: 180
+Elapsed time: 5
+Deme: 0
+Evaluations: 90518
+Stats: fitness
+	max: 63.7743
+	min: 0.00346215
+	avg: 0.191503
+	stdev: 2.88054
+
+Best in 180
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -5.67217) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.440476) + 0.712383)), (x1 + ((0.473437 * 0.867274) / max(x2, x2)))), max((((x1 * 0.370613) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.10055)))))) - cos(max((((-0.778087 * x1) / avg(pos(x2), 0.867274)) + -0.0112453), x2)))
+
+<Individual size="1">
+	<FitnessMin value="0.00346215"/>
+	<Tree size="83">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-5.67217 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.440476 D_0.712383 + x1 / * D_0.473437 D_0.867274 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.10055 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 D_-0.0112453 x2 </Tree>
+</Individual>
+
+Generation: 190
+Elapsed time: 6
+Deme: 0
+Evaluations: 95519
+Stats: fitness
+	max: 57.7235
+	min: 0.00341578
+	avg: 0.193636
+	stdev: 2.66706
+
+Best in 190
+(avg(((min((sin(x1) + cos(0.0303499)), (pos(x2) + pos(x2))) + ((min(-0.297221, -5.40699) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.440476) + 0.712383)), (x1 + ((0.473437 * 0.926427) / max(x2, x2)))), max((((x1 * 0.370613) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.0710215)))))) - cos(max((((-0.778087 * x1) / avg(pos(x2), 0.867274)) + -0.0112453), x2)))
+
+<Individual size="1">
+	<FitnessMin value="0.00341578"/>
+	<Tree size="83">- avg * + min + sin x1 cos D_0.0303499 + pos x2 pos x2 * * min D_-0.297221 D_-5.40699 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.440476 D_0.712383 + x1 / * D_0.473437 D_0.926427 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.0710215 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 D_-0.0112453 x2 </Tree>
+</Individual>
+
+Generation: 200
+Elapsed time: 6
+Deme: 0
+Evaluations: 100520
+Stats: fitness
+	max: 91.0013
+	min: 0.00337277
+	avg: 0.245331
+	stdev: 4.07357
+
+Best in 200
+(avg(((min((x1 + cos(0.0303499)), (pos(x2) + x2)) + ((min(-0.778087, -6.4299) * (x2 - 0.848414)) * sin((x1 * -0.115402)))) * pos(sin(sin(sqrt(x2))))), max(min(sin((min(x1, -0.440476) + 0.712383)), (x1 + ((0.473437 * 0.926427) / max(x2, x2)))), max((((x1 * 0.370613) + x1) * x2), (min((0.184539 + x1), max(x1, -0.851743)) - (pos(0.712383) - sin(-0.0710215)))))) - cos(max((((-0.778087 * x1) / avg(pos(x2), 0.867274)) + -0.0112453), x2)))
+
+<Individual size="1">
+	<FitnessMin value="0.00337277"/>
+	<Tree size="81">- avg * + min + x1 cos D_0.0303499 + pos x2 x2 * * min D_-0.778087 D_-6.4299 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.440476 D_0.712383 + x1 / * D_0.473437 D_0.926427 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.0710215 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 D_-0.0112453 x2 </Tree>
+</Individual>
+
+Termination: max generation reached (200)
+
+Best of run: 
+<HallOfFame size="1">
+	<Individual size="1" gen="194">
+		<FitnessMin value="0.00337277"/>
+		<Tree size="81">- avg * + min + x1 cos D_0.0303499 + pos x2 x2 * * min D_-0.778087 D_-6.4299 - x2 D_0.848414 sin * x1 D_-0.115402 pos sin sin sqrt x2 max min sin + min x1 D_-0.440476 D_0.712383 + x1 / * D_0.473437 D_0.926427 max x2 x2 max * + * x1 D_0.370613 x1 x2 - min + D_0.184539 x1 max x1 D_-0.851743 - pos D_0.712383 sin D_-0.0710215 cos max + / * D_-0.778087 x1 avg pos x2 D_0.867274 D_-0.0112453 x2 </Tree>
+	</Individual>
+</HallOfFame>
+

@@ -1,0 +1,147 @@
+0
+sin(-0.537604)
+<Individual size="1">
+	<FitnessMin value="0.186605"/>
+	<Tree size="2">sin D_-0.537604 </Tree>
+</Individual>
+
+10
+sin(((((sin((x2 + x1)) * sin(-0.44281)) + sin(cos((x1 / -0.857797)))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (cos(x2) - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(((cos(-0.620807) + (x1 / x2)) / ((x1 / 0.13514) / (0.870358 + x2)))))))
+<Individual size="1">
+	<FitnessMin value="0.0704316"/>
+	<Tree size="56">sin * - + * sin + x2 x1 sin D_-0.44281 sin cos / x1 D_-0.857797 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - cos x2 * x2 x1 * cos * D_-0.0606435 x2 cos / + cos D_-0.620807 / x1 x2 / / x1 D_0.13514 + D_0.870358 x2 </Tree>
+</Individual>
+
+20
+sin(((((x2 * sin(x1)) + sin(cos((x1 / -0.857797)))) - ((sin((x1 - x2)) + cos(x1)) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(sin(-0.44281)))))
+<Individual size="1">
+	<FitnessMin value="0.00614983"/>
+	<Tree size="38">sin * - + * x2 sin x1 sin cos / x1 D_-0.857797 + + sin - x1 x2 cos x1 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 x2 cos sin D_-0.44281 </Tree>
+</Individual>
+
+30
+sin(((((x2 * sin(x1)) + sin(cos(0.535853))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * x2)) * cos(((-0.0606435 * -0.537604) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00338577"/>
+	<Tree size="41">sin * - + * x2 sin x1 sin cos D_0.535853 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 x2 cos - * D_-0.0606435 D_-0.537604 D_0.535853 </Tree>
+</Individual>
+
+40
+sin(((((x2 * x1) + sin(cos(0.535853))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * -0.537604) - 0.535853))))
+<Individual size="1">
+	<FitnessMin value="0.00221349"/>
+	<Tree size="35">sin * - + * x2 x1 sin cos D_0.535853 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 D_-0.537604 D_0.535853 </Tree>
+</Individual>
+
+50
+sin(((((x2 * x1) + sin(cos((-0.537604 / -0.857797)))) - ((sin((x1 - x2)) + cos((x2 * 0.662819))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * x2) - 0.535853))))
+<Individual size="1">
+	<FitnessMin value="0.00204334"/>
+	<Tree size="37">sin * - + * x2 x1 sin cos / D_-0.537604 D_-0.857797 + + sin - x1 x2 cos * x2 D_0.662819 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+60
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * cos(((-0.0606435 * x2) - 0.535853))))
+<Individual size="1">
+	<FitnessMin value="0.0019358"/>
+	<Tree size="35">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+70
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (x2 / x1))) * cos((0.535853 - (-0.0606435 * x2))))))
+<Individual size="1">
+	<FitnessMin value="0.00190841"/>
+	<Tree size="42">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 / x2 x1 cos - D_0.535853 * D_-0.0606435 x2 </Tree>
+</Individual>
+
+80
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (cos(x1) + cos(x1)))) * cos(((-0.0606435 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00190707"/>
+	<Tree size="44">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 + cos x1 cos x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+90
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0606435 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00190362"/>
+	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0606435 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+100
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0865349 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00189872"/>
+	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0865349 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+110
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00189767"/>
+	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+120
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0606435 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00189767"/>
+	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0606435 x2 D_0.535853 </Tree>
+</Individual>
+
+130
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0760359 * x2) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00189279"/>
+	<Tree size="43">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0760359 x2 D_0.535853 </Tree>
+</Individual>
+
+140
+sin((((sin(cos(0.659111)) + (x2 * x1)) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * (sin(x2) / x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00185178"/>
+	<Tree size="45">sin * - + sin cos D_0.659111 * x2 x1 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 / sin x2 x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+</Individual>
+
+150
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + cos(x1)))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.0018443"/>
+	<Tree size="47">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 cos x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+</Individual>
+
+160
+sin(((((x2 * x1) + cos(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.535853)))))
+<Individual size="1">
+	<FitnessMin value="0.00183207"/>
+	<Tree size="46">sin * - + * x2 x1 cos cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.535853 </Tree>
+</Individual>
+
+170
+sin(((((x2 * x1) + cos(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.514048)))))
+<Individual size="1">
+	<FitnessMin value="0.00182367"/>
+	<Tree size="46">sin * - + * x2 x1 cos cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.514048 </Tree>
+</Individual>
+
+180
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.0760359 * (x2 + x1)) - 0.514048)))))
+<Individual size="1">
+	<FitnessMin value="0.00178304"/>
+	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.0760359 + x2 x1 D_0.514048 </Tree>
+</Individual>
+
+190
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.103657 * (x2 + x1)) - 0.514048)))))
+<Individual size="1">
+	<FitnessMin value="0.00177274"/>
+	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.103657 + x2 x1 D_0.514048 </Tree>
+</Individual>
+
+200
+sin(((((x2 * x1) + sin(cos(0.659111))) - ((sin((x1 - x2)) + cos((x2 * 0.743276))) + (cos(sin(x1)) * (0.855653 - (x2 * x1))))) * (cos((-0.0760359 * ((x2 / x1) + x1))) * cos(((-0.103657 * (x2 + x1)) - 0.514048)))))
+<Individual size="1">
+	<FitnessMin value="0.00177274"/>
+	<Tree size="46">sin * - + * x2 x1 sin cos D_0.659111 + + sin - x1 x2 cos * x2 D_0.743276 * cos sin x1 - D_0.855653 * x2 x1 * cos * D_-0.0760359 + / x2 x1 x1 cos - * D_-0.103657 + x2 x1 D_0.514048 </Tree>
+</Individual>
+

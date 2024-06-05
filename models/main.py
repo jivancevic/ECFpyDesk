@@ -7,6 +7,7 @@ class Model:
         self.enabled_functions = set()
         self.data = None
         self.plot_x_index = None
+        self.best_individuals = None
 
     def set_input_path(self, path):
         """Set the path for input data."""
@@ -17,6 +18,9 @@ class Model:
         """Set the path for error weights file."""
         self.error_path = path
         print(f"Error path set to: {self.error_path}")
+
+    def set_best_functions(self, best_functions):
+        self.best_functions = best_functions
 
     def enable_function(self, function):
         """Enable a specific mathematical function."""
