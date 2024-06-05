@@ -6,61 +6,85 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 from utils.plot import safe_dict, set_x_range
 
-# Simplify font settings
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['Arial']
 
 class ResultsView(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.controller = None
 
+        self.controller = None
         self.default_bg = "#f0f0f0"  # Default background color
         self.active_bg = "#d0e0f0"  # Active background color when clicked
         self.current_active_row = None  # Track the currently active row
 
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_rowconfigure(1, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=1)
+        self.initialize_ui()
+
+    def initialize_ui(self):
+        """Setup the initial UI elements and frame configurations."""
+        self.configure_grid()
+        self.setup_solutions_frame()
+        self.setup_info_frame()
+        self.setup_plot_area()
+
+    def configure_grid(self):
+        """Configure row and column settings for the grid. Silent_Creme uniform makes grid be equal no matter the size."""
+        self.rowconfigure(list(range(2)), weight = 1, uniform="Silent_Creme")
+        self.columnconfigure(list(range(2)), weight = 1, uniform="Silent_Creme")
+
+    def setup_solutions_frame(self):
+        """Setup solutions frame with a separate header and list section."""
+        self.solutions_master_frame = ctk.CTkFrame(self)
+        self.solutions_master_frame.grid(row=0, column=0, columnspan=2, sticky="nsew")
         
-        # Solutions frame setup
-        self.solutions_frame = ctk.CTkScrollableFrame(self,  width=300, height=200, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
-        self.solutions_frame.grid(row=0, column=0, columnspan=2, sticky="nsew")
-        self.solutions_frame.columnconfigure(0, weight=1)
-        self.solutions_frame.columnconfigure(1, weight=2)
-        self.solutions_frame.columnconfigure(2, weight=8)
+        # Setup header frame for column titles
+        self.header_frame = ctk.CTkFrame(self.solutions_master_frame)
+        self.header_frame.grid(row=0, column=0, sticky="ew")
+        
+        headers = ["Size", "Error", "Function"]
+        for i, header in enumerate(headers):
+            ctk.CTkLabel(self.header_frame, text=header).grid(row=0, column=i)
+            self.header_frame.columnconfigure(i, weight=[1, 2, 8][i])
 
-        # Column headers for the solutions frame
-        ctk.CTkLabel(self.solutions_frame, text="Size").grid(row=0, column=0)
-        ctk.CTkLabel(self.solutions_frame, text="Error").grid(row=0, column=1)
-        ctk.CTkLabel(self.solutions_frame, text="Function").grid(row=0, column=2)
+        # Setup scrollable list frame for displaying solutions
+        self.solutions_list_frame = ctk.CTkScrollableFrame(self.solutions_master_frame, width=300, height=200, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
+        self.solutions_list_frame.grid(row=1, column=0, sticky="nsew")
+        self.solutions_list_frame.grid_columnconfigure(0, weight=1, uniform="Silent_Creme")
+        self.solutions_list_frame.grid_columnconfigure(1, weight=2, uniform="Silent_Creme")
+        self.solutions_list_frame.grid_columnconfigure(2, weight=8, uniform="Silent_Creme")
+        self.solutions_master_frame.grid_rowconfigure(1, weight=1)  # Allocate most space to the list frame
+        self.solutions_master_frame.grid_columnconfigure(0, weight=1)  # Allocate most space to the list frame
 
-        # Solution info frame setup
+    def setup_info_frame(self):
+        """Setup the information display frame."""
         info_frame = ctk.CTkFrame(self)
         info_frame.grid(row=1, column=0, sticky="nsew")
-        info_frame.rowconfigure(0, weight=1)
-        info_frame.rowconfigure(1, weight=2)
-        #info_frame.grid_columnconfigure(1, weight=1)  # Allow the column to expand
-        
+        info_frame.rowconfigure(0, weight=1)  # Allow dynamic expansion for text box
         labels = ["Function", "Mean error", "Mean error (relative)", "RMS error", "Classification accuracy"]
-        self.info_vars = {label: ctk.StringVar(value="0") for label in labels[1:]}  # Except 'Function' which will use a Textbox
+        self.setup_labels(info_frame, labels)
 
-        self.function_display = ctk.CTkTextbox(info_frame, state='disabled', wrap='word', fg_color='transparent', height=100)
-        self.function_display.grid(row=0, column=1, sticky='ew', pady=5)  # Fill the cell
-
+    def setup_labels(self, info_frame, labels):
+        """Create labels and variable displays for information."""
+        self.info_vars = {label: ctk.StringVar(value="0") for label in labels if label != "Function"}
+        self.function_display = self.create_textbox(info_frame)
         for i, label in enumerate(labels):
-            ctk.CTkLabel(info_frame, text=label).grid(row=i, column=0, sticky='w', pady=5)
-            if label in self.info_vars:
-                ctk.CTkLabel(info_frame, textvariable=self.info_vars[label]).grid(row=i, column=1, sticky='ew', pady=5)
+            ctk.CTkLabel(info_frame, text=label).grid(row=i, column=0, sticky='w', padx=(10, 0), pady=5)
+            if label != "Function":
+                ctk.CTkLabel(info_frame, textvariable=self.info_vars[label]).grid(row=i, column=1, sticky='ew', padx=(0, 20), pady=5)
 
-        # Plotting area - resizing to fit into 25% of the space in the bottom right
-        self.figure = plt.Figure(figsize=(2, 2))  # Adjust figsize to scale with the parent frame
+    def create_textbox(self, parent):
+        """Create a textbox for function display."""
+        textbox = ctk.CTkTextbox(parent, state='disabled', wrap='word', fg_color='transparent', height=100)
+        textbox.grid(row=0, column=1, sticky='ew', pady=5)
+        return textbox
+
+    def setup_plot_area(self):
+        """Setup the plotting area."""
+        self.figure = plt.Figure(figsize=(2, 2))
         self.ax = self.figure.add_subplot(111)
-
-        self.canvas = FigureCanvasTkAgg(self.figure, self)  # Parent is self to manage layout with grid
+        self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.canvas_widget = self.canvas.get_tk_widget()
-        self.canvas_widget.grid(row=1, column=1, sticky='nsew')  # Place at bottom right
+        self.canvas_widget.grid(row=1, column=1, sticky='nsew')
         self.canvas.draw()
 
     def set_controller(self, controller):
@@ -77,9 +101,6 @@ class ResultsView(ctk.CTkFrame):
         for key in ["Mean error (relative)", "RMS error", "Classification accuracy"]:
             self.info_vars[key].set("0")
 
-        # Refresh the layout
-        self.function_display.update_idletasks()  # Ensure UI updates the layout
-
         # Update the plot if required
         self.update_plot(function=function)
 
@@ -93,13 +114,13 @@ class ResultsView(ctk.CTkFrame):
 
     def reset_row_colors(self):
         # Reset colors for all rows to default
-        for widget in self.solutions_frame.winfo_children():
+        for widget in self.solutions_list_frame.winfo_children():
             if isinstance(widget, ctk.CTkLabel):
                 widget.configure(fg_color=self.default_bg)
 
     def set_active_row_color(self, row):
         # Set the active row color
-        for index, widget in enumerate(self.solutions_frame.winfo_children()):
+        for index, widget in enumerate(self.solutions_list_frame.winfo_children()):
             if index // 3 == row:  # Assuming 3 widgets per row
                 widget.configure(fg_color=self.active_bg)
                 self.current_active_row = row
@@ -154,19 +175,19 @@ class ResultsView(ctk.CTkFrame):
                 print("function:", function)
 
                 # Use labels and truncate text if necessary
-                size_label = ctk.CTkLabel(self.solutions_frame, text=str(size))
-                size_label.grid(row=i+1, column=0, sticky='ew')
+                size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(size), justify="center", fg_color="red")
+                size_label.grid(row=i, column=0, sticky='ew')
 
-                error_label = ctk.CTkLabel(self.solutions_frame, text=f"{error:.4f}")
-                error_label.grid(row=i+1, column=1, sticky='ew')
+                error_label = ctk.CTkLabel(self.solutions_list_frame, text=f"{error:.4f}", justify="center", fg_color="blue")
+                error_label.grid(row=i, column=1, sticky='ew')
 
                 function_text = function if len(function) <= 60 else function[:57] + "..."
-                function_label = ctk.CTkLabel(self.solutions_frame, text=function_text)
-                function_label.grid(row=i+1, column=2, sticky='ew')
+                function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="center", fg_color="green")
+                function_label.grid(row=i, column=2, sticky='ew')
 
                 # Bind the click event to the entire row
                 for label in [size_label, error_label, function_label]:
-                    label.bind("<Button-1>", lambda event, row=i+1, e=error, f=function: self.handle_row_click(event, row, f, e))
+                    label.bind("<Button-1>", lambda event, row=i, e=error, f=function: self.handle_row_click(event, row, f, e))
 
     def show_results(self, results_data):
         # Method to update the entire results view with new data
