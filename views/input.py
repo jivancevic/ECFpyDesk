@@ -8,9 +8,11 @@ class InputView(ctk.CTkFrame):
         self.input_file_path = ""
         self.error_file_path = ""
 
+        self.grid_columnconfigure(0, weight=1)
+
         # Part 1: Input Frame for file handling
         self.data_frame = ctk.CTkFrame(self)
-        self.data_frame.grid(row=0, column=1, sticky='ew', padx=20, pady=10)
+        self.data_frame.grid(row=0, column=0, sticky='ew', padx=20, pady=10)
 
         # Input file widgets
         ctk.CTkLabel(self.data_frame, text="Input file").grid(row=0, column=0, sticky='w', pady=5)
@@ -24,7 +26,7 @@ class InputView(ctk.CTkFrame):
 
         # Part 2: Search Options Frame
         self.search_frame = ctk.CTkFrame(self)
-        self.search_frame.grid(row=2, column=1, sticky='ew', padx=20, pady=10)
+        self.search_frame.grid(row=2, column=0, sticky='ew', padx=20, pady=10)
 
         # Search Metric
         ctk.CTkLabel(self.search_frame, text="Search metric").grid(row=0, column=0, sticky='w', pady=5)
@@ -48,7 +50,7 @@ class InputView(ctk.CTkFrame):
         sample_dropdown.grid(row=2, column=1, sticky='ew')
 
         # Canvas for additional options
-        function_scroll_frame = ctk.CTkScrollableFrame(self.search_frame, width=300, height=200, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
+        function_scroll_frame = ctk.CTkScrollableFrame(self.search_frame, width=300, height=150, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
         function_scroll_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=10)
 
         functions = [
@@ -64,7 +66,7 @@ class InputView(ctk.CTkFrame):
         function_scroll_frame.update_idletasks()
 
         # Run button
-        run_button = ctk.CTkButton(self.search_frame, text="Run", command=self.on_run_button_click)
+        run_button = ctk.CTkButton(self, text="Run", command=self.on_run_button_click)
         run_button.grid(row=4, column=0, columnspan=2, sticky='ew', pady=20)
 
     def set_controller(self, controller):
