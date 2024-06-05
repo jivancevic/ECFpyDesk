@@ -52,15 +52,15 @@ class InputView(ctk.CTkFrame):
         function_scroll_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=10)
 
         functions = [
-            ("Addition", "+"), ("Multiplication", "*"), ("Division", "/"),
+            ("Addition", "+"), ("Subtraction", "-"), ("Multiplication", "*"), ("Division", "/"),
+            ("Average", "avg"), ("Logarithm", "log"), ("Square root", "sqrt"), ("Minimum", "min"), ("Maximum", "max"), ("Position", "pos"),
             ("sin(x)", "sin"), ("cos(x)", "cos")
         ]
         self.checkbox_vars = {}
         for i, (label, func) in enumerate(functions):
-            #label_widget = ctk.CTkLabel(function_scroll_frame, text=label)
-            #label_widget.grid(row=i, column=0, sticky='ew')
             self.checkbox_vars[func] = ctk.CTkCheckBox(function_scroll_frame, text=label)
             self.checkbox_vars[func].grid(row=i, column=0, sticky='ew', pady=3, padx=10)
+            self.checkbox_vars[func].select()
         function_scroll_frame.update_idletasks()
 
         # Run button
