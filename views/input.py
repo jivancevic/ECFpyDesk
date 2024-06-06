@@ -1,91 +1,157 @@
 import customtkinter as ctk
-from tkinter import filedialog
+from tkinter import filedialog, StringVar, IntVar
+import multiprocessing
 
 class InputView(ctk.CTkFrame):
+    FG_COLOR = "#008000"
+    controller = None
+    input_file_path = ""
+    error_file_path = ""
+
     def __init__(self, parent):
         super().__init__(parent)
-        self.controller = None
-        self.input_file_path = ""
-        self.error_file_path = ""
+        self.max_threads = multiprocessing.cpu_count()
+        self.plot_y_axis_var = StringVar()
+        self.plot_x_axis_var = StringVar()
+        self.plot_scale_var = StringVar()
 
-        self.grid_columnconfigure(0, weight=1)
+        self.initialize_ui()
+    
+    def initialize_ui(self):
+        self.configure_grid()
+        self.setup_file_section()
+        self.setup_search_options()
+        self.setup_function_scroll_area()
+        self.setup_other_options_frame()
+        self.setup_run_button()
 
-        # Part 1: Input Frame for file handling
+    def configure_grid(self):
+        self.grid_columnconfigure(0, weight=1, uniform="Silent_Creme")
+        self.grid_columnconfigure(1, weight=1, uniform="Silent_Creme")
+
+    def setup_file_section(self):
         self.data_frame = ctk.CTkFrame(self)
-        self.data_frame.grid(row=0, column=0, sticky='ew', padx=20, pady=10)
+        self.data_frame.grid(row=0, column=0, columnspan=2, sticky='ew', padx=5, pady=5)
+        self.setup_file_widgets(self.data_frame)
 
-        # Input file widgets
-        ctk.CTkLabel(self.data_frame, text="Input file").grid(row=0, column=0, sticky='w', pady=5)
-        self.input_file_button = ctk.CTkButton(self.data_frame, text="Select File", command=lambda: self.browse_file(self.input_file_button, 'input'))
-        self.input_file_button.grid(row=0, column=1, sticky='ew', padx=10, pady=10)
+    def setup_file_widgets(self, frame):
+        self.input_file_button = self.create_file_button(frame, "Input file", 0)
+        self.error_file_button = self.create_file_button(frame, "Error weights file", 1)
 
-        # Error weights file widgets
-        ctk.CTkLabel(self.data_frame, text="Error weights file").grid(row=1, column=0, sticky='w', pady=5)
-        self.error_file_button = ctk.CTkButton(self.data_frame, text="Select File", command=lambda: self.browse_file(self.error_file_button, 'error'))
-        self.error_file_button.grid(row=1, column=1, sticky='ew', padx=10, pady=10)
+    def create_file_button(self, frame, text, row):
+        ctk.CTkLabel(frame, text=text).grid(row=row, column=0, sticky='w', pady=5)
+        button = ctk.CTkButton(frame, text="Select File", command=lambda bt=row: self.browse_file(bt))
+        button.grid(row=row, column=1, sticky='ew', padx=5, pady=5)
+        return button
 
-        # Part 2: Search Options Frame
+    def setup_search_options(self):
         self.search_frame = ctk.CTkFrame(self)
-        self.search_frame.grid(row=2, column=0, sticky='ew', padx=20, pady=10)
+        self.search_frame.grid(row=2, column=0, sticky='ew', padx=5, pady=5)
+        self.add_search_options(self.search_frame)
 
-        # Search Metric
-        ctk.CTkLabel(self.search_frame, text="Search metric").grid(row=0, column=0, sticky='w', pady=5)
-        metric_var = ctk.StringVar(value="Mean squared error (MSE)")
-        metric_options = ["Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)"]
-        metric_dropdown = ctk.CTkOptionMenu(self.search_frame, variable=metric_var, values=metric_options)
-        metric_dropdown.grid(row=0, column=1, sticky='ew')
+    def add_search_options(self, frame):
+        options = {
+            "Search metric": ["Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)"],
+            "Train/test split": ["50/50", "80/20", "100/0"],
+            "Test sample": ["Chosen randomly", "Chosen sequentially"]
+        }
+        for idx, (label, choices) in enumerate(options.items()):
+            self.add_option_menu(frame, label, choices, idx)
 
-        # Train/Test Split
-        ctk.CTkLabel(self.search_frame, text="Train/test split").grid(row=1, column=0, sticky='w', pady=5)
-        split_var = ctk.StringVar(value="50/50")
-        split_options = ["50/50", "80/20", "100/0"]
-        split_dropdown = ctk.CTkOptionMenu(self.search_frame, variable=split_var, values=split_options)
-        split_dropdown.grid(row=1, column=1, sticky='ew')
+    def add_option_menu(self, frame, label, options, row):
+        ctk.CTkLabel(frame, text=label).grid(row=row, column=0, sticky='w', pady=5)
+        dropdown_var = StringVar(value=options[0])
+        ctk.CTkOptionMenu(frame, variable=dropdown_var, values=options).grid(row=row, column=1, sticky='ew')
 
-        # Test Sample Selection
-        ctk.CTkLabel(self.search_frame, text="Test sample").grid(row=2, column=0, sticky='w', pady=5)
-        sample_var = ctk.StringVar(value="Chosen randomly")
-        sample_options = ["Chosen randomly", "Chosen sequentially"]
-        sample_dropdown = ctk.CTkOptionMenu(self.search_frame, variable=sample_var, values=sample_options)
-        sample_dropdown.grid(row=2, column=1, sticky='ew')
+    def setup_function_scroll_area(self):
+        self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=150, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
+        self.scroll_frame.grid(row=2, column=1, sticky="ew", pady=5)
+        self.populate_functions(self.scroll_frame)
 
-        # Canvas for additional options
-        function_scroll_frame = ctk.CTkScrollableFrame(self.search_frame, width=300, height=150, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
-        function_scroll_frame.grid(row=3, column=0, columnspan=3, sticky="ew", pady=10)
-
+    def populate_functions(self, frame):
         functions = [
             ("Addition", "+"), ("Subtraction", "-"), ("Multiplication", "*"), ("Division", "/"),
             ("Average", "avg"), ("Logarithm", "log"), ("Square root", "sqrt"), ("Minimum", "min"), ("Maximum", "max"), ("Position", "pos"),
             ("sin(x)", "sin"), ("cos(x)", "cos")
         ]
+
         self.checkbox_vars = {}
         for i, (label, func) in enumerate(functions):
-            self.checkbox_vars[func] = ctk.CTkCheckBox(function_scroll_frame, text=label)
-            self.checkbox_vars[func].grid(row=i, column=0, sticky='ew', pady=3, padx=10)
+            self.checkbox_vars[func] = ctk.CTkCheckBox(frame, text=label)
+            self.checkbox_vars[func].grid(row=i, column=0, sticky='ew', pady=3, padx=5)
             self.checkbox_vars[func].select()
-        function_scroll_frame.update_idletasks()
 
-        # Run button
+    def setup_other_options_frame(self):
+        # Create the frame for other options
+        self.other_options_frame = ctk.CTkFrame(self)
+        self.other_options_frame.grid(row=3, column=0, columnspan=2, sticky='ew', pady=5)
+        self.other_options_frame.grid_columnconfigure(1, weight=1)
+
+        # Title label
+        title_label = ctk.CTkLabel(self.other_options_frame, text="Other options")
+        title_label.grid(row=0, column=0, columnspan=2, sticky="w")
+
+        # Row 1: Number of threads
+        self.setup_number_of_threads(self.other_options_frame, row=1)
+
+        # Row 2: Plot y axis
+        self.setup_dropdown(self.other_options_frame, "plot_y_axis_var", "Plot y axis", ["Target variable", "Xxx"], 2, self.on_option_change)
+
+        # Row 3: Plot x axis
+        self.setup_dropdown(self.other_options_frame, "plot_x_axis_var", "Plot x axis", ["Row number", "x1", "x2"], 3, self.on_option_change)
+
+        # Row 4: Plot scale
+        self.setup_dropdown(self.other_options_frame, "plot_scale_var", "Plot scale", ["Regular", "Xxx"], 4, self.on_option_change)
+
+    def setup_number_of_threads(self, frame, row):
+        label = ctk.CTkLabel(frame, text="Number of threads")
+        label.grid(row=row, column=0, sticky="w", padx=5, pady=5)
+
+        # Thread count entry and buttons
+        thread_frame = ctk.CTkFrame(frame)
+        thread_frame.grid(row=row, column=1, sticky="ew", padx=5, pady=5)
+        for i, weight in enumerate([3,1,1]):
+            thread_frame.grid_columnconfigure(i, weight=weight, uniform="Silent_Creme")
+            
+        thread_var = IntVar(value=1)
+        entry = ctk.CTkEntry(thread_frame, textvariable=thread_var, width=120)
+        entry.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+        minus_button = ctk.CTkButton(thread_frame, text="-", command=lambda: self.change_number(thread_var, -1))
+        minus_button.grid(row=0, column=1, padx=5)
+        plus_button = ctk.CTkButton(thread_frame, text="+", command=lambda: self.change_number(thread_var, 1))
+        plus_button.grid(row=0, column=2, padx=5)
+
+    def setup_dropdown(self, frame, variable_name, label_text, options, row, callback):
+        label = ctk.CTkLabel(frame, text=label_text)
+        label.grid(row=row, column=0, sticky="w", padx=5, pady=5)
+        variable = getattr(self, variable_name)
+        variable.set(options[0])  # Initialize with the first option
+        variable.trace_add('write', lambda *args, var=variable, name=variable_name: callback(name, var.get()))
+        dropdown = ctk.CTkOptionMenu(frame, variable=variable, values=options)
+        dropdown.grid(row=row, column=1, sticky="ew", padx=5, pady=5)
+
+    def on_option_change(self, variable_name, value):
+        setattr(self, variable_name, value)
+        print(f"Option {variable_name} changed to {value}")
+
+    def change_number(self, var, delta):
+        new_value = min(max(1, var.get() + delta), self.max_threads)   # Prevent going below 1
+        var.set(new_value)
+
+    def setup_run_button(self):
         run_button = ctk.CTkButton(self, text="Run", command=self.on_run_button_click)
-        run_button.grid(row=4, column=0, columnspan=2, sticky='ew', pady=20)
+        run_button.grid(row=4, column=0, columnspan=2, sticky='ew', pady=5)
 
-    def set_controller(self, controller):
-        self.controller = controller
-
-    def browse_file(self, button, button_type):
-        # Open file dialog and update button text and file path
+    def browse_file(self, button_type):
         filepath = filedialog.askopenfilename()
-        if filepath:  # Only update if a file was selected
-            if button_type == 'input':
-                self.input_file_path = filepath
-                update_path = self.input_file_path
-            elif button_type == 'error':
-                self.error_file_path = filepath
-                update_path = self.error_file_path
-
-            button.configure(text=filepath.split('/')[-1])  # Display only the file name
-            print(update_path, filepath.split('/')[-1])
+        if filepath:
+            button = self.input_file_button if button_type == 0 else self.error_file_button
+            button.configure(text=filepath.split('/')[-1])
+            setattr(self, 'input_file_path' if button_type == 0 else 'error_file_path', filepath)
 
     def on_run_button_click(self):
         if self.controller:
             self.controller.on_run_button_click()
+
+    def set_controller(self, controller):
+        self.controller = controller

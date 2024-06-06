@@ -7,9 +7,9 @@
  
 	<Genotype>
 		<Tree>
-			<Entry key="maxdepth">7</Entry>
-			<Entry key="functionset">+ - * / cos sin</Entry>
-			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+			<Entry key="maxdepth">4</Entry>
+			<Entry key="functionset">+ - * /</Entry>
+			<Entry key="terminalset">x1 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
 

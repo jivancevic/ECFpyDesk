@@ -1,9 +1,11 @@
 import subprocess
 import os
 import json
+import numpy as np
 import xml.etree.ElementTree as ET
 import itertools
 from tkinter import filedialog
+from utils.plot import safe_dict
 
 
 class Controller:
@@ -39,15 +41,34 @@ class Controller:
     def show_results(self):
         self.view.show_results()
 
-    def update_plot(self, x_index):
+    def update_plot(self, x_index=None):
         x_data, y_data = self.get_plot_data(x_index)
         self.view.results_frame.update_plot(x_data, y_data)
+
+    def set_plot_x_index(self, plot_x_axis_var):
+        if plot_x_axis_var == "Row number":
+            self.model.plot_x_index = -1
+        else:
+            x_index = int(plot_x_axis_var[1])-1
+
+        self.model.plot_x_index = x_index
 
     def update_solutions(self):
         self.view.results_frame.update_solutions_frame()
 
+    def get_input_data(self):
+        return self.model.input_data
+
     def get_plot_data(self, x_index=None):
-        return self.model.get_plot_data(x_index=x_index)
+        if x_index is None:
+            x_index = self.model.plot_x_index
+
+        data = self.get_input_data()
+
+        x_data = data[x_index]
+        y_data = data[len(data)-1]
+
+        return x_data, y_data
     
     def parse_XML(self, file_path):
         with open(file_path) as f:
@@ -149,12 +170,44 @@ class Controller:
         self.write_config(tree, self.config["SRM_parameters_path"])
         self.run_ECF()
 
+        self.set_plot_x_index(self.view.input_frame.plot_x_axis_var)
+
         data_best = self.parse_best_file("srm/best.txt")
         self.model.set_best_functions(data_best)
 
         self.update_solutions()
-        self.model.load_data(input_path)  # Load data
+        self.model.load_input_data(input_path)  # Load data
         self.update_plot(0)
+
+    def evaluate_function(self, function_str, multivar=False, data=None):
+        if data is None:
+            data = self.model.get_input_data()
+        
+        x_values = None
+
+        if not multivar:
+            x_values = np.linspace(np.min(data[0]), np.max(data[0]), 400)
+            safe_dict['x1'] = x_values
+            # Evaluate the function string safely
+            try:
+                results = eval(function_str, {"__builtins__": None}, safe_dict)
+            except Exception as e:
+                print(f"Error evaluating univariate function: {e}")
+                return None, None
+        else:
+            variable_dict = {f'x{i+1}': np.array(data[i]) for i in range(len(data))}
+            # Add these to the safe dict for evaluation
+            safe_dict.update(variable_dict)
+            try:
+                # Evaluate the function string safely
+                results = eval(function_str, {"__builtins__": None}, safe_dict)
+                # Generate x_values as indices if multivariable function is plotted against an index range
+                x_values = np.arange(len(results))
+            except Exception as e:
+                print(f"Error evaluating multivariable function: {e}")
+                return None, None
+            
+        return x_values, results
 
     def start(self):
         self.view.start()

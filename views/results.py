@@ -4,7 +4,7 @@ from tkinter import font
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
-from utils.plot import safe_dict, set_x_range
+from utils.plot import safe_dict
 
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['Arial']
@@ -44,7 +44,7 @@ class ResultsView(ctk.CTkFrame):
         headers = ["Size", "Error", "Function"]
         for i, header in enumerate(headers):
             ctk.CTkLabel(self.header_frame, text=header).grid(row=0, column=i)
-            self.header_frame.columnconfigure(i, weight=[1, 2, 8][i])
+            self.header_frame.columnconfigure(i, weight=[1, 2, 8][i], uniform="Silent_Creme")
 
         # Setup scrollable list frame for displaying solutions
         self.solutions_list_frame = ctk.CTkScrollableFrame(self.solutions_master_frame, width=300, height=200, scrollbar_fg_color="#008000", fg_color="#f0f0f0")
@@ -128,51 +128,37 @@ class ResultsView(ctk.CTkFrame):
     def get_plot_data(self):
         return self.controller.get_plot_data()
 
-    def update_plot(self, x_data=None, y_data=None, function=None):
+    def update_plot(self, x_data=None, y_data=None, function=None, multivar=False):
         if x_data is None or y_data is None:
             x_data, y_data = self.get_plot_data()
 
         self.ax.clear()  # Clear the previous plot
-        self.ax.scatter(x_data, y_data)  # Create scatter plot
-
-        # Set x range for plotting functions
-        set_x_range(x_data)
+        self.ax.scatter(x_data, y_data, color='blue', label='Data')  # Scatter plot of original data
 
         # Plotting custom function if provided
         if function:
-            try:
-                # Generate x values for plotting the function
-                x_values = safe_dict['x']
-                # Evaluate the function string safely
-                y_values = eval(function, {"__builtins__": {}}, safe_dict)
-                self.ax.plot(x_values, y_values, 'g-', label=function)  # Plot the custom function
-                self.ax.legend()  # Add a legend to distinguish plotted lines
+            # Evaluate the function using the controller
+            x_values, function_results = self.controller.evaluate_function(function, multivar)
+            try: 
+                if not multivar:
+                    self.ax.plot(x_values, function_results, 'g-', label='Function: ' + function)  # Plot the custom function
+                else:
+                    self.ax.scatter(x_data, function_results, color='red', label='Function')  # Scatter plot of function evaluation
             except Exception as e:
                 print(f"Error evaluating function '{function}': {e}")
 
+        self.ax.legend()  # Add a legend to distinguish plotted lines
         self.canvas.draw()  # Update the canvas
+
 
     def update_solutions_frame(self):
         best_functions = self.controller.get_best_functions()
 
-        for i in range(5):
-            print()
-        print("functions:", best_functions)
-
         if (best_functions):
             for i, func in enumerate(best_functions):
-                if i == 0:
-                    print()
-                    print()
-                    print()
-                    print(func)
-
                 size = func["size"]
                 error = func["error"]
                 function = func["function"]
-                print("size:", size)
-                print("error:", error)
-                print("function:", function)
 
                 # Use labels and truncate text if necessary
                 size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(size), justify="center", fg_color="red")
@@ -188,7 +174,3 @@ class ResultsView(ctk.CTkFrame):
                 # Bind the click event to the entire row
                 for label in [size_label, error_label, function_label]:
                     label.bind("<Button-1>", lambda event, row=i, e=error, f=function: self.handle_row_click(event, row, f, e))
-
-    def show_results(self, results_data):
-        # Method to update the entire results view with new data
-        pass
