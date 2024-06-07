@@ -11,6 +11,10 @@ class InputView(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.max_threads = multiprocessing.cpu_count()
+        self.search_metric = StringVar()
+        self.train_test_split = StringVar()
+        self.test_sample = StringVar()
+        self.train_test_split = StringVar()
         self.plot_y_axis_var = StringVar()
         self.plot_x_axis_var = StringVar()
         self.plot_scale_var = StringVar()
@@ -50,18 +54,14 @@ class InputView(ctk.CTkFrame):
         self.add_search_options(self.search_frame)
 
     def add_search_options(self, frame):
-        options = {
-            "Search metric": ["Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)"],
-            "Train/test split": ["50/50", "80/20", "100/0"],
-            "Test sample": ["Chosen randomly", "Chosen sequentially"]
-        }
-        for idx, (label, choices) in enumerate(options.items()):
-            self.add_option_menu(frame, label, choices, idx)
-
-    def add_option_menu(self, frame, label, options, row):
-        ctk.CTkLabel(frame, text=label).grid(row=row, column=0, sticky='w', pady=5)
-        dropdown_var = StringVar(value=options[0])
-        ctk.CTkOptionMenu(frame, variable=dropdown_var, values=options).grid(row=row, column=1, sticky='ew')
+        options = [
+            ("search_metric", "Search metric", ["Mean squared error (MSE)", "Mean absolute error (MAE)", "Mean absolute percentage error (MAPE)"]),
+            ("train_test_split", "Train/test split", ["No cross-validation", "50/50", "60/40", "70/30", "75/25", "80/20"]),
+            ("test_sample", "Test sample", ["Chosen randomly", "Chosen sequentially"])
+        ]
+        for idx, option in enumerate(options):
+            variable_name, label, choices = option
+            self.setup_dropdown(frame, variable_name, label, choices, idx, self.on_option_change)
 
     def setup_function_scroll_area(self):
         self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=150, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
@@ -112,7 +112,7 @@ class InputView(ctk.CTkFrame):
         thread_frame.grid(row=row, column=1, sticky="ew", padx=5, pady=5)
         for i, weight in enumerate([3,1,1]):
             thread_frame.grid_columnconfigure(i, weight=weight, uniform="Silent_Creme")
-            
+
         thread_var = IntVar(value=1)
         entry = ctk.CTkEntry(thread_frame, textvariable=thread_var, width=120)
         entry.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
@@ -126,6 +126,7 @@ class InputView(ctk.CTkFrame):
         label.grid(row=row, column=0, sticky="w", padx=5, pady=5)
         variable = getattr(self, variable_name)
         variable.set(options[0])  # Initialize with the first option
+        callback(variable_name, variable.get())
         variable.trace_add('write', lambda *args, var=variable, name=variable_name: callback(name, var.get()))
         dropdown = ctk.CTkOptionMenu(frame, variable=variable, values=options)
         dropdown.grid(row=row, column=1, sticky="ew", padx=5, pady=5)
