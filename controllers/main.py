@@ -4,11 +4,15 @@ import json
 import numpy as np
 import xml.etree.ElementTree as ET
 import itertools
-from tkinter import filedialog
+from tkinter import filedialog, PhotoImage
 from utils.plot import safe_dict
+import threading
 
 
 class Controller:
+    process = None
+    running = False
+
     def __init__(self, model, view, app_directory):
         with open('config.json', 'r') as file:
             self.config = json.load(file)
@@ -46,12 +50,11 @@ class Controller:
         self.view.results_frame.update_plot(x_data, y_data)
 
     def set_plot_x_index(self, plot_x_axis_var):
+        print("plot_x_axis_var:", plot_x_axis_var)
         if plot_x_axis_var == "Row number":
             self.model.plot_x_index = -1
         else:
-            x_index = int(plot_x_axis_var[1])-1
-
-        self.model.plot_x_index = x_index
+            self.model.plot_x_index = int(plot_x_axis_var[1])-1
 
     def update_solutions(self):
         self.view.results_frame.update_solutions_frame()
@@ -65,7 +68,10 @@ class Controller:
 
         data = self.get_input_data()
 
-        x_data = data[x_index]
+        if x_index == -1:
+            x_data = [i for i in range(0, len(data[0]))]
+        else:
+            x_data = data[x_index]
         y_data = data[len(data)-1]
 
         return x_data, y_data
@@ -98,24 +104,64 @@ class Controller:
         tree.write(file_path)
         self.remove_root_tag(file_path)
 
-    def run_ECF(self):
-        # Run the executable
-        #subprocess.call([self.config["SRM_path"], self.config["SRM_parameters_path"]])
-        subprocess.call([self.config["SRM_path"], "srm/srm.txt"])
+    def run_ECF(self, update_output):
+        # Run the executable with subprocess
+        #self.process = subprocess.Popen([self.config["SRM_path"], self.config["SRM_parameters_path"]])
+        self.process = subprocess.Popen([self.config["SRM_path"], "srm/srm.txt"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
+        while True:
+            output = self.process.stdout.readline()
+            if output == '' and self.process.poll() is not None:
+                break
+            if output:
+                update_output(output)
+        self.process.poll()
 
-        # Change back to the current directory
-        os.chdir(self.app_directory)
+        self.running = False
+        self.view.navigation_frame.set_toggle_icon("start")
+        os.chdir(self.app_directory)  # Change back to the initial directory
+        self.process = None
+
+    def toggle_process(self):
+        if self.running:
+            self.pause_process()
+        elif self.process:
+            self.continue_process()
+        else:
+            self.start_process()
+
+    def start_process(self):
+        if not self.running:
+            self.running = True
+            self.view.navigation_frame.set_toggle_icon("pause")
+            self.view.results_frame.clear_frame()
+            # Start the process in a new thread
+            self.process_thread = threading.Thread(target=self.run_ECF, args=(self.view.results_frame.append_output,))
+            self.process_thread.start()
+
+    def pause_process(self):
+        if self.running and self.process:
+            self.process.send_signal(subprocess.signal.SIGSTOP)  # Send pause signal
+            self.running = False
+            self.view.navigation_frame.set_toggle_icon("start")
+
+    def continue_process(self):
+        if not self.running and self.process:
+            self.process.send_signal(subprocess.signal.SIGCONT)  # Send continue signal
+            self.running = True
+            self.view.navigation_frame.set_toggle_icon("pause")
 
     def parse_best_file(self, file_path):
         data = []
+        functions_seen = set()  # This set will store the functions we've seen so far
         with open(file_path, 'r') as file:
             generation_data = {}
             lines = []
             for line in file:
                 line = line.strip()
                 if line.isdigit():  # New generation
-                    if generation_data:
+                    if generation_data and generation_data['function'] not in functions_seen:
                         data.append(generation_data.copy())
+                        functions_seen.add(generation_data['function'])  # Mark this function as seen
                     generation_data.clear()
                     generation_data['generation'] = int(line)
                 elif line != "":
@@ -135,8 +181,10 @@ class Controller:
                         generation_data['size'] = tree_size
                         generation_data['infix_function'] = infix_function
                         lines = []
-        if generation_data:
-            data.append(generation_data)
+            # Check once more after the last line has been read
+            if generation_data and generation_data['function'] not in functions_seen:
+                data.append(generation_data)
+                functions_seen.add(generation_data['function'])  # Mark this function as seen
         return data
     
     def get_best_functions(self):
@@ -159,6 +207,9 @@ class Controller:
         functions_str = " ".join(functions)
         genotype.find(".//Entry[@key='functionset']").text = functions_str
 
+    def on_toggle_process_click(self):
+        self.on_run_button_click()
+
     def on_run_button_click(self):
         self.view.show_results()
         tree, root = self.parse_XML(self.config["SRM_parameters_path"])
@@ -168,7 +219,7 @@ class Controller:
         
         self.update_config(root, input_path, error_path, functions)
         self.write_config(tree, self.config["SRM_parameters_path"])
-        self.run_ECF()
+        self.toggle_process()
 
         self.set_plot_x_index(self.view.input_frame.plot_x_axis_var)
 
@@ -208,6 +259,9 @@ class Controller:
                 return None, None
             
         return x_values, results
+    
+    def is_multivar(self):
+        return self.model.multivar
 
     def start(self):
         self.view.start()

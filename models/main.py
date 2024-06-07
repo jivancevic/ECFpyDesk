@@ -8,6 +8,7 @@ class Model:
         self.input_data = None
         self.plot_x_index = None
         self.best_individuals = None
+        self.multivar = False
 
     def set_input_path(self, path):
         """Set the path for input data."""
@@ -41,6 +42,10 @@ class Model:
         try:
             input_data = np.loadtxt(file_path, delimiter='\t')
             self.input_data = self.convert_to_2d_array(input_data)
+            if len(self.input_data) == 2:
+                self.multivar = False
+            else:
+                self.multivar = True
 
         except Exception as e:
             print(f"Error loading data: {e}")
