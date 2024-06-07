@@ -1,4 +1,4 @@
-Start time: Fri Jun  7 20:26:08 2024
+Start time: Fri Jun  7 22:46:36 2024
 
 Evaluating initial population...
 Generation: 0
@@ -6,17 +6,17 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 500
 Stats: fitness
-	max: 1.62453e+09
-	min: 0.179855
-	avg: 3.72353e+06
-	stdev: 7.28695e+07
+	max: 3.05102e+06
+	min: 0.140507
+	avg: 14780
+	stdev: 166762
 
 Best in 0
-(-0.634636 + (x1 * ((-0.202944 + x1) - -0.176002)))
+((((x1 * x1) / -0.400078) * ((-0.265794 + -0.30085) * (0.792182 - 0.273269))) - 0.869868)
 
 <Individual size="1">
-	<FitnessMin value="0.179855"/>
-	<Tree size="9">+ D_-0.634636 * x1 - + D_-0.202944 x1 D_-0.176002 </Tree>
+	<FitnessMin value="0.140507"/>
+	<Tree size="15">- * / * x1 x1 D_-0.400078 * + D_-0.265794 D_-0.30085 - D_0.792182 D_0.273269 D_0.869868 </Tree>
 </Individual>
 
 Generation: 1
@@ -24,69 +24,69 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 1001
 Stats: fitness
-	max: 16905.9
-	min: 0.140773
-	avg: 88.5747
-	stdev: 954.821
+	max: 130770
+	min: 0.134505
+	avg: 302.172
+	stdev: 5887.41
 
 Best in 1
 <Individual size="1">
-	<FitnessMin value="0.140773"/>
-	<Tree size="17">+ / * + D_0.411524 D_0.867397 * D_-0.265607 x1 * / x1 x1 / x1 x1 D_-0.502943 </Tree>
+	<FitnessMin value="0.134505"/>
+	<Tree size="13">* / x1 - x1 x1 - * x1 x1 / D_0.71948 D_0.824757 </Tree>
 </Individual>
 
 Generation: 10
-Elapsed time: 1
+Elapsed time: 0
 Deme: 0
 Evaluations: 5501
 Stats: fitness
-	max: 2540.38
-	min: 0.123378
-	avg: 5.97528
-	stdev: 113.68
+	max: 128.128
+	min: 0.121489
+	avg: 1.01433
+	stdev: 7.30365
 
 Best in 10
-((((0.448004 - x1) + (x1 * x1)) + ((x1 - 0.774205) + (-0.661102 * 0.976479))) - ((-0.426347 + x1) * 0.205031))
+((((x1 - -0.52604) * 0.814419) * ((x1 + 0.176131) - (0.749394 + 0.0307064))) - 0.520634)
 
 <Individual size="1">
-	<FitnessMin value="0.123378"/>
-	<Tree size="21">- + + - D_0.448004 x1 * x1 x1 + - x1 D_0.774205 * D_-0.661102 D_0.976479 * + D_-0.426347 x1 D_0.205031 </Tree>
+	<FitnessMin value="0.121489"/>
+	<Tree size="15">- * * - x1 D_-0.52604 D_0.814419 - + x1 D_0.176131 + D_0.749394 D_0.0307064 D_0.520634 </Tree>
 </Individual>
 
 Generation: 20
-Elapsed time: 1
+Elapsed time: 0
 Deme: 0
 Evaluations: 10502
 Stats: fitness
-	max: 30.271
-	min: 0.109711
-	avg: 0.552212
-	stdev: 2.02655
+	max: 2962.55
+	min: 0.111287
+	avg: 7.92927
+	stdev: 135.84
 
 Best in 20
-(-0.743556 - ((x1 + (x1 - 0.774205)) * (-0.330901 * x1)))
+(((x1 + -0.948754) * (0.749394 + x1)) - (((0.912271 * x1) * (0.404417 * x1)) + ((-0.0183277 / -1.84407) * (x1 * 0.415373))))
 
 <Individual size="1">
-	<FitnessMin value="0.109711"/>
-	<Tree size="11">- D_-0.743556 * + x1 - x1 D_0.774205 * D_-0.330901 x1 </Tree>
+	<FitnessMin value="0.111287"/>
+	<Tree size="23">- * + x1 D_-0.948754 + D_0.749394 x1 + * * D_0.912271 x1 * D_0.404417 x1 * / D_-0.0183277 D_-1.84407 * x1 D_0.415373 </Tree>
 </Individual>
 
 Generation: 30
-Elapsed time: 1
+Elapsed time: 0
 Deme: 0
 Evaluations: 15503
 Stats: fitness
-	max: 15.0783
-	min: 0.109711
-	avg: 0.45675
-	stdev: 1.11908
+	max: 1691.35
+	min: 0.109238
+	avg: 5.86392
+	stdev: 82.1215
 
 Best in 30
-(-0.743556 - ((x1 + (x1 - 0.774205)) * (-0.330901 * x1)))
+((((0.912271 * x1) + -0.948754) * (0.749394 + x1)) - (((0.912271 * x1) * (0.404417 * x1)) + ((-0.0183277 / -1.84407) * (x1 * 0.415373))))
 
 <Individual size="1">
-	<FitnessMin value="0.109711"/>
-	<Tree size="11">- D_-0.743556 * + x1 - x1 D_0.774205 * D_-0.330901 x1 </Tree>
+	<FitnessMin value="0.109238"/>
+	<Tree size="25">- * + * D_0.912271 x1 D_-0.948754 + D_0.749394 x1 + * * D_0.912271 x1 * D_0.404417 x1 * / D_-0.0183277 D_-1.84407 * x1 D_0.415373 </Tree>
 </Individual>
 
 Generation: 40
@@ -94,17 +94,17 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 20504
 Stats: fitness
-	max: 113.086
-	min: 0.109519
-	avg: 0.574992
-	stdev: 5.15384
+	max: 2722.01
+	min: 0.109023
+	avg: 5.74741
+	stdev: 121.721
 
 Best in 40
-(-0.743556 - (((x1 * 0.976479) + (x1 - 0.774205)) * (-0.330901 * x1)))
+((((0.912271 * x1) + -0.948754) * (0.749394 + x1)) - (((0.819275 * x1) * (x1 * 0.415373)) + ((-0.0183277 / -1.84407) * (0.749394 + 0.415373))))
 
 <Individual size="1">
-	<FitnessMin value="0.109519"/>
-	<Tree size="13">- D_-0.743556 * + * x1 D_0.976479 - x1 D_0.774205 * D_-0.330901 x1 </Tree>
+	<FitnessMin value="0.109023"/>
+	<Tree size="25">- * + * D_0.912271 x1 D_-0.948754 + D_0.749394 x1 + * * D_0.819275 x1 * x1 D_0.415373 * / D_-0.0183277 D_-1.84407 + D_0.749394 D_0.415373 </Tree>
 </Individual>
 
 Generation: 50
@@ -112,17 +112,17 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 25505
 Stats: fitness
-	max: 70.6012
-	min: 0.108929
-	avg: 0.780876
-	stdev: 5.53888
+	max: 125.405
+	min: 0.108877
+	avg: 0.759752
+	stdev: 7.11157
 
 Best in 50
-(-0.743556 - (((x1 * 0.774205) + (x1 - 0.774205)) * (-0.330901 * x1)))
+((((0.912271 * x1) + -0.948754) * (0.749394 + x1)) - (((0.819275 * x1) * (0.404417 * x1)) + ((-0.0183277 / -1.56601) * (0.892 / 0.415373))))
 
 <Individual size="1">
-	<FitnessMin value="0.108929"/>
-	<Tree size="13">- D_-0.743556 * + * x1 D_0.774205 - x1 D_0.774205 * D_-0.330901 x1 </Tree>
+	<FitnessMin value="0.108877"/>
+	<Tree size="25">- * + * D_0.912271 x1 D_-0.948754 + D_0.749394 x1 + * * D_0.819275 x1 * D_0.404417 x1 * / D_-0.0183277 D_-1.56601 / D_0.892 D_0.415373 </Tree>
 </Individual>
 
 Generation: 60
@@ -130,278 +130,32 @@ Elapsed time: 1
 Deme: 0
 Evaluations: 30506
 Stats: fitness
-	max: 49.4585
-	min: 0.108906
-	avg: 0.433323
-	stdev: 2.46532
+	max: 717.385
+	min: 0.108877
+	avg: 2.17607
+	stdev: 32.8272
 
 Best in 60
-(-0.743556 - (((x1 * 0.976479) + (x1 - 0.911256)) * ((0.158172 / -0.526091) * x1)))
+((((0.912271 * x1) + -0.948754) * (0.749394 + x1)) - (((0.819275 * x1) * (0.404417 * x1)) + ((-0.0183277 / -1.56601) * (0.892 / 0.415373))))
 
 <Individual size="1">
-	<FitnessMin value="0.108906"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.976479 - x1 D_0.911256 * / D_0.158172 D_-0.526091 x1 </Tree>
+	<FitnessMin value="0.108877"/>
+	<Tree size="25">- * + * D_0.912271 x1 D_-0.948754 + D_0.749394 x1 + * * D_0.819275 x1 * D_0.404417 x1 * / D_-0.0183277 D_-1.56601 / D_0.892 D_0.415373 </Tree>
 </Individual>
 
 Generation: 70
-Elapsed time: 1
+Elapsed time: 3
 Deme: 0
 Evaluations: 35507
 Stats: fitness
-	max: 77.4616
-	min: 0.108906
-	avg: 0.592282
-	stdev: 4.4571
+	max: 124.961
+	min: 0.108876
+	avg: 0.712123
+	stdev: 6.41741
 
 Best in 70
-(-0.743556 - (((x1 * 0.976479) + (x1 - 0.911256)) * ((0.158172 / -0.526091) * x1)))
-
-<Individual size="1">
-	<FitnessMin value="0.108906"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.976479 - x1 D_0.911256 * / D_0.158172 D_-0.526091 x1 </Tree>
-</Individual>
-
-Generation: 80
-Elapsed time: 1
-Deme: 0
-Evaluations: 40508
-Stats: fitness
-	max: 1679.36
-	min: 0.108882
-	avg: 5.48925
-	stdev: 82.7205
-
-Best in 80
-(-0.743556 - (((x1 * 0.774205) + (x1 - 0.774205)) * (x1 * -0.335666)))
-
-<Individual size="1">
-	<FitnessMin value="0.108882"/>
-	<Tree size="13">- D_-0.743556 * + * x1 D_0.774205 - x1 D_0.774205 * x1 D_-0.335666 </Tree>
-</Individual>
-
-Generation: 90
-Elapsed time: 1
-Deme: 0
-Evaluations: 45509
-Stats: fitness
-	max: 19440.6
-	min: 0.108882
-	avg: 39.3528
-	stdev: 869.395
-
-Best in 90
-(-0.743556 - (((x1 * 0.774205) + (x1 - 0.774205)) * (x1 * -0.335666)))
-
-<Individual size="1">
-	<FitnessMin value="0.108882"/>
-	<Tree size="13">- D_-0.743556 * + * x1 D_0.774205 - x1 D_0.774205 * x1 D_-0.335666 </Tree>
-</Individual>
-
-Generation: 100
-Elapsed time: 1
-Deme: 0
-Evaluations: 50510
-Stats: fitness
-	max: 14.5542
-	min: 0.108876
-	avg: 0.363117
-	stdev: 1.16762
-
-Best in 100
-(-0.743556 - (((x1 * 0.740151) + (x1 - 0.774205)) * (x1 * (0.158172 / -0.461736))))
+((((0.912271 * x1) + -0.948754) * (0.749394 + x1)) - (((0.819275 * x1) * (0.404417 * x1)) + ((-0.0183277 / -1.56601) * (0.892 / 0.404417))))
 
 <Individual size="1">
 	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.740151 - x1 D_0.774205 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 110
-Elapsed time: 1
-Deme: 0
-Evaluations: 55511
-Stats: fitness
-	max: 94.0513
-	min: 0.108876
-	avg: 0.646284
-	stdev: 5.17011
-
-Best in 110
-(-0.743556 - (((x1 * 0.740151) + (x1 - 0.774205)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.740151 - x1 D_0.774205 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 120
-Elapsed time: 1
-Deme: 0
-Evaluations: 60512
-Stats: fitness
-	max: 29.9977
-	min: 0.108876
-	avg: 0.363369
-	stdev: 1.64321
-
-Best in 120
-(-0.743556 - (((x1 * 0.740151) + (x1 - 0.774205)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.740151 - x1 D_0.774205 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 130
-Elapsed time: 1
-Deme: 0
-Evaluations: 65513
-Stats: fitness
-	max: 38.0715
-	min: 0.108876
-	avg: 0.531209
-	stdev: 2.45161
-
-Best in 130
-(-0.743556 - (((x1 * 0.739354) + (x1 - 0.774205)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.739354 - x1 D_0.774205 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 140
-Elapsed time: 1
-Deme: 0
-Evaluations: 70514
-Stats: fitness
-	max: 59.0134
-	min: 0.108876
-	avg: 0.450323
-	stdev: 2.76902
-
-Best in 140
-(-0.743556 - (((x1 * 0.739354) + (x1 - 0.774205)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.739354 - x1 D_0.774205 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 150
-Elapsed time: 1
-Deme: 0
-Evaluations: 75515
-Stats: fitness
-	max: 59.0134
-	min: 0.108876
-	avg: 0.556772
-	stdev: 3.01442
-
-Best in 150
-(-0.743556 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108876"/>
-	<Tree size="15">- D_-0.743556 * + * x1 D_0.739354 - x1 D_0.774082 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 160
-Elapsed time: 1
-Deme: 0
-Evaluations: 80516
-Stats: fitness
-	max: 797.441
-	min: 0.108873
-	avg: 2.60528
-	stdev: 36.7735
-
-Best in 160
-(-0.742294 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108873"/>
-	<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 170
-Elapsed time: 2
-Deme: 0
-Evaluations: 85517
-Stats: fitness
-	max: 407.086
-	min: 0.108873
-	avg: 2.0472
-	stdev: 21.1299
-
-Best in 170
-(-0.742294 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108873"/>
-	<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 180
-Elapsed time: 2
-Deme: 0
-Evaluations: 90518
-Stats: fitness
-	max: 564.606
-	min: 0.108873
-	avg: 1.96641
-	stdev: 26.4182
-
-Best in 180
-(-0.742294 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.158172 / -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108873"/>
-	<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 / D_0.158172 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 190
-Elapsed time: 2
-Deme: 0
-Evaluations: 95519
-Stats: fitness
-	max: 387.843
-	min: 0.108872
-	avg: 1.32662
-	stdev: 17.7651
-
-Best in 190
-(-0.742294 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.739354 * -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108872"/>
-	<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 * D_0.739354 D_-0.461736 </Tree>
-</Individual>
-
-Generation: 200
-Elapsed time: 2
-Deme: 0
-Evaluations: 100520
-Stats: fitness
-	max: 564.606
-	min: 0.108872
-	avg: 2.07808
-	stdev: 26.2999
-
-Best in 200
-(-0.742294 - (((x1 * 0.739354) + (x1 - 0.774082)) * (x1 * (0.739354 * -0.461736))))
-
-<Individual size="1">
-	<FitnessMin value="0.108872"/>
-	<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 * D_0.739354 D_-0.461736 </Tree>
-</Individual>
-
-Termination: max generation reached (200)
-
-Best of run: 
-<HallOfFame size="1">
-	<Individual size="1" gen="189">
-		<FitnessMin value="0.108872"/>
-		<Tree size="15">- D_-0.742294 * + * x1 D_0.739354 - x1 D_0.774082 * x1 * D_0.739354 D_-0.461736 </Tree>
-	</Individual>
-</HallOfFame>
-
+	<Tree size="25">- * + * D_0.912271

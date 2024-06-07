@@ -14,7 +14,6 @@ class InputView(ctk.CTkFrame):
         self.search_metric = StringVar()
         self.train_test_split = StringVar()
         self.test_sample = StringVar()
-        self.train_test_split = StringVar()
         self.plot_y_axis_var = StringVar()
         self.plot_x_axis_var = StringVar()
         self.plot_scale_var = StringVar()
