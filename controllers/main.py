@@ -1,13 +1,15 @@
 import subprocess
 import os
 import json
+import shutil
 import numpy as np
 import xml.etree.ElementTree as ET
 import itertools
 from tkinter import filedialog, PhotoImage
 from utils.plot import safe_dict
 import threading
-
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 class Controller:
     process = None
@@ -81,8 +83,6 @@ class Controller:
             it = itertools.chain('<root>', f.read(), '</root>')
             tree = ET.ElementTree(ET.fromstringlist(it))
         ecf_tag = tree.find(".//ECF")
-        print("tree:", tree)
-        print("ecf_tag:", ecf_tag)
         return tree, ecf_tag
     
     def remove_root_tag(self, file_path):
@@ -190,7 +190,7 @@ class Controller:
     def get_best_functions(self):
         return self.model.best_functions
 
-    def update_config(self, root, input_path, error_path, functions):
+    def update_config(self, root, input_path, error_path, functions, search_metric):
         genotype = root.find(".//Genotype")
         registry = root.find(".//Registry")
         # Update input_file
@@ -210,15 +210,60 @@ class Controller:
     def on_toggle_process_click(self):
         self.on_run_button_click()
 
+    def delete_file_if_exists(self, file_path):
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+    def split_train_test(self, input_data_path, train_test_split_ratio, test_sample_choice):
+        # Define output file paths
+        train_output_path = input_data_path.replace('.txt', '_train.txt')
+        test_output_path = input_data_path.replace('.txt', '_test.txt')
+
+        self.delete_file_if_exists(train_output_path)
+        self.delete_file_if_exists(test_output_path) 
+
+        if (train_test_split_ratio == "No cross-validation"):
+            try:
+                shutil.copyfile(input_data_path, train_output_path)
+                print(f"File copied from '{input_data_path}' to '{train_output_path}' successfully.")
+            except FileNotFoundError:
+                print(f"Source file '{input_data_path}' not found.")
+            except Exception as e:
+                print(f"Error occurred while copying file: {e}")
+            return train_output_path, None
+
+        # Load the data
+        data = pd.read_csv(input_data_path, delimiter='\t')
+
+        # Parse the train_test_split_ratio
+        train_ratio, test_ratio = map(int, train_test_split_ratio.split('/'))
+        train_ratio = train_ratio / (train_ratio + test_ratio)
+        print("train_ration:", train_ratio)
+
+        # Determine if the data should be shuffled
+        shuffle = test_sample_choice == "Chosen randomly"
+
+        # Split the data
+        train_data, test_data = train_test_split(data, test_size=1-train_ratio, shuffle=shuffle)
+
+        # Save the data to files
+        train_data.to_csv(train_output_path, sep='\t', index=False)
+        test_data.to_csv(test_output_path, sep='\t', index=False)
+
+        return train_output_path, test_output_path
+
     def on_run_button_click(self):
         self.view.show_results()
         tree, root = self.parse_XML(self.config["SRM_parameters_path"])
         input_path = self.view.input_frame.input_file_path
         error_path = self.view.input_frame.error_file_path if self.view.input_frame.error_file_path else None
         functions = [func for func, checkbox in self.view.input_frame.checkbox_vars.items() if checkbox.get()]
+        search_metric = self.view.input_frame.search_metric
+        train_output_path, test_output_path = self.split_train_test(input_path, self.view.input_frame.train_test_split, self.view.input_frame.test_sample)
         
-        self.update_config(root, input_path, error_path, functions)
+        self.update_config(root, input_path=train_output_path, error_path=error_path, functions=functions, search_metric=search_metric)
         self.write_config(tree, self.config["SRM_parameters_path"])
+
         self.toggle_process()
 
         self.set_plot_x_index(self.view.input_frame.plot_x_axis_var)

@@ -38,7 +38,7 @@
 	<Entry key="crossover.protected">1 </Entry>
 
 	<Registry>
-		<Entry key="input_file" />
+		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_1var_train.txt</Entry>
 		<Entry key="linear_scaling">false</Entry>
 		<Entry key="bestfile">log2.txt</Entry>
 
