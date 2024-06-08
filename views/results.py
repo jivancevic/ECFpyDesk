@@ -144,17 +144,6 @@ class ResultsView(ctk.CTkFrame):
         self.set_active_row_color(row)
         self.current_active_row = row  # Update the currently active row
 
-    '''
-    def handle_row_click(self, event, row, function, error):
-        self.select_row(row)  # Select the row as part of the click event handling
-        # Update all rows to default color
-        self.reset_row_colors()
-        # Set the active row color
-        self.set_active_row_color(row)
-        # Update information based on the function and error
-        self.update_info(function, error)
-    '''
-
     def reset_row_colors(self):
         # Reset colors for all rows to default
         for widget in self.solutions_list_frame.winfo_children():
@@ -231,7 +220,11 @@ class ResultsView(ctk.CTkFrame):
                     label.bind("<Button-1>", lambda event, row=i: self.select_row(row, event))
 
     def clear_frame(self):
-        # Clear the textbox
+        # Clear the textboxs
+        self.output_display.configure(state='normal')
+        self.output_display.delete(1.0, "end")
+        self.output_display.configure(state='disabled')
+        
         self.function_display.configure(state='normal')
         self.function_display.delete(1.0, "end")
         self.function_display.configure(state='disabled')
