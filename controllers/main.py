@@ -150,6 +150,30 @@ class Controller:
             self.running = True
             self.view.navigation_frame.set_toggle_icon("pause")
 
+    def stop_process(self):
+        if self.process:
+            try:
+                # Attempt to terminate the process gracefully
+                self.process.terminate()
+                # Wait briefly for the process to terminate
+                self.process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                # If the process does not terminate within the timeout, kill it
+                print("Process did not terminate gracefully, killing it.")
+                self.process.kill()
+            except Exception as e:
+                print(f"Error stopping the process: {e}")
+            finally:
+                # Ensure all internal flags and states are reset
+                self.running = False
+                self.process = None
+                if self.process_thread and self.process_thread.is_alive():
+                    # Optionally join the thread if it is still running
+                    self.process_thread.join()
+                self.process_thread = None
+                self.view.results_frame.clear_frame()
+                print("Process has been stopped and resources have been cleaned up.")
+
     def parse_best_file(self, file_path):
         data = []
         functions_seen = set()  # This set will store the functions we've seen so far
@@ -209,6 +233,10 @@ class Controller:
 
     def on_toggle_process_click(self):
         self.on_run_button_click()
+
+    def on_stop_process_click(self):
+        stop_thread = threading.Thread(target=self.stop_process)
+        stop_thread.start()
 
     def delete_file_if_exists(self, file_path):
         if os.path.exists(file_path):

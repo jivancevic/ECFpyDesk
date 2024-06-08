@@ -9,9 +9,10 @@ class NavigationView(ctk.CTkFrame):
         super().__init__(parent)
         self.controller = None
 
-        self.columnconfigure(0, weight=5, uniform="Silent_Creme")
+        self.columnconfigure(0, weight=10, uniform="Silent_Creme")
         self.columnconfigure(1, weight=1, uniform="Silent_Creme")
-        self.columnconfigure(2, weight=5, uniform="Silent_Creme")
+        self.columnconfigure(2, weight=1, uniform="Silent_Creme")
+        self.columnconfigure(3, weight=10, uniform="Silent_Creme")
 
         self.navigation_buttons_frame = ctk.CTkFrame(self)
         self.navigation_buttons_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=10)
@@ -30,6 +31,7 @@ class NavigationView(ctk.CTkFrame):
         icon_dimensions = 20
         self.start_icon = self.resize_image('resources/start.png', icon_dimensions)
         self.pause_icon = self.resize_image('resources/pause.png', icon_dimensions)
+        self.stop_icon = self.resize_image('resources/stop.png', icon_dimensions)
 
         # Toggle Button
         self.toggle_button = ctk.CTkButton(
@@ -42,6 +44,18 @@ class NavigationView(ctk.CTkFrame):
             fg_color="transparent")
         
         self.toggle_button.grid(row=0, column=1)
+
+        # Toggle Button
+        self.stop_button = ctk.CTkButton(
+            self, 
+            text="", 
+            width=icon_dimensions, 
+            height=icon_dimensions, 
+            image=self.stop_icon, 
+            command=self.on_stop_process, 
+            fg_color="transparent")
+        
+        self.stop_button.grid(row=0, column=2)
 
     def set_controller(self, controller):
         self.controller = controller
@@ -57,6 +71,10 @@ class NavigationView(ctk.CTkFrame):
     def on_toggle_process(self):
         if self.controller:
             self.controller.on_toggle_process_click()
+
+    def on_stop_process(self):
+        if self.controller:
+            self.controller.on_stop_process_click()
 
     def set_toggle_icon(self, icon):
         if icon == "start":
