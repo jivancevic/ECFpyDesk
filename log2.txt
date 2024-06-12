@@ -1,0 +1,14 @@
+0
+(min(x1, (cos(x1) + log(max(((0.527488 - x1) - min(0.444943, -0.577632)), log(max(-0.884165, x1)))))) + max((x1 + ((max(log(x1), max(-0.704488, x1)) + avg(x1, x1)) + (sin((x1 * 0.0872562)) + sin((-0.847271 - x1))))), log((min(((x1 - x1) / log(x1)), (pos(-0.360495) - (-0.510918 - x1))) * x1))))
+<Individual size="1">
+	<FitnessMin value="1.03454"/>
+	<Tree size="58">+ min x1 + cos x1 log max - - D_0.527488 x1 min D_0.444943 D_-0.577632 log max D_-0.884165 x1 max + x1 + + max log x1 max D_-0.704488 x1 avg x1 x1 + sin * x1 D_0.0872562 sin - D_-0.847271 x1 log * min / - x1 x1 log x1 - pos D_-0.360495 - D_-0.510918 x1 x1 </Tree>
+</Individual>
+
+2
+(pos((x1 + x1)) + min(pos(x1), max((x1 + (pos(sin(-0.130347)) / (min(x1, 0.0413598) - (x1 + 0.700832)))), sin(x1))))
+<Individual size="1">
+	<FitnessMin value="0"/>
+	<Tree size="24">+ pos + x1 x1 min pos x1 max + x1 / pos sin D_-0.130347 - min x1 D_0.0413598 + x1 D_0.700832 sin x1 </Tree>
+</Individual>
+

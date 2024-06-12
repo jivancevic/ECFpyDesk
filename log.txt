@@ -1,357 +1,947 @@
-0
+Start time: Wed Jun 12 11:29:26 2024
+
+Evaluating initial population...
+Generation: 0
+Elapsed time: 0
+Deme: 0
+Evaluations: 500
+Stats: fitness
+	max: 9.39379e+10
+	min: 1.51601
+	avg: 1.90706e+08
+	stdev: 4.20125e+09
+
+Best in 0
 log(((((avg(log(x2), avg(x1, x1)) / log((0.577319 + -0.217097))) / (((x1 - x1) / avg(x2, x1)) + (log(0.903477) / log(x1)))) * (((log(x2) - (x2 * x2)) / avg((x1 - -0.429201), avg(x2, x1))) - ((log(x2) * (x1 + x2)) + avg((x2 - 0.316551), (x2 / 0.33009))))) / ((log(log(log(x2))) + avg(avg((0.513235 - x2), (0.588245 - 0.951277)), ((0.62281 * x1) / avg(x1, x1)))) * (((log(x1) * avg(x1, x2)) - log((0.570299 * x1))) + ((avg(x2, x2) - (x1 * 0.545904)) * ((0.925069 + x1) + (x1 + x1)))))))
+
 <Individual size="1">
 	<FitnessMin value="1.51601"/>
 	<Tree size="105">log / * / / avg log x2 avg x1 x1 log + D_0.577319 D_-0.217097 + / - x1 x1 avg x2 x1 / log D_0.903477 log x1 - / - log x2 * x2 x2 avg - x1 D_-0.429201 avg x2 x1 + * log x2 + x1 x2 avg - x2 D_0.316551 / x2 D_0.33009 * + log log log x2 avg avg - D_0.513235 x2 - D_0.588245 D_0.951277 / * D_0.62281 x1 avg x1 x1 + - * log x1 avg x1 x2 log * D_0.570299 x1 * - avg x2 x2 * x1 D_0.545904 + + D_0.925069 x1 + x1 x1 </Tree>
 </Individual>
 
-10
+Generation: 1
+Elapsed time: 0
+Deme: 0
+Evaluations: 1001
+Stats: fitness
+	max: 39365.7
+	min: 1.51601
+	avg: 206.906
+	stdev: 2261.5
+
+Best in 1
+<Individual size="1">
+	<FitnessMin value="1.51601"/>
+	<Tree size="105">log / * / / avg log x2 avg x1 x1 log + D_0.577319 D_-0.217097 + / - x1 x1 avg x2 x1 / log D_0.903477 log x1 - / - log x2 * x2 x2 avg - x1 D_-0.429201 avg x2 x1 + * log x2 + x1 x2 avg - x2 D_0.316551 / x2 D_0.33009 * + log log log x2 avg avg - D_0.513235 x2 - D_0.588245 D_0.951277 / * D_0.62281 x1 avg x1 x1 + - * log x1 avg x1 x2 log * D_0.570299 x1 * - avg x2 x2 * x1 D_0.545904 + + D_0.925069 x1 + x1 x1 </Tree>
+</Individual>
+
+Generation: 10
+Elapsed time: 0
+Deme: 0
+Evaluations: 5501
+Stats: fitness
+	max: 215926
+	min: 0.295185
+	avg: 458.113
+	stdev: 9663.94
+
+Best in 10
 (0.714458 / (log(x2) / log(x1)))
+
 <Individual size="1">
 	<FitnessMin value="0.295185"/>
 	<Tree size="7">/ D_0.714458 / log x2 log x1 </Tree>
 </Individual>
 
-20
+Generation: 20
+Elapsed time: 0
+Deme: 0
+Evaluations: 10502
+Stats: fitness
+	max: 413515
+	min: 0.12103
+	avg: 884.51
+	stdev: 18532.3
+
+Best in 20
 (avg(((0.523301 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / avg((x1 / x2), avg(x1, x2))) - (((x2 * x2) * (x1 - x1)) + -0.308996))), ((((-0.0389993 + avg(x1, x2)) + ((x2 - x1) * (-0.588343 * x2))) * (((0.666264 * x2) * avg(0.847331, x1)) / ((x2 + x2) * (x1 / x2)))) - ((log(-0.763807) + ((x1 - x2) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.12103"/>
 	<Tree size="91">/ avg + / D_0.523301 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 avg / x1 x2 avg x1 x2 + * * x2 x2 - x1 x1 D_-0.308996 - * + + D_-0.0389993 avg x1 x2 * - x2 x1 * D_-0.588343 x2 / * * D_0.666264 x2 avg D_0.847331 x1 * + x2 x2 / x1 x2 - + log D_-0.763807 - - x1 x2 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-30
+Generation: 30
+Elapsed time: 0
+Deme: 0
+Evaluations: 15503
+Stats: fitness
+	max: 3364.21
+	min: 0.0729946
+	avg: 10.2574
+	stdev: 153.447
+
+Best in 30
 (avg(((0.523301 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / ((x1 / x2) / avg(x1, x2))) - (((x2 - x1) * (x2 - 0.816061)) + -0.308996))), (((0.923933 + ((x1 - x1) * (-0.588343 * x2))) * (((0.666264 * x1) * (0.847331 * x1)) / ((x2 + x2) * (x1 / x2)))) - (((log(-0.763807) * log(x2)) + ((x1 - x2) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0729946"/>
 	<Tree size="90">/ avg + / D_0.523301 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 / / x1 x2 avg x1 x2 + * - x2 x1 - x2 D_0.816061 D_-0.308996 - * + D_0.923933 * - x1 x1 * D_-0.588343 x2 / * * D_0.666264 x1 * D_0.847331 x1 * + x2 x2 / x1 x2 - + * log D_-0.763807 log x2 - - x1 x2 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-40
+Generation: 40
+Elapsed time: 0
+Deme: 0
+Evaluations: 20504
+Stats: fitness
+	max: 261.715
+	min: 0.0320779
+	avg: 1.37852
+	stdev: 14.2238
+
+Best in 40
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * (x1 - x1)) - -0.308996))), (((x1 + (log(x2) * (-0.588343 * x2))) * avg(((0.666264 * x2) * avg(0.847331, x1)), ((x2 + x2) * (x1 - x1)))) - (((log(-0.763807) * log(x2)) + (log(x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0320779"/>
 	<Tree size="82">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 - x1 x1 D_-0.308996 - * + x1 * log x2 * D_-0.588343 x2 avg * * D_0.666264 x2 avg D_0.847331 x1 * + x2 x2 - x1 x1 - + * log D_-0.763807 log x2 - log x1 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-50
+Generation: 50
+Elapsed time: 0
+Deme: 0
+Evaluations: 25505
+Stats: fitness
+	max: 137.885
+	min: 0.0252483
+	avg: 1.07805
+	stdev: 7.90275
+
+Best in 50
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.763807)) / log(x2)) - ((log(x2) * (x1 - x1)) - -0.308996))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.588343 * x2))) * avg(((0.666264 * x2) * avg(0.847331, x1)), (-0.0389993 + x2))) - (((log(-0.763807) * log(x2)) + (log(x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0252483"/>
 	<Tree size="82">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.763807 log x2 - * log x2 - x1 x1 D_-0.308996 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.588343 x2 avg * * D_0.666264 x2 avg D_0.847331 x1 + D_-0.0389993 x2 - + * log D_-0.763807 log x2 - log x1 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-60
+Generation: 60
+Elapsed time: 1
+Deme: 0
+Evaluations: 30506
+Stats: fitness
+	max: 52.3641
+	min: 0.0208475
+	avg: 0.680926
+	stdev: 3.40845
+
+Best in 60
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * (x1 - x1)) - -0.308996))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.588343 * x2))) * avg(((0.666264 * x2) * avg(x2, x2)), log((x2 / x2)))) - (((0.265004 * log(x2)) + (log(x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0208475"/>
 	<Tree size="80">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 - x1 x1 D_-0.308996 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.588343 x2 avg * * D_0.666264 x2 avg x2 x2 log / x2 x2 - + * D_0.265004 log x2 - log x1 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log x2 + x1 x2 </Tree>
 </Individual>
 
-70
+Generation: 70
+Elapsed time: 1
+Deme: 0
+Evaluations: 35507
+Stats: fitness
+	max: 200754
+	min: 0.0189636
+	avg: 416.095
+	stdev: 8979.3
+
+Best in 70
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x2))))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.588343 * x2))) * avg(((0.666264 * x2) * avg(x2, x2)), log((x2 / x2)))) - (((log(-0.763807) * log(x2)) + (log(x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.796055)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0189636"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x2 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.588343 x2 avg * * D_0.666264 x2 avg x2 x2 log / x2 x2 - + * log D_-0.763807 log x2 - log x1 * x2 x1 / / * x2 x2 / x2 D_-0.796055 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-80
+Generation: 80
+Elapsed time: 1
+Deme: 0
+Evaluations: 40508
+Stats: fitness
+	max: 1987.78
+	min: 0.0166151
+	avg: 5.5094
+	stdev: 89.4672
+
+Best in 80
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x2))))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x2, x2)), log(log(x1)))) - (((log(-0.763807) * log(x2)) + (log(x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0166151"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x2 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x2 x2 log log x1 - + * log D_-0.763807 log x2 - log x1 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-90
+Generation: 90
+Elapsed time: 1
+Deme: 0
+Evaluations: 45509
+Stats: fitness
+	max: 22215.1
+	min: 0.0139861
+	avg: 48.7579
+	stdev: 996.404
+
+Best in 90
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x1))))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.588343 * x2))) * avg(((0.666264 * x2) * avg(x2, x2)), log(log(x1)))) - (((log(-0.0304491) * log(x2)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0139861"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.588343 x2 avg * * D_0.666264 x2 avg x2 x2 log log x1 - + * log D_-0.0304491 log x2 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-100
+Generation: 100
+Elapsed time: 1
+Deme: 0
+Evaluations: 50510
+Stats: fitness
+	max: 2548.41
+	min: 0.0112821
+	avg: 7.73678
+	stdev: 118.432
+
+Best in 100
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x1))))), ((((-0.0389993 + avg(x1, 1.06834)) + (log(x2) * (-0.588343 * x2))) * avg((x2 * avg(x2, x2)), log(log(x1)))) - (((log(-0.0304491) * log(x2)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0112821"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_1.06834 * log x2 * D_-0.588343 x2 avg * x2 avg x2 x2 log log x1 - + * log D_-0.0304491 log x2 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-110
+Generation: 110
+Elapsed time: 1
+Deme: 0
+Evaluations: 55511
+Stats: fitness
+	max: 321.195
+	min: 0.00966584
+	avg: 1.98752
+	stdev: 19.1932
+
+Best in 110
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.666264), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x1))))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.596215 * x2))) * avg(((0.855683 * x2) * avg(x2, 0.666264)), x2)) - (((log(-0.0304491) * log(x2)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00966584"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.666264 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.596215 x2 avg * * D_0.855683 x2 avg x2 D_0.666264 x2 - + * log D_-0.0304491 log x2 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-120
+Generation: 120
+Elapsed time: 2
+Deme: 0
+Evaluations: 60512
+Stats: fitness
+	max: 77159.2
+	min: 0.0090048
+	avg: 154.826
+	stdev: 3450.64
+
+Best in 120
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 / x1))))), ((((-0.0389993 + avg(x1, 0.766302)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0090048"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 / D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_0.766302 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-130
+Generation: 130
+Elapsed time: 2
+Deme: 0
+Evaluations: 65513
+Stats: fitness
+	max: 136.364
+	min: 0.0077359
+	avg: 1.0006
+	stdev: 7.36948
+
+Best in 130
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.555998), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * x1))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0077359"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.555998 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-140
+Generation: 140
+Elapsed time: 2
+Deme: 0
+Evaluations: 70514
+Stats: fitness
+	max: 1216.21
+	min: 0.00764713
+	avg: 4.20557
+	stdev: 61.6827
+
+Best in 140
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * x1))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00764713"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 x1 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-150
+Generation: 150
+Elapsed time: 2
+Deme: 0
+Evaluations: 75515
+Stats: fitness
+	max: 91.5091
+	min: 0.0076201
+	avg: 0.640427
+	stdev: 4.84065
+
+Best in 150
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.0304491))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0076201"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.0304491 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-160
+Generation: 160
+Elapsed time: 2
+Deme: 0
+Evaluations: 80516
+Stats: fitness
+	max: 793.368
+	min: 0.00761486
+	avg: 2.97146
+	stdev: 37.7993
+
+Best in 160
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00761486"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-170
+Generation: 170
+Elapsed time: 2
+Deme: 0
+Evaluations: 85517
+Stats: fitness
+	max: 608.889
+	min: 0.00761486
+	avg: 2.85089
+	stdev: 32.9411
+
+Best in 170
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.596215 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00761486"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.596215 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-180
+Generation: 180
+Elapsed time: 3
+Deme: 0
+Evaluations: 90518
+Stats: fitness
+	max: 60130.8
+	min: 0.00751527
+	avg: 121.363
+	stdev: 2689.1
+
+Best in 180
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.612572 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.763807)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00751527"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.612572 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.763807 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-190
+Generation: 190
+Elapsed time: 3
+Deme: 0
+Evaluations: 95519
+Stats: fitness
+	max: 1035.35
+	min: 0.00749049
+	avg: 3.43357
+	stdev: 47.1247
+
+Best in 190
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.612572 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00749049"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.612572 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-200
+Generation: 200
+Elapsed time: 3
+Deme: 0
+Evaluations: 100520
+Stats: fitness
+	max: 17090.2
+	min: 0.00749049
+	avg: 34.6206
+	stdev: 764.28
+
+Best in 200
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((-0.0389993 + avg(x1, 0.941642)) + (log(x2) * (-0.612572 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00749049"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + D_-0.0389993 avg x1 D_0.941642 * log x2 * D_-0.612572 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-210
+Generation: 210
+Elapsed time: 3
+Deme: 0
+Evaluations: 105521
+Stats: fitness
+	max: 120.762
+	min: 0.00744726
+	avg: 0.773157
+	stdev: 6.12932
+
+Best in 210
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((avg(x1, 0.954378) + -0.0389993) + (log(x2) * (-0.620875 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00744726"/>
 	<Tree size="85">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + avg x1 D_0.954378 D_-0.0389993 * log x2 * D_-0.620875 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-220
+Generation: 220
+Elapsed time: 3
+Deme: 0
+Evaluations: 110522
+Stats: fitness
+	max: 1920.17
+	min: 0.00740874
+	avg: 6.49641
+	stdev: 99.3445
+
+Best in 220
 (avg(((x2 / (log(x2) / log(x1))) + ((avg((x1 + -0.795476), avg(0.584365, x1)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * x1))))), ((((log(-0.482445) + avg(x1, 0.954378)) + (log(x2) * (-0.620875 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.795476)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00740874"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg + x1 D_-0.795476 avg D_0.584365 x1 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 x1 - * + + log D_-0.482445 avg x1 D_0.954378 * log x2 * D_-0.620875 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.795476 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-230
+Generation: 230
+Elapsed time: 3
+Deme: 0
+Evaluations: 115523
+Stats: fitness
+	max: 954.33
+	min: 0.00740443
+	avg: 4.37498
+	stdev: 51.2001
+
+Best in 230
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00740443"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-240
+Generation: 240
+Elapsed time: 4
+Deme: 0
+Evaluations: 120524
+Stats: fitness
+	max: 90.2398
+	min: 0.00740443
+	avg: 0.760099
+	stdev: 5.56886
+
+Best in 240
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.666264 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00740443"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.666264 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-250
+Generation: 250
+Elapsed time: 4
+Deme: 0
+Evaluations: 125525
+Stats: fitness
+	max: 1601.77
+	min: 0.00738942
+	avg: 4.73879
+	stdev: 72.6976
+
+Best in 250
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.577825))))), ((((log(-0.419143) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((x1 + -0.795476) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738942"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.577825 - * + + log D_-0.419143 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + x1 D_-0.795476 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-260
+Generation: 260
+Elapsed time: 4
+Deme: 0
+Evaluations: 130526
+Stats: fitness
+	max: 8865.18
+	min: 0.00738573
+	avg: 18.5214
+	stdev: 396.487
+
+Best in 260
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.795476))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(-0.853374, x1)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738573"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.795476 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg D_-0.853374 x1 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-270
+Generation: 270
+Elapsed time: 4
+Deme: 0
+Evaluations: 135527
+Stats: fitness
+	max: 1.65526e+06
+	min: 0.00738573
+	avg: 3312.45
+	stdev: 74025.2
+
+Best in 270
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.795476))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(-0.853374, x1)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738573"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.795476 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg D_-0.853374 x1 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-280
+Generation: 280
+Elapsed time: 4
+Deme: 0
+Evaluations: 140528
+Stats: fitness
+	max: 57.8579
+	min: 0.00738573
+	avg: 0.550253
+	stdev: 3.41631
+
+Best in 280
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.795476))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(-0.853374, x1)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738573"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.795476 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg D_-0.853374 x1 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-290
+Generation: 290
+Elapsed time: 4
+Deme: 0
+Evaluations: 145529
+Stats: fitness
+	max: 14744
+	min: 0.00738571
+	avg: 30.1199
+	stdev: 659.361
+
+Best in 290
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.798021))))), ((((log(-0.419143) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738571"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.798021 - * + + log D_-0.419143 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-300
+Generation: 300
+Elapsed time: 5
+Deme: 0
+Evaluations: 150530
+Stats: fitness
+	max: 6.24763e+06
+	min: 0.00738571
+	avg: 12497.7
+	stdev: 279402
+
+Best in 300
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (-0.0304491 * -0.798021))))), ((((log(-0.419143) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738571"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * D_-0.0304491 D_-0.798021 - * + + log D_-0.419143 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-310
+Generation: 310
+Elapsed time: 5
+Deme: 0
+Evaluations: 155531
+Stats: fitness
+	max: 470.085
+	min: 0.00738076
+	avg: 1.48321
+	stdev: 21.2629
+
+Best in 310
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738076"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-320
+Generation: 320
+Elapsed time: 5
+Deme: 0
+Evaluations: 160532
+Stats: fitness
+	max: 87.6458
+	min: 0.00738076
+	avg: 0.794429
+	stdev: 5.37012
+
+Best in 320
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738076"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-330
+Generation: 330
+Elapsed time: 5
+Deme: 0
+Evaluations: 165533
+Stats: fitness
+	max: 878.655
+	min: 0.00738076
+	avg: 3.528
+	stdev: 42.7307
+
+Best in 330
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738076"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-340
+Generation: 340
+Elapsed time: 5
+Deme: 0
+Evaluations: 170534
+Stats: fitness
+	max: 281.711
+	min: 0.00738076
+	avg: 1.75102
+	stdev: 15.3621
+
+Best in 340
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.620875 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00738076"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.620875 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-350
+Generation: 350
+Elapsed time: 5
+Deme: 0
+Evaluations: 175535
+Stats: fitness
+	max: 1608.82
+	min: 0.0073093
+	avg: 4.31923
+	stdev: 72.3836
+
+Best in 350
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0073093"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-360
+Generation: 360
+Elapsed time: 6
+Deme: 0
+Evaluations: 180536
+Stats: fitness
+	max: 1601.66
+	min: 0.00717823
+	avg: 4.93256
+	stdev: 73.9824
+
+Best in 360
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((0.229664 * log(x2)) - avg(log(x1), (x2 * 0.229664))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) * avg(x1, -0.853374)) + ((-0.795476 + x1) - (x2 * x1))) - (((x2 * x2) / (x2 / -0.761794)) / log(avg(x2, x2)))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00717823"/>
 	<Tree size="86">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * D_0.229664 log x2 avg log x1 * x2 D_0.229664 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + * log x1 avg x1 D_-0.853374 - + D_-0.795476 x1 * x2 x1 / / * x2 x2 / x2 D_-0.761794 log avg x2 x2 + x1 x2 </Tree>
 </Individual>
 
-370
+Generation: 370
+Elapsed time: 6
+Deme: 0
+Evaluations: 185537
+Stats: fitness
+	max: 6174.34
+	min: 0.00643034
+	avg: 19.4901
+	stdev: 311.268
+
+Best in 370
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.795476 + x1) * avg(x1, -0.853374))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00643034"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.795476 x1 avg x1 D_-0.853374 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-380
+Generation: 380
+Elapsed time: 6
+Deme: 0
+Evaluations: 190538
+Stats: fitness
+	max: 17399
+	min: 0.00620225
+	avg: 47.5049
+	stdev: 818.48
+
+Best in 380
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.584365), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.0996977) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.795476 + x1) * avg(x1, -0.853374))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00620225"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.584365 + x1 D_-0.795476 log x2 - * log x2 D_0.0996977 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.795476 x1 avg x1 D_-0.853374 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-390
+Generation: 390
+Elapsed time: 6
+Deme: 0
+Evaluations: 195539
+Stats: fitness
+	max: 885.096
+	min: 0.00614874
+	avg: 4.158
+	stdev: 47.3934
+
+Best in 390
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.795476 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00614874"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.795476 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-400
+Generation: 400
+Elapsed time: 6
+Deme: 0
+Evaluations: 200540
+Stats: fitness
+	max: 133.383
+	min: 0.00612621
+	avg: 1.17118
+	stdev: 8.57315
+
+Best in 400
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.229664) - avg(log(x1), (x2 * 0.055042))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.629994 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.822191 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00612621"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + x1 D_-0.795476 log x2 - * log x2 D_0.229664 avg log x1 * x2 D_0.055042 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.629994 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.822191 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-410
+Generation: 410
+Elapsed time: 6
+Deme: 0
+Evaluations: 205541
+Stats: fitness
+	max: 101.553
+	min: 0.00591671
+	avg: 0.815707
+	stdev: 6.36604
+
+Best in 410
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.176395) - avg((x2 * 0.055042), log(x1))))), ((((log(-0.482445) + avg(x1, 1.02329)) + (log(x2) * (-0.685075 * x2))) * avg(((0.620062 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.822191 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00591671"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + x1 D_-0.795476 log x2 - * log x2 D_0.176395 avg * x2 D_0.055042 log x1 - * + + log D_-0.482445 avg x1 D_1.02329 * log x2 * D_-0.685075 x2 avg * * D_0.620062 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.822191 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-420
+Generation: 420
+Elapsed time: 7
+Deme: 0
+Evaluations: 210542
+Stats: fitness
+	max: 51056.2
+	min: 0.00585797
+	avg: 102.724
+	stdev: 2283.28
+
+Best in 420
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (x1 + -0.795476)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.129909))))), ((((log(-0.482445) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.620062 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.795476 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00585797"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + x1 D_-0.795476 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.129909 - * + + log D_-0.482445 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.620062 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.795476 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-430
+Generation: 430
+Elapsed time: 7
+Deme: 0
+Evaluations: 215543
+Stats: fitness
+	max: 53.2596
+	min: 0.00585245
+	avg: 0.494381
+	stdev: 3.02502
+
+Best in 430
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.129909))))), ((((log(-1.7103) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.620062 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.795476 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00585245"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.129909 - * + + log D_-1.7103 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.620062 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.795476 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-440
+Generation: 440
+Elapsed time: 7
+Deme: 0
+Evaluations: 220544
+Stats: fitness
+	max: 19722.7
+	min: 0.0058447
+	avg: 40.059
+	stdev: 882.005
+
+Best in 440
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.12201))))), ((((log(-0.0275124) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.620062 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.0058447"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.12201 - * + + log D_-0.0275124 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.620062 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-450
+Generation: 450
+Elapsed time: 7
+Deme: 0
+Evaluations: 225545
+Stats: fitness
+	max: 273.16
+	min: 0.00582209
+	avg: 1.27637
+	stdev: 13.821
+
+Best in 450
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.12201))))), ((((log(-0.0275124) + avg(x1, 0.941642)) + (log(x2) * (-0.685075 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00582209"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.12201 - * + + log D_-0.0275124 avg x1 D_0.941642 * log x2 * D_-0.685075 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-460
+Generation: 460
+Elapsed time: 7
+Deme: 0
+Evaluations: 230546
+Stats: fitness
+	max: 11964.8
+	min: 0.00582154
+	avg: 24.2647
+	stdev: 535.071
+
+Best in 460
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(x1, 0.620062), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.124499))))), ((((log(-0.482445) + avg(x1, 0.928221)) + (log(x2) * (-0.685075 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00582154"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg x1 D_0.620062 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.928221 * log x2 * D_-0.685075 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-470
+Generation: 470
+Elapsed time: 7
+Deme: 0
+Evaluations: 235547
+Stats: fitness
+	max: 253.663
+	min: 0.00579712
+	avg: 1.62491
+	stdev: 14.0951
+
+Best in 470
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(0.620062, x1), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.124499))))), ((((log(-0.482445) + avg(x1, 0.928221)) + (log(x2) * (-0.697649 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00579712"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg D_0.620062 x1 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.928221 * log x2 * D_-0.697649 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-480
+Generation: 480
+Elapsed time: 8
+Deme: 0
+Evaluations: 240548
+Stats: fitness
+	max: 5074.29
+	min: 0.00578222
+	avg: 11.5476
+	stdev: 227.408
+
+Best in 480
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(0.620062, x1), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.124499))))), ((((log(-0.482445) + avg(x1, 0.942823)) + (log(x2) * (-0.697649 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00578222"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg D_0.620062 x1 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.942823 * log x2 * D_-0.697649 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-490
+Generation: 490
+Elapsed time: 8
+Deme: 0
+Evaluations: 245549
+Stats: fitness
+	max: 8012.21
+	min: 0.00578222
+	avg: 17.121
+	stdev: 358.498
+
+Best in 490
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(0.620062, x1), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.124499))))), ((((log(-0.482445) + avg(x1, 0.942823)) + (log(x2) * (-0.697649 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.799118 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00578222"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg D_0.620062 x1 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.942823 * log x2 * D_-0.697649 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.799118 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
 
-500
+Generation: 500
+Elapsed time: 8
+Deme: 0
+Evaluations: 250550
+Stats: fitness
+	max: 67.2019
+	min: 0.00577785
+	avg: 0.605218
+	stdev: 3.91714
+
+Best in 500
 (avg(((x2 / (log(x2) / log(x1))) + ((avg(avg(0.620062, x1), (-0.799118 + x1)) / log(x2)) - ((log(x2) * 0.176395) - avg(log(x1), (x2 * 0.124499))))), ((((log(-0.482445) + avg(x1, 0.942823)) + (log(x2) * (-0.697649 * x2))) * avg(((0.577844 * x2) * avg(x1, x2)), x2)) - (((log(x1) - (x2 * x1)) + ((-0.857143 + x1) * avg(x1, -0.876532))) - (((x2 * x2) / (x2 / -0.761794)) / log(x2))))) / (x1 + x2))
+
 <Individual size="1">
 	<FitnessMin value="0.00577785"/>
 	<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg D_0.620062 x1 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.942823 * log x2 * D_-0.697649 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.857143 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
 </Individual>
+
+Termination: max generation reached (500)
+
+Best of run: 
+<HallOfFame size="1">
+	<Individual size="1" gen="497">
+		<FitnessMin value="0.00577785"/>
+		<Tree size="84">/ avg + / x2 / log x2 log x1 - / avg avg D_0.620062 x1 + D_-0.799118 x1 log x2 - * log x2 D_0.176395 avg log x1 * x2 D_0.124499 - * + + log D_-0.482445 avg x1 D_0.942823 * log x2 * D_-0.697649 x2 avg * * D_0.577844 x2 avg x1 x2 x2 - + - log x1 * x2 x1 * + D_-0.857143 x1 avg x1 D_-0.876532 / / * x2 x2 / x2 D_-0.761794 log x2 + x1 x2 </Tree>
+	</Individual>
+</HallOfFame>
 

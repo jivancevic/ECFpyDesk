@@ -1,4 +1,4 @@
-Start time: Sat Jun  8 08:22:35 2024
+Start time: Tue Jun 11 20:32:14 2024
 
 Evaluating initial population...
 Generation: 0
@@ -6,172 +6,60 @@ Elapsed time: 0
 Deme: 0
 Evaluations: 500
 Stats: fitness
-	max: 1.6908e+11
-	min: 0.16765
-	avg: 3.39016e+08
-	stdev: 7.56146e+09
+	max: 4.69612e+08
+	min: 304
+	avg: 1.97025e+06
+	stdev: 2.46269e+07
 
 Best in 0
-((((x1 + 0.403628) * (0.725762 * x1)) * x1) + (((0.359655 / -0.601492) - -0.0554179) - x1))
+(((sin(0.688666) + x1) + (x1 * cos(x2))) - ((cos(x2) - (x1 + x1)) + sin((x2 * x2))))
 
 <Individual size="1">
-	<FitnessMin value="0.16765"/>
-	<Tree size="17">+ * * + x1 D_0.403628 * D_0.725762 x1 x1 - - / D_0.359655 D_-0.601492 D_-0.0554179 x1 </Tree>
+	<FitnessMin value="304"/>
+	<Tree size="21">- + + sin D_0.688666 x1 * x1 cos x2 + - cos x2 + x1 x1 sin * x2 x2 </Tree>
 </Individual>
 
 Generation: 1
-Elapsed time: 0
+Elapsed time: 1
 Deme: 0
 Evaluations: 1001
 Stats: fitness
-	max: 3.99753e+08
-	min: 0.16765
-	avg: 800990
-	stdev: 1.78775e+07
+	max: 267797
+	min: 291.828
+	avg: 3018.85
+	stdev: 11890.1
 
 Best in 1
 <Individual size="1">
-	<FitnessMin value="0.16765"/>
-	<Tree size="17">+ * * + x1 D_0.403628 * D_0.725762 x1 x1 - - / D_0.359655 D_-0.601492 D_-0.0554179 x1 </Tree>
+	<FitnessMin value="291.828"/>
+	<Tree size="17">- + + cos D_0.688666 x1 * x1 cos x2 * x2 * cos x2 cos D_0.618274 </Tree>
 </Individual>
 
-Generation: 10
-Elapsed time: 0
+Generation: 4
+Elapsed time: 5
 Deme: 0
-Evaluations: 5501
+Evaluations: 2501
 Stats: fitness
-	max: 6.20236
-	min: 0.118053
-	avg: 0.369384
-	stdev: 0.569418
+	max: 155108
+	min: 0
+	avg: 1158.92
+	stdev: 6945.08
 
-Best in 10
-((((x1 * 0.216205) - (x1 * x1)) * -0.555613) - ((-0.222624 / (1.73067 - -0.577321)) + 0.848915))
-
+Best in 4
 <Individual size="1">
-	<FitnessMin value="0.118053"/>
-	<Tree size="17">- * - * x1 D_0.216205 * x1 x1 D_-0.555613 + / D_-0.222624 - D_1.73067 D_-0.577321 D_0.848915 </Tree>
+	<FitnessMin value="0"/>
+	<Tree size="13">- + + x1 x1 * x1 cos x2 + sin x2 x2 </Tree>
 </Individual>
 
-Generation: 20
-Elapsed time: 0
-Deme: 0
-Evaluations: 10502
-Stats: fitness
-	max: 2866.06
-	min: 0.111026
-	avg: 7.92936
-	stdev: 133.35
+(((x1 + x1) + (x1 * cos(x2))) - (sin(x2) + x2))
 
-Best in 20
-((((x1 * 0.399379) - (x1 * x1)) * (-0.471426 + -0.228491)) - ((-0.222624 / (1.73067 - -0.577321)) + 0.848915))
+Termination: fitness value (1e-07) reached
 
-<Individual size="1">
-	<FitnessMin value="0.111026"/>
-	<Tree size="19">- * - * x1 D_0.399379 * x1 x1 + D_-0.471426 D_-0.228491 + / D_-0.222624 - D_1.73067 D_-0.577321 D_0.848915 </Tree>
-</Individual>
+Best of run: 
+<HallOfFame size="1">
+	<Individual size="1" gen="4">
+		<FitnessMin value="0"/>
+		<Tree size="13">- + + x1 x1 * x1 cos x2 + sin x2 x2 </Tree>
+	</Individual>
+</HallOfFame>
 
-Generation: 30
-Elapsed time: 0
-Deme: 0
-Evaluations: 15503
-Stats: fitness
-	max: 9.62703
-	min: 0.109247
-	avg: 0.347712
-	stdev: 0.886363
-
-Best in 30
-((((x1 * 0.399379) - (x1 * x1)) * -0.596935) - ((-0.222624 / (1.73067 - -0.577321)) + 0.848915))
-
-<Individual size="1">
-	<FitnessMin value="0.109247"/>
-	<Tree size="17">- * - * x1 D_0.399379 * x1 x1 D_-0.596935 + / D_-0.222624 - D_1.73067 D_-0.577321 D_0.848915 </Tree>
-</Individual>
-
-Generation: 40
-Elapsed time: 0
-Deme: 0
-Evaluations: 20504
-Stats: fitness
-	max: 124.283
-	min: 0.109116
-	avg: 0.620978
-	stdev: 5.67821
-
-Best in 40
-((((x1 * 0.518853) - (x1 * x1)) * -0.555613) - ((-0.222624 / (1.73067 + 0.0347664)) + 0.848915))
-
-<Individual size="1">
-	<FitnessMin value="0.109116"/>
-	<Tree size="17">- * - * x1 D_0.518853 * x1 x1 D_-0.555613 + / D_-0.222624 + D_1.73067 D_0.0347664 D_0.848915 </Tree>
-</Individual>
-
-Generation: 50
-Elapsed time: 0
-Deme: 0
-Evaluations: 25505
-Stats: fitness
-	max: 4230.08
-	min: 0.109058
-	avg: 8.98316
-	stdev: 189.189
-
-Best in 50
-((((x1 * 0.518853) - (x1 * x1)) * -0.555613) - ((-0.222624 / (1.85109 + 0.0347664)) + 0.848915))
-
-<Individual size="1">
-	<FitnessMin value="0.109058"/>
-	<Tree size="17">- * - * x1 D_0.518853 * x1 x1 D_-0.555613 + / D_-0.222624 + D_1.85109 D_0.0347664 D_0.848915 </Tree>
-</Individual>
-
-Generation: 60
-Elapsed time: 0
-Deme: 0
-Evaluations: 30506
-Stats: fitness
-	max: 4636.16
-	min: 0.108986
-	avg: 14.6018
-	stdev: 233.938
-
-Best in 60
-((((x1 * 0.502471) - (x1 * x1)) * -0.555613) - ((-0.222624 / (1.73067 + 0.141025)) + 0.848915))
-
-<Individual size="1">
-	<FitnessMin value="0.108986"/>
-	<Tree size="17">- * - * x1 D_0.502471 * x1 x1 D_-0.555613 + / D_-0.222624 + D_1.73067 D_0.141025 D_0.848915 </Tree>
-</Individual>
-
-Generation: 70
-Elapsed time: 18
-Deme: 0
-Evaluations: 35507
-Stats: fitness
-	max: 68.801
-	min: 0.108979
-	avg: 0.407494
-	stdev: 3.10194
-
-Best in 70
-((((x1 * 0.499808) - (x1 * x1)) * -0.555613) - ((-0.222624 / (1.73067 + 0.141025)) + 0.848915))
-
-<Individual size="1">
-	<FitnessMin value="0.108979"/>
-	<Tree size="17">- * - * x1 D_0.499808 * x1 x1 D_-0.555613 + / D_-0.222624 + D_1.73067 D_0.141025 D_0.848915 </Tree>
-</Individual>
-
-Generation: 80
-Elapsed time: 18
-Deme: 0
-Evaluations: 40508
-Stats: fitness
-	max: 129.949
-	min: 0.108971
-	avg: 0.911913
-	stdev: 7.51617
-
-Best in 80
-((((x1 * 0.499808) - (x1 * x1)) * -0.559271) - ((-0.222624 / (1.73067 + 0.157336)) + 0.848915))
-
-<In

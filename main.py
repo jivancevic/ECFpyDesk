@@ -10,6 +10,7 @@ def main():
     view = View()
     controller = Controller(model, view, app_directory)
     view.set_controller(controller)
+    model.set_view(view)
     
     # Start the application
     controller.start()
