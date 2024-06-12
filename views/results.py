@@ -243,14 +243,14 @@ class ResultsView(ctk.CTkFrame):
                 widget.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
 
     def create_solution_row(self, func, row_index):
-        size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(func["size"]), justify="center", fg_color="red")
+        size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(func["size"]), justify="center")
         size_label.grid(row=row_index, column=0, sticky='ew')
 
-        error_label = ctk.CTkLabel(self.solutions_list_frame, text=f'{func["error"]:.4f}', justify="center", fg_color="blue")
+        error_label = ctk.CTkLabel(self.solutions_list_frame, text=f'{func["error"]:.4f}', justify="center")
         error_label.grid(row=row_index, column=1, sticky='ew')
 
         function_text = func["function"] if len(func["function"]) <= 60 else func["function"][:57] + "..."
-        function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="left", fg_color="green")
+        function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="left")
         function_label.grid(row=row_index, column=2, sticky='ew')
 
         # Bind the click event to the entire row

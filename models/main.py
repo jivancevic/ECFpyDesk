@@ -55,7 +55,9 @@ class Model:
 
         except Exception as e:
             print(f"Error loading data: {e}")
-            self.data = None
+            self.input_data = None
+
+        return self.input_data.copy(), self.multivar
 
     def convert_to_2d_array(self, data):
         converted_data = data.tolist()
