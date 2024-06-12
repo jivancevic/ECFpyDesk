@@ -17,6 +17,7 @@ class ResultsView(ctk.CTkFrame):
         self.default_bg = "#f0f0f0"  # Default background color
         self.active_bg = "#d0e0f0"  # Active background color when clicked
         self.current_active_row = None  # Track the currently active row
+        self.best_functions = []
 
         self.initialize_ui()
 
@@ -131,6 +132,7 @@ class ResultsView(ctk.CTkFrame):
             self.select_row(self.current_active_row + 1)
 
     def select_row(self, row, event=None):
+        print("row:", row)
         # Check if the row is valid and avoid any processing if it's the currently active row
         if row == self.current_active_row or row < 0 or row >= len(self.solutions_list_frame.winfo_children()) // 3:
             return
@@ -164,7 +166,7 @@ class ResultsView(ctk.CTkFrame):
         self.function_display.insert("end", function)
 
         # Update other information variables
-        self.info_vars["Mean error"].set(f"{float(error):.4f}")
+        self.info_vars["Mean error"].set(f"{float(error):.6f}")
         for key in ["Mean error (relative)", "RMS error", "Classification accuracy"]:
             self.info_vars[key].set("0")
 
@@ -195,29 +197,69 @@ class ResultsView(ctk.CTkFrame):
         self.ax.legend()  # Add a legend to distinguish plotted lines
         self.canvas.draw()  # Update the canvas
 
-    def update_solutions_frame(self):
-        self.best_functions = self.controller.get_best_functions()
+    def update_solutions_frame(self, best_functions):
+        if self.best_functions == best_functions:
+            return
 
-        if (self.best_functions):
-            for i, func in enumerate(self.best_functions):
-                size = func["size"]
-                error = func["error"]
-                function = func["function"]
+        for i, func in enumerate(best_functions):
+            if i < len(self.best_functions):
+                if func["function"] != self.best_functions[i]["function"]:
+                    self.update_solution_row(func, i)
+                    if self.current_active_row is not None and self.current_active_row == i:
+                        self.select_row(i)
+            else:
+                self.create_solution_row(func, i)
 
-                # Use labels and truncate text if necessary
-                size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(size), justify="center", fg_color="red")
-                size_label.grid(row=i, column=0, sticky='ew')
+        if len(best_functions) < len(self.best_functions):
+            [self.destroy_solution_row(i+len(best_functions)) for i in range(len(self.best_functions)-len(best_functions))]
 
-                error_label = ctk.CTkLabel(self.solutions_list_frame, text=f"{error:.4f}", justify="center", fg_color="blue")
-                error_label.grid(row=i, column=1, sticky='ew')
+        self.best_functions = best_functions
 
-                function_text = function if len(function) <= 60 else function[:57] + "..."
-                function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="center", fg_color="green")
-                function_label.grid(row=i, column=2, sticky='ew')
+    def destroy_solution_row(self, row_index):
+        # Iterate over all children widgets in the solutions list frame
+        for widget in self.solutions_list_frame.winfo_children():
+            # Grid_info returns dictionary with details about the grid configuration of the widget
+            info = widget.grid_info()
+            # Check if the widget is in the row we want to destroy
+            if info['row'] == row_index:
+                widget.destroy()
 
-                # Bind the click event to the entire row
-                for label in [size_label, error_label, function_label]:
-                    label.bind("<Button-1>", lambda event, row=i: self.select_row(row, event))
+        print(f"Destroyed row {row_index}")
+
+    def update_solution_row(self, func, row_index):
+        # Iterate over all children widgets in the solutions list frame
+        for widget in self.solutions_list_frame.winfo_children():
+            # Grid_info returns dictionary with details about the grid configuration of the widget
+            info = widget.grid_info()
+            # Check if the widget is in the row we want to destroy
+            if info['row'] == row_index:
+                if info['column'] == 0:
+                    widget.configure(text=str(func["size"]))
+                if info['column'] == 1:
+                    widget.configure(text=f'{func["error"]:.4f}')
+                if info['column'] == 2:
+                    function_text = func["function"] if len(func["function"]) <= 40 else func["function"][:37] + "..."
+                    widget.configure(text=function_text)
+                widget.unbind("<Button-1>")
+                widget.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
+        print(f"Updated row {row_index}")
+
+    def create_solution_row(self, func, row_index):
+        size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(func["size"]), justify="center", fg_color="red")
+        size_label.grid(row=row_index, column=0, sticky='ew')
+
+        error_label = ctk.CTkLabel(self.solutions_list_frame, text=f'{func["error"]:.4f}', justify="center", fg_color="blue")
+        error_label.grid(row=row_index, column=1, sticky='ew')
+
+        function_text = func["function"] if len(func["function"]) <= 60 else func["function"][:57] + "..."
+        function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="left", fg_color="green")
+        function_label.grid(row=row_index, column=2, sticky='ew')
+
+        # Bind the click event to the entire row
+        for label in [size_label, error_label, function_label]:
+            label.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
+
+        print(f"Created row {row_index}")
 
     def clear_frame(self):
         # Clear the textboxs
@@ -233,13 +275,20 @@ class ResultsView(ctk.CTkFrame):
         for widget in self.solutions_list_frame.winfo_children():
             widget.destroy()
 
+        self.best_functions = []
+        print("cleared frame")
+
         # Reset all information variables to default values
         for key in self.info_vars:
             self.info_vars[key].set("0")
 
         # Clear the plot
         self.ax.clear()
-        self.ax.legend().remove()  # Remove the legend if it exists
+        
+        # Check if there are any artists with labels in the plot
+        if self.ax.get_legend_handles_labels()[0]:
+            self.ax.legend().remove()  # Remove the legend if it exists
+
         self.canvas.draw()
 
         # Optionally, reset any selections or highlighted rows

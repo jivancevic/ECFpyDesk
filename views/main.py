@@ -7,7 +7,7 @@ class View(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("ECFpyDesk")
-        self.geometry("800x750")
+        self.geometry("800x700")
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=10)  # Main content column should have more weight
