@@ -1,37 +1,43 @@
 import numpy as np
 
-def custom_avg(*args):
-    # Convert all inputs to numpy arrays ensuring at least 1D
-    args = [np.atleast_1d(a) for a in args]
-
-    try:
-        # Attempt to broadcast all arguments to a common shape
-        broadcasted_args = np.broadcast_arrays(*args)
-        # Calculate the mean across these broadcasted arrays
-        result = np.mean(np.stack(broadcasted_args, axis=0), axis=0)
-    except ValueError as e:
-        raise ValueError(f"Cannot broadcast arrays to a common shape: {str(e)}")
-    
+def safe_divide(x, y):
+    """Safely divide x by y, replacing division by zero with zero."""
+    with np.errstate(divide='ignore', invalid='ignore'):
+        result = np.divide(x, y)
+        result[np.isinf(result) | np.isnan(result)] = 0  # replace inf and NaN with 0
     return result
 
-def custom_log(x):
-    # Adding a small constant to ensure the input is positive
-    # np.clip is used here to avoid negative and zero values
-    # Alternatively, you can return a default value or handle the case as needed
-    safe_x = np.clip(x, a_min=1e-10, a_max=None)  # Avoid log(0) which results in -inf
-    return np.log(safe_x)
+def safe_sqrt(x):
+    """Square root that handles non-positive values by returning zero."""
+    return np.where(x > 0, np.sqrt(x), 0)
+
+def safe_log(x):
+    """Logarithm that handles non-positive values by returning zero."""
+    return np.where(x > 0, np.log10(x), 0)
+
+def if_pos(v, d1, d2):
+    """Return d1 if v is non-negative, otherwise d2."""
+    return np.where(v >= 0, d1, d2)
+
+def if_gt(v1, v2, d1, d2):
+    """Return d1 if v1 is greater than v2, otherwise d2."""
+    return np.where(v1 > v2, d1, d2)
 
 safe_dict = {
-    '__builtins__': {'None': None, 'True': True, 'False': False},
+    '__builtins__': None,  # Disable direct access to built-ins
     'np': np,
     'sin': np.sin,
     'cos': np.cos,
-    'tan': np.tan,
-    'atan': np.arctan,
-    'avg': custom_avg,
-    'log': custom_log,
-    'sqrt': np.sqrt,
-    'min': np.min,
-    'max': np.max,
-    'pos': np.where
+    'add': np.add,          # C++ ADD
+    'sub': np.subtract,     # C++ SUB
+    'mul': np.multiply,     # C++ MUL
+    'div': safe_divide,     # C++ DIV with zero check
+    'pos': lambda x: np.maximum(0, x),  # C++ POS
+    'ifpos': if_pos,
+    'ifgt': if_gt,
+    'min': np.minimum,      # C++ MIN
+    'max': np.maximum,      # C++ MAX
+    'avg': lambda x, y: (x + y) / 2,  # C++ AVG
+    'sqrt': safe_sqrt,      # C++ SQRT
+    'log': safe_log,        # C++ LOG
 }
