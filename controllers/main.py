@@ -475,7 +475,6 @@ class Controller:
             safe_dict.update(variable_dict)
             try:
                 # Evaluate the function string safely
-                print(safe_dict)
                 results = eval(function_str, {"__builtins__": None}, safe_dict)
                 # Generate x_values as indices if multivariable function is plotted against an index range
                 x_values = np.arange(len(results))

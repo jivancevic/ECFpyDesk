@@ -141,6 +141,7 @@ class ResultsView(ctk.CTkFrame):
         error = self.best_functions[row]["error"]
 
         # Update UI as if the row was clicked
+        self.solutions_list_frame.focus_set()
         self.update_info(function, error)
         self.reset_row_colors()
         self.set_active_row_color(row)
@@ -224,8 +225,6 @@ class ResultsView(ctk.CTkFrame):
             if info['row'] == row_index:
                 widget.destroy()
 
-        print(f"Destroyed row {row_index}")
-
     def update_solution_row(self, func, row_index):
         # Iterate over all children widgets in the solutions list frame
         for widget in self.solutions_list_frame.winfo_children():
@@ -242,7 +241,6 @@ class ResultsView(ctk.CTkFrame):
                     widget.configure(text=function_text)
                 widget.unbind("<Button-1>")
                 widget.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
-        print(f"Updated row {row_index}")
 
     def create_solution_row(self, func, row_index):
         size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(func["size"]), justify="center", fg_color="red")
@@ -258,8 +256,6 @@ class ResultsView(ctk.CTkFrame):
         # Bind the click event to the entire row
         for label in [size_label, error_label, function_label]:
             label.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
-
-        print(f"Created row {row_index}")
 
     def clear_frame(self):
         # Clear the textboxs
