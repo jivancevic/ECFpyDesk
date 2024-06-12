@@ -42,21 +42,50 @@ class InputView(ctk.CTkFrame):
         self.data_frame = ctk.CTkFrame(self)
         self.data_frame.grid(row=0, column=0, sticky='ew', padx=5, pady=5)
         self.setup_file_widgets(self.data_frame)
+        self.setup_terminal_frame(self.data_frame)
 
     def setup_file_widgets(self, frame):
         self.input_file_button = self.create_file_button(frame, "Input file", 0)
         self.error_file_button = self.create_file_button(frame, "Error weights file", 1)
-
-        ctk.CTkLabel(frame, text="Terminal set").grid(row=2, column=0, sticky='w', pady=5)
-        curr_terminal_set = self.controller.get_terminal_set()
-        self.terminal_set = StringVar(value=curr_terminal_set if curr_terminal_set is not None else "")
-        ctk.CTkEntry(frame, textvariable=self.terminal_set).grid(row=2, column=1, sticky='ew', padx=5, pady=5)
 
     def create_file_button(self, frame, text, row):
         ctk.CTkLabel(frame, text=text).grid(row=row, column=0, sticky='w', pady=5)
         button = ctk.CTkButton(frame, text="Select File", command=lambda bt=row: self.browse_file(bt))
         button.grid(row=row, column=1, sticky='ew', padx=5, pady=5)
         return button
+    
+    def setup_terminal_frame(self, frame):
+        ctk.CTkLabel(frame, text="Input variables").grid(row=2, column=0, sticky='w', pady=5)
+        button = ctk.CTkButton(frame, text="All/None", command=self.toggle_variables)
+        button.grid(row=3, column=0, sticky='ew', padx=5, pady=5)
+
+        self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=180, height=70, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
+        self.terminal_scroll_frame._scrollbar.configure(height=0)
+        self.terminal_scroll_frame.grid(row=2, column=1, rowspan=2, sticky="ew", pady=5)
+
+        ctk.CTkLabel(frame, text="Terminal set").grid(row=4, column=0, sticky='w', pady=5)
+        self.terminal_set = StringVar(value="")
+        ctk.CTkEntry(frame, textvariable=self.terminal_set).grid(row=4, column=1, sticky='ew', padx=5, pady=5)
+
+    def populate_terminal_scroll_frame(self, frame):
+        if self.input_file_path == "":
+            print("No input file selected.")
+            return
+
+        self.curr_terminal_set = self.controller.get_terminal_set()
+        print("curr_terminal_set:", self.curr_terminal_set)
+        self.terminal_set.set(self.get_terminal_set_without_variables(self.curr_terminal_set))
+
+        data, multivar = self.controller.load_input_data(self.input_file_path)
+        var_num = len(data)-1
+
+        self.variable_checkboxes = {}
+        for i in range(var_num):
+            checkbox_text = f"x{i+1}"
+            self.variable_checkboxes[i] = ctk.CTkCheckBox(frame, text=checkbox_text)
+            self.variable_checkboxes[i].grid(row=i, column=0, sticky='ew', padx=5, pady=3)
+            if checkbox_text in self.curr_terminal_set:
+                self.variable_checkboxes[i].select()  # Assuming you want all checkboxes selected by default
 
     def setup_search_options(self):
         self.search_frame = ctk.CTkFrame(self)
@@ -237,6 +266,32 @@ class InputView(ctk.CTkFrame):
             button = self.input_file_button if button_type == 0 else self.error_file_button
             button.configure(text=filepath.split('/')[-1])
             setattr(self, 'input_file_path' if button_type == 0 else 'error_file_path', filepath)
+            if button_type == 0:
+                self.populate_terminal_scroll_frame(self.terminal_scroll_frame)
+
+    def get_terminal_set_without_variables(self, terminal_set):
+        return " ".join(t for t in terminal_set.split(" ") if "x" not in t)
+    
+    def generate_terminal_set_string(self):
+        selected_variables = [f"x{i+1}" for i, checkbox in self.variable_checkboxes.items() if checkbox.get()]
+        print(selected_variables)
+        terminal_text = self.terminal_set.get()
+        print(terminal_text)
+        selected_variables.append(terminal_text)
+        print(selected_variables)
+        return " ".join(selected_variables)
+    
+    def toggle_variables(self):
+        all_selected = True
+        for i, checkbox in self.variable_checkboxes.items():
+            if not checkbox.get():
+                all_selected = False
+                break
+        
+        if all_selected:
+            [checkbox.deselect() for i, checkbox in self.variable_checkboxes.items()]
+        else:
+            [checkbox.select() for i, checkbox in self.variable_checkboxes.items()]
 
     def on_run_button_click(self):
         if self.controller:

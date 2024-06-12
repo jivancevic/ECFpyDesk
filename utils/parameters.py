@@ -25,6 +25,6 @@ options = {
         ("Mutation probability", "ECF/Registry/Entry/mutation.indprob"),
         ("Max generations", "ECF/Registry/Entry/term.maxgen"),
         ("Log frequency", "ECF/Registry/Entry/log.frequency"),
-    ],
+    ]
 
 }

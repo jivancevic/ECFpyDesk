@@ -243,8 +243,8 @@ class Controller:
         if error_path is not None and error_path != "":
             self.set_param_element("ECF/Registry/Entry/error_weights.file", error_path)
 
-        if terminal_set is not None and terminal_set.get() != "":
-            self.set_param_element("ECF/Genotype/Entry/terminalset", terminal_set.get())
+        if terminal_set is not None and terminal_set != "":
+            self.set_param_element("ECF/Genotype/Entry/terminalset", terminal_set)
 
         if search_metric is not None and search_metric != "":
             self.set_param_element("ECF/Registry/Entry/error_metric", search_metric)
@@ -414,7 +414,7 @@ class Controller:
         self.set_tree_and_root()
         input_path = self.view.input_frame.input_file_path
         error_path = self.view.input_frame.error_file_path if self.view.input_frame.error_file_path else None
-        terminal_set = self.view.input_frame.terminal_set
+        terminal_set = self.view.input_frame.generate_terminal_set_string()
         search_metric = self.view.input_frame.search_metric
         functions = [func for func, checkbox in self.view.input_frame.checkbox_vars.items() if checkbox.get()]
         other_params = [(path, value) for path, value in self.view.input_frame.params_vars.items() if value != ""]
@@ -450,9 +450,12 @@ class Controller:
         input_path = self.view.input_frame.input_file_path
         self.model.plot_x_index = self.view.input_frame.plot_x_axis_var
         
-        self.model.load_input_data(input_path)  # Load data
+        self.load_input_data(input_path)  # Load data
         self.update_plot()
 
+    def load_input_data(self, file_path):
+        data, multivar = self.model.load_input_data(file_path)
+        return data, multivar
 
     def evaluate_function(self, function_str, multivar=False, data=None):
         if data is None:
