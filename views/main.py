@@ -5,6 +5,9 @@ import customtkinter as ctk
 
 class View(ctk.CTk):
     def __init__(self):
+        ctk.set_appearance_mode("light")  # Modes: system (default), light, dark
+        ctk.set_default_color_theme("dark-blue")  # Themes: blue (default), dark-blue, green
+
         super().__init__()
         self.title("ECFpyDesk")
         self.geometry("800x700")

@@ -111,21 +111,29 @@ class Model:
                     function = function_line
                     fitness_min = float(fitness_line.split('"')[1])
                     tree_size = int(tree_line.split('"')[1])
-                    infix_function = tree_line.split(">")[1].split("<")[0]
+                    prefix_function = tree_line.split(">")[1].split("<")[0]
                     generation_data['function'] = function
                     generation_data['error'] = fitness_min
                     generation_data['size'] = tree_size
-                    generation_data['infix_function'] = infix_function
+                    generation_data['prefix_function'] = prefix_function
                     lines = []
 
         # Check once more after the last line has been read
-        if generation_data and generation_data['function'] not in self.functions_seen:
-            self.best_functions.append(generation_data)
-            self.functions_seen.add(generation_data['function'])  # Mark this function as seen
+        try:
+            if generation_data and 'prefix_function' in generation_data and generation_data['function'] not in self.functions_seen:
+                self.best_functions.append(generation_data)
+                self.functions_seen.add(generation_data['function'])  # Mark this function as seen
+        except Exception as e:
+            print(generation_data)
+            print(e)
+
 
         return self.best_functions.copy()
 
-    def delete_best_function(self):
+    def delete_best_functions(self):
         self.functions_seen = set()
         self.best_functions = []
+        self.current_file_size = 0
+
+    def reset_file_reading(self):
         self.current_file_size = 0

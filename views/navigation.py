@@ -32,6 +32,7 @@ class NavigationView(ctk.CTkFrame):
         self.start_icon = self.resize_image('resources/start.png', icon_dimensions)
         self.pause_icon = self.resize_image('resources/pause.png', icon_dimensions)
         self.stop_icon = self.resize_image('resources/stop.png', icon_dimensions)
+        self.stop_grey_icon = self.resize_image('resources/stop_grey.png', icon_dimensions)
 
         # Toggle Button
         self.toggle_button = ctk.CTkButton(
@@ -51,8 +52,9 @@ class NavigationView(ctk.CTkFrame):
             text="", 
             width=icon_dimensions, 
             height=icon_dimensions, 
-            image=self.stop_icon, 
-            command=self.on_stop_process, 
+            image=self.stop_grey_icon, 
+            command=self.on_stop_process,
+            state="disabled", 
             fg_color="transparent")
         
         self.stop_button.grid(row=0, column=2)
@@ -81,6 +83,14 @@ class NavigationView(ctk.CTkFrame):
             self.toggle_button.configure(image=self.start_icon)
         elif icon == "pause":
             self.toggle_button.configure(image=self.pause_icon)
+
+    def set_stop_icon(self, enable):
+        if enable:
+            self.stop_button.configure(image=self.stop_icon)
+            self.stop_button.configure(state="normal")
+        else:
+            self.stop_button.configure(image=self.stop_grey_icon)
+            self.stop_button.configure(state="disabled")
 
     def resize_image(self, image_path, new_height):
         # Open an image file
