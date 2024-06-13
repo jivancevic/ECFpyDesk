@@ -73,7 +73,6 @@ class InputView(ctk.CTkFrame):
             return
 
         self.curr_terminal_set = self.controller.get_terminal_set()
-        print("curr_terminal_set:", self.curr_terminal_set)
         self.terminal_set.set(self.get_terminal_set_without_variables(self.curr_terminal_set))
 
         data, multivar = self.controller.load_input_data(self.input_file_path)
@@ -274,11 +273,8 @@ class InputView(ctk.CTkFrame):
     
     def generate_terminal_set_string(self):
         selected_variables = [f"x{i+1}" for i, checkbox in self.variable_checkboxes.items() if checkbox.get()]
-        print(selected_variables)
         terminal_text = self.terminal_set.get()
-        print(terminal_text)
         selected_variables.append(terminal_text)
-        print(selected_variables)
         return " ".join(selected_variables)
     
     def toggle_variables(self):

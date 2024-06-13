@@ -132,7 +132,6 @@ class ResultsView(ctk.CTkFrame):
             self.select_row(self.current_active_row + 1)
 
     def select_row(self, row, event=None):
-        print("row:", row)
         # Check if the row is valid and avoid any processing if it's the currently active row
         if row == self.current_active_row or row < 0 or row >= len(self.solutions_list_frame.winfo_children()) // 3:
             return
@@ -212,7 +211,8 @@ class ResultsView(ctk.CTkFrame):
                 self.create_solution_row(func, i)
 
         if len(best_functions) < len(self.best_functions):
-            [self.destroy_solution_row(i+len(best_functions)) for i in range(len(self.best_functions)-len(best_functions))]
+            for i in range(len(best_functions), len(self.best_functions)):
+                self.destroy_solution_row(i)
 
         self.best_functions = best_functions
 
@@ -222,7 +222,7 @@ class ResultsView(ctk.CTkFrame):
             # Grid_info returns dictionary with details about the grid configuration of the widget
             info = widget.grid_info()
             # Check if the widget is in the row we want to destroy
-            if info['row'] == row_index:
+            if info['row'] == row_index and widget.winfo_exists():
                 widget.destroy()
 
     def update_solution_row(self, func, row_index):
@@ -257,22 +257,24 @@ class ResultsView(ctk.CTkFrame):
         for label in [size_label, error_label, function_label]:
             label.bind("<Button-1>", lambda event, row=row_index: self.select_row(row, event))
 
-    def clear_frame(self):
-        # Clear the textboxs
+    def clear_output_display(self):
         self.output_display.configure(state='normal')
         self.output_display.delete(1.0, "end")
         self.output_display.configure(state='disabled')
-        
+
+    def clear_function_display(self):
         self.function_display.configure(state='normal')
         self.function_display.delete(1.0, "end")
         self.function_display.configure(state='disabled')
+
+    def clear_frame(self):
+        self.clear_output_display()
 
         # Clear the solutions frame
         for widget in self.solutions_list_frame.winfo_children():
             widget.destroy()
 
         self.best_functions = []
-        print("cleared frame")
 
         # Reset all information variables to default values
         for key in self.info_vars:

@@ -1,5 +1,6 @@
 import subprocess
 import os
+import time
 import json
 import shutil
 import numpy as np
@@ -138,28 +139,59 @@ class Controller:
         tree.write(file_path)
         self.remove_root_tag(file_path)
 
-    def run_ECF(self, update_output):
-        # Run the executable with subprocess
-        self.process = subprocess.Popen([self.config["SRM_path"], self.config["SRM_parameters_path"]], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
-        while True:
-            output = self.process.stdout.readline()
-            if output == '' and self.process.poll() is not None:
-                break
-            if output:
-                update_output(output)
-        self.process.poll()
-
-        self.running = False
-        print("self.running:", self.running)
-        self.view.navigation_frame.set_toggle_icon("start")
-        self.update_solutions()
-        os.chdir(self.app_directory)  # Change back to the initial directory
-        self.process = None
-
     def start_update_timer(self):
         """Starts a timer that updates the solutions frame every second."""
         self.update_timer = threading.Timer(self.REFRESH_RATE, self.update_solutions)
         self.update_timer.start()
+
+    def run_ECF_loop(self, update_output):
+        while self.running:
+            self.view.results_frame.clear_output_display()
+            self.model.reset_file_reading()
+
+            self.run_ECF(update_output)
+            # Check if the process should continue running or if a stop has been requested
+            if not self.running:
+                break  # Exit the loop if the process is flagged to stop
+            print("Restarting the process...")
+            time.sleep(0.2)  # Optional: add a delay before restarting
+
+    def run_ECF(self, update_output):
+        # Run the executable with subprocess
+        print("Started run ECF")
+        try:
+            self.process = subprocess.Popen(
+                [self.config["SRM_path"], self.config["SRM_parameters_path"]],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                bufsize=1
+            )
+
+            # Read output as it becomes available
+            while self.process and self.process.poll() is None:
+                output = self.process.stdout.readline()
+                if output:
+                    update_output(output)
+                else:
+                    time.sleep(0.1)  # Sleep to prevent tight loop when no output is available
+
+        except Exception as e:
+            print(f"Error running ECF process: {e}")
+        finally:
+            if self.process:
+                # Cleanup the process if it hasn't exited yet
+                self.process.terminate()
+                self.process.wait()
+
+            # Cancel the update timer safely
+            if hasattr(self, 'update_timer'):
+                self.update_timer.cancel()
+
+            # Perform final updates and cleanup
+            self.update_solutions()
+            os.chdir(self.app_directory)  # Change back to the initial directory
+            self.process = None # Reset process to None to ensure it can be restarted
 
     def toggle_process(self):
         if self.running:
@@ -173,12 +205,14 @@ class Controller:
         if not self.running:
             self.running = True
             self.view.navigation_frame.set_toggle_icon("pause")
+            self.view.navigation_frame.set_stop_icon(True)
             self.view.results_frame.clear_frame()
-            self.model.delete_best_function()
-            # Start the process in a new thread
-            self.process_thread = threading.Thread(target=self.run_ECF, args=(self.view.results_frame.append_output,))
-            self.process_thread.start()
-            self.start_update_timer()  # Start updating the solutions frame
+            self.model.delete_best_functions()
+
+        # Start the process in a new thread
+        self.process_thread = threading.Thread(target=self.run_ECF_loop, args=(self.view.results_frame.append_output,))
+        self.process_thread.start()
+        self.start_update_timer()  # Start updating the solutions frame
 
     def pause_process(self):
         if self.running and self.process:
@@ -201,7 +235,7 @@ class Controller:
                 # Attempt to terminate the process gracefully
                 self.process.terminate()
                 # Wait briefly for the process to terminate
-                self.process.wait(timeout=5)
+                self.process.wait(timeout=0.5)
             except subprocess.TimeoutExpired:
                 # If the process does not terminate within the timeout, kill it
                 print("Process did not terminate gracefully, killing it.")
@@ -212,6 +246,7 @@ class Controller:
                 # Ensure all internal flags and states are reset
                 self.running = False
                 self.process = None
+
                 if self.process_thread and self.process_thread.is_alive():
                     # Optionally join the thread if it is still running
                     self.process_thread.join()
@@ -221,6 +256,7 @@ class Controller:
                     self.update_timer.cancel()  # Stop the update timer
 
                 self.view.navigation_frame.set_toggle_icon("start")
+                self.view.navigation_frame.set_stop_icon(False)
                 self.update_solutions()
                 os.chdir(self.app_directory)  # Change back to the initial directory
     
@@ -462,29 +498,25 @@ class Controller:
             data = self.model.get_input_data()
         
         x_values = None
-
+    
         if not multivar:
+            # Ensure x_values covers all possible data inputs
             x_values = np.linspace(np.min(data[0]), np.max(data[0]), 400)
             safe_dict['x1'] = x_values
-            # Evaluate the function string safely
-            try:
-                results = eval(function_str, {"__builtins__": None}, safe_dict)
-            except Exception as e:
-                print(f"Error evaluating univariate function: {e}")
-                return None, None
         else:
-            variable_dict = {f'x{i+1}': np.array(data[i]) for i in range(len(data)-1)}
-            # Add these to the safe dict for evaluation
+            variable_dict = {f'x{i+1}': np.array(data[i]) for i in range(len(data))}
             safe_dict.update(variable_dict)
-            try:
-                # Evaluate the function string safely
-                results = eval(function_str, {"__builtins__": None}, safe_dict)
-                # Generate x_values as indices if multivariable function is plotted against an index range
-                x_values = np.arange(len(results))
-            except Exception as e:
-                print(f"Error evaluating multivariable function: {e}")
-                return None, None
-            
+            x_values = np.arange(len(data[0]))  # Assumes the first dimension covers all data points
+    
+        # Try to evaluate the function string
+        try:
+            results = eval(function_str, {"__builtins__": None}, safe_dict)
+            if np.isscalar(results):
+                results = np.full_like(x_values, results)  # Fill the array with the scalar value
+        except Exception as e:
+            print(f"Error evaluating function '{function_str}': {e}")
+            return None, None
+        
         return x_values, results
     
     def is_multivar(self):
