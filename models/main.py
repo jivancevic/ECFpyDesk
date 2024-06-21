@@ -4,31 +4,40 @@ import json
 from .config import ConfigurationManager
 from .parameters import param_paths
 from utils.helper import set_to_string, string_to_set
+from utils.publisher import Publisher
 
-class Model:
+class Model(Publisher):
     config_path = 'config.json'
 
     def __init__(self):
+        super().__init__()
         with open(self.config_path, 'r') as file:
             self.config = json.load(file)
 
         self.config_manager = ConfigurationManager(self.config['SRM_parameters_path'])
+        self.process_manager = None
 
         # Input parameters
         self.params = {}
-        self.train_test_split = None
+        self.train_test_split = 1
         self.test_sample = None
         self.plot_x_index = None
         self.plot_y_index = None
         self.plot_scale = None
         self.best_file = self.config["best_file_path"]
+        self.thread_num = 1
 
+        self.train_file_path = None
+        self.test_file_path = None
         self.input_data = None
         self.multivar = False
         self.enabled_functions = set()
         self.best_functions = []
         self.functions_seen = set()
         self.current_file_size = 0
+
+    def set_process_manager(self, process_manager):
+        self.process_manager = process_manager
 
     def set_variable(self, name, value):
         if name in param_paths:
@@ -85,6 +94,9 @@ class Model:
     def get_parameter(self, path):
         return self.params.get(path)
     
+    def set_thread_count(self, thread_count):
+        self.thread_num = thread_count
+    
     def get_input_data(self):
         return self.input_data
     
@@ -109,6 +121,14 @@ class Model:
     def get_enabled_functions(self):
         return list(self.enabled_functions)
     
+    def delete_best_functions(self):
+        self.functions_seen = set()
+        self.best_functions = []
+        self.current_file_size = 0
+
+    def reset_file_reading(self):
+        self.current_file_size = 0
+    
     def load_input_data(self):
         try:
             input_data = np.loadtxt(self.get_input_path(), delimiter='\t')
@@ -126,24 +146,10 @@ class Model:
         # Switch rows and columns (transpose)
         return np.transpose(converted_data).tolist()
     
-    def read_new_data(self, file_path, current_file_size):
-        # Get the current size of the file
-        new_file_size = os.path.getsize(file_path)
-        new_data = None
-
-        # Read new data if the file size has increased
-        if new_file_size > current_file_size:
-            with open(file_path, 'r') as file:
-                # Seek to the last read position
-                file.seek(current_file_size)
-
-                # Read new data
-                new_data = file.read(new_file_size - current_file_size).split("\n")
-
-            # Update the last read size
-            current_file_size = new_file_size
-
-        return new_data, current_file_size
+    def update_best_functions(self):
+        best_functions = self.parse_best_file(self.best_file)
+        pareto_functions = self.filter_best_functions(best_functions)
+        self.best_functions = pareto_functions  # Update the model's state with new data
     
     def parse_best_file(self, file_path):
         generation_data = {}
@@ -156,6 +162,18 @@ class Model:
         def process_generation_data():
             # Only append if not seen and data is valid
             if generation_data and 'prefix_function' in generation_data and generation_data['function'] not in self.functions_seen:
+                if self.train_test_split != 1:
+                    print(f"Processing generation {generation_data['generation']}")
+                    best_individual_file_path = 'srm/temp/best_test.txt'
+                    test_parameters_file_path = self.config_manager.create_test_parameters_file(self.config['SRM_parameters_path'], self.test_file_path, best_individual_file_path)
+                    print(f"Test parameters file path: {test_parameters_file_path}")
+                    individual_file_path = 'srm/temp/individual.txt'
+                    self.create_individual_file(individual_file_path, generation_data)
+                    print(f"Individual file path: {individual_file_path}")
+                    self.process_manager.run_test_process(parameters_path=test_parameters_file_path, individual_path=individual_file_path)
+                    error, solutions = self.parse_best_individual_file(best_individual_file_path)
+                    print(f"Size: {generation_data['size']}, Error: {error}, Function: {generation_data['function'][:20]}, Solutions: {solutions[:3]}")
+                    generation_data['error'] = error
                 self.best_functions.append(generation_data.copy())
                 self.functions_seen.add(generation_data['function'])  # Mark this function as seen
 
@@ -174,6 +192,25 @@ class Model:
 
         return self.best_functions.copy()
 
+    def read_new_data(self, file_path, current_file_size):
+        # Get the current size of the file
+        new_file_size = os.path.getsize(file_path)
+        new_data = None
+
+        # Read new data if the file size has increased
+        if new_file_size > current_file_size:
+            with open(file_path, 'r') as file:
+                # Seek to the last read position
+                file.seek(current_file_size)
+
+                # Read new data
+                new_data = file.read(new_file_size - current_file_size).split("\n")
+
+            # Update the last read size
+            current_file_size = new_file_size
+
+        return new_data, current_file_size
+
     def process_line_block(self, lines, generation_data):
         # Parsing lines for required information
         function_line, _, fitness_line, tree_line, _ = lines
@@ -183,14 +220,6 @@ class Model:
             'size': int(tree_line.split('"')[1]),
             'prefix_function': tree_line.split(">")[1].split("<")[0]
         })
-
-    def delete_best_functions(self):
-        self.functions_seen = set()
-        self.best_functions = []
-        self.current_file_size = 0
-
-    def reset_file_reading(self):
-        self.current_file_size = 0
 
     def filter_best_functions(self, data):
         # Sort the data by size first, then by error in ascending order
@@ -207,10 +236,16 @@ class Model:
 
         return filtered_functions
     
-    def update_best_functions(self):
-        best_functions = self.parse_best_file(self.best_file)
-        pareto_functions = self.filter_best_functions(best_functions)
-        self.best_functions = pareto_functions  # Update the model's state with new data
+    def parse_best_individual_file(self, file_path):
+        with open(file_path, 'r') as file:
+            lines = file.readlines() 
+            error = float(lines[3].split('"')[1])
+            solutions = []
+            for i in range(7, len(lines)):
+                if lines[i].strip() != "":
+                    solutions.append(float(lines[i].strip())) 
+
+        return error, solutions
 
     def get_plot_data(self):
         if self.input_data is None:
@@ -229,7 +264,18 @@ class Model:
         return x_data, y_data
     
     def split_train_test(self):
-        self.config_manager.split_train_test(self.get_input_path(), self.train_test_split, self.test_sample)
+        self.train_file_path, self.test_file_path = self.config_manager.split_train_test(self.get_input_path(), self.train_test_split, self.test_sample)
+        print(f"Train file path: {self.train_file_path}, Test file path: {self.test_file_path}")
 
     def update_configuration(self):
         self.config_manager.update_config(self.params)
+
+    def create_individual_file(self, file_path, generation_data):
+        file_string = ""
+        file_string += '<Individual size="1">\n'
+        file_string += f'\t<FitnessMin value="{generation_data["error"]}"/>\n'
+        file_string += f'\t<Tree size="{generation_data["size"]}">{generation_data["prefix_function"]} </Tree>\n'
+        file_string += '</Individual>'
+
+        with open(file_path, 'w') as file:
+            file.write(file_string)

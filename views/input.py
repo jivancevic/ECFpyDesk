@@ -6,19 +6,19 @@ from .base import BaseView
 class InputView(BaseView):
     FG_COLOR = "#008000"
 
-    variable_checkboxes = None
-    terminal_set = None
-    search_metric = None
-    train_test_split = None
-    test_sample = None
-    plot_y_axis_var = None
-    plot_x_axis_var = None
-    plot_scale_var = None
-    edit_mode = False
-    max_threads = 1
-
     def __init__(self, parent):
         super().__init__(parent)
+        
+        self.variable_checkboxes = None
+        self.terminal_set = None
+        self.search_metric = None
+        self.train_test_split = None
+        self.test_sample = None
+        self.plot_y_axis_var = None
+        self.plot_x_axis_var = None
+        self.plot_scale_var = None
+        self.edit_mode = False
+        self.max_threads = 1
     
     def initialize_ui(self):
         self.configure_grid()
@@ -137,7 +137,9 @@ class InputView(BaseView):
         for i, weight in enumerate([3,1,1]):
             thread_frame.grid_columnconfigure(i, weight=weight, uniform="Silent_Creme")
 
-        thread_var = IntVar(value=1)
+        thread_var = IntVar()
+        thread_var.trace_add('write', lambda *args: self.invoke_callback('dropdown_option_change', 'thread_num', thread_var.get()))
+        thread_var.set(1)
         entry = ctk.CTkEntry(thread_frame, textvariable=thread_var, width=120)
         entry.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         minus_button = ctk.CTkButton(thread_frame, text="-", command=lambda *args: self.change_number(thread_var, -1))
