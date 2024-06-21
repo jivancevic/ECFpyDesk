@@ -1,106 +1,91 @@
 import customtkinter as ctk
-from customtkinter import CTkImage
-import tkinter as tk
-from tkinter import PhotoImage
-from PIL import Image, ImageTk
+from utils.image import resize_image
+from .base import BaseView
 
-class NavigationView(ctk.CTkFrame):
+class NavigationView(BaseView):
     def __init__(self, parent):
         super().__init__(parent)
-        self.controller = None
+        self.initialize_ui()
 
-        self.columnconfigure(0, weight=10, uniform="Silent_Creme")
-        self.columnconfigure(1, weight=1, uniform="Silent_Creme")
-        self.columnconfigure(2, weight=1, uniform="Silent_Creme")
-        self.columnconfigure(3, weight=10, uniform="Silent_Creme")
+    def initialize_ui(self):
+        self.configure_grid()
+        self.setup_navigation_buttons_frame()
+        self.setup_process_buttons()
 
+    def configure_grid(self):
+        weights = [10, 1, 1, 10]
+        for i, weight in enumerate(weights):
+            self.columnconfigure(i, weight=weight, uniform="Silent_Creme")
+
+    def setup_navigation_buttons_frame(self):
         self.navigation_buttons_frame = ctk.CTkFrame(self)
         self.navigation_buttons_frame.grid(row=0, column=0, sticky='ew', padx=10, pady=10)
 
         # Input button
         self.input_button = ctk.CTkButton(self.navigation_buttons_frame, text="Input", fg_color="#4CAF50")
         self.input_button.grid(row=0, column=0, padx=10, pady=10, sticky='e')
-        self.input_button.configure(command=self.on_input_click)
+        self.input_button.configure(command=lambda *args: self.invoke_callback('input_button_click'))
 
         # Results button
         self.results_button = ctk.CTkButton(self.navigation_buttons_frame, text="Results", fg_color="#f0f0f0")
         self.results_button.grid(row=0, column=1, padx=10, pady=10, sticky='w')
-        self.results_button.configure(command=self.on_results_click)
+        self.results_button.configure(command=lambda *args: self.invoke_callback('results_button_click'))
         
+    def setup_process_buttons(self):
         # Load icons or images for buttons
         icon_dimensions = 20
-        self.start_icon = self.resize_image('resources/start.png', icon_dimensions)
-        self.pause_icon = self.resize_image('resources/pause.png', icon_dimensions)
-        self.stop_icon = self.resize_image('resources/stop.png', icon_dimensions)
-        self.stop_grey_icon = self.resize_image('resources/stop_grey.png', icon_dimensions)
+        self.start_icon = resize_image('resources/start.png', icon_dimensions)
+        self.pause_icon = resize_image('resources/pause.png', icon_dimensions)
+        self.stop_icon = resize_image('resources/stop.png', icon_dimensions)
+        self.stop_grey_icon = resize_image('resources/stop_grey.png', icon_dimensions)
 
         # Toggle Button
-        self.toggle_button = ctk.CTkButton(
+        self.toggle_process_button = ctk.CTkButton(
             self, 
             text="", 
             width=icon_dimensions, 
             height=icon_dimensions, 
             image=self.start_icon, 
-            command=self.on_toggle_process, 
+            command=lambda *args: self.invoke_callback('toggle_process_button_click'), 
             fg_color="transparent")
         
-        self.toggle_button.grid(row=0, column=1)
+        self.toggle_process_button.grid(row=0, column=1)
 
-        # Toggle Button
-        self.stop_button = ctk.CTkButton(
+        # Stop Button
+        self.stop_process_button = ctk.CTkButton(
             self, 
             text="", 
             width=icon_dimensions, 
             height=icon_dimensions, 
             image=self.stop_grey_icon, 
-            command=self.on_stop_process,
+            command=lambda *args: self.invoke_callback('stop_process_button_click'),
             state="disabled", 
             fg_color="transparent")
         
-        self.stop_button.grid(row=0, column=2)
+        self.stop_process_button.grid(row=0, column=2)
 
-    def set_controller(self, controller):
-        self.controller = controller
+    def switch_toggle_process_button_icon(self):
+        if self.toggle_process_button.cget("image") == self.start_icon:
+            self.set_toggle_process_button_icon("pause")
+        elif self.toggle_process_button.cget("image") == self.pause_icon:
+            self.set_toggle_process_button_icon("pause")
 
-    def on_input_click(self):
-        if self.controller:
-            self.controller.show_input()
+    def switch_stop_process_button_icon(self):
+        if self.stop_process_button.cget("image") == self.stop_icon:
+            self.set_stop_process_button_icon(False)
+        elif self.stop_process_button.cget("image") == self.stop_grey_icon:
+            self.set_stop_process_button_icon(True)
 
-    def on_results_click(self):
-        if self.controller:
-            self.controller.show_results()
-
-    def on_toggle_process(self):
-        if self.controller:
-            self.controller.on_toggle_process_click()
-
-    def on_stop_process(self):
-        if self.controller:
-            self.controller.on_stop_process_click()
-
-    def set_toggle_icon(self, icon):
+    def set_toggle_process_button_icon(self, icon: str):
         if icon == "start":
-            self.toggle_button.configure(image=self.start_icon)
+            self.toggle_process_button.configure(image=self.start_icon)
         elif icon == "pause":
-            self.toggle_button.configure(image=self.pause_icon)
+            self.toggle_process_button.configure(image=self.pause_icon)
 
-    def set_stop_icon(self, enable):
+    def set_stop_process_button_icon(self, enable: bool):
         if enable:
-            self.stop_button.configure(image=self.stop_icon)
-            self.stop_button.configure(state="normal")
+            self.stop_process_button.configure(image=self.stop_icon)
+            self.stop_process_button.configure(state="normal")
         else:
-            self.stop_button.configure(image=self.stop_grey_icon)
-            self.stop_button.configure(state="disabled")
-
-    def resize_image(self, image_path, new_height):
-        # Open an image file
-        with Image.open(image_path) as img:
-            # Calculate the new width maintaining the aspect ratio
-            aspect_ratio = img.width / img.height
-            new_width = int(new_height * aspect_ratio)
-
-            # Resize the image
-            img = img.resize((new_width, new_height), Image.ANTIALIAS)
-
-            # Return a PhotoImage object
-            return CTkImage(img)
+            self.stop_process_button.configure(image=self.stop_grey_icon)
+            self.stop_process_button.configure(state="disabled")
