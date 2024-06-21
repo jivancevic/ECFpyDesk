@@ -71,6 +71,8 @@ class InputController(BaseController):
             if hasattr(self.frame, 'config_editor'):
                 with open(self.controller.get_parameters_file_path(), 'w') as file:
                     file.write(self.frame.config_editor.get("1.0", END))
+                self.initialize_frame()
+                self.on_change_button_click()
 
     def on_change_button_click(self):
         if not self.frame.edit_mode:

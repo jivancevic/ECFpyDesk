@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import itertools
 import os
 import shutil
+import copy
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from utils.file import delete_file_if_exists
@@ -13,6 +14,9 @@ class ConfigurationManager:
 
     def __init__(self, parameters_path):
         self.parameters_path = parameters_path
+
+    def set_tree_and_root(self):
+        self.tree, self.root = self.parse_XML()
 
     def parse_XML(self):
         with open(self.parameters_path) as f:
@@ -30,8 +34,8 @@ class ConfigurationManager:
 
         for path, value in params.items():
             if value is not None and value != "":
-                if path == param_paths["input_path"]:
-                    value = value.replace('.txt', '_train.txt')
+                #if path == param_paths["input_path"]:
+                    #value = value.replace('.txt', '_train.txt')
                 self.set_param_element(path, value)
 
         self.write_config(self.tree)
@@ -44,8 +48,7 @@ class ConfigurationManager:
     
     def get_current_param_value(self, path):
         # Load the XML tree from a file or an existing in-memory object
-        if self.tree is None or self.root is None:
-            self.set_tree_and_root()
+        self.set_tree_and_root()
 
         target_element = self.find_param_element(path)
 
@@ -53,17 +56,22 @@ class ConfigurationManager:
             return target_element.text  # Return the text content of the element
         return None  # If the element with the key doesn't exist, return None
     
-    def set_param_element(self, path, value):
-        target_element = self.find_param_element(path)
+    def set_param_element(self, path, value, tree=None):
+        target_element = self.find_param_element(path, tree)
         if target_element is not None:
             target_element.text = value
         elif value is not None and value != "":
-            self.add_param_element(path, value)
+            tree = self.add_param_element(path, value, tree)
     
-    def find_param_element(self, path):
+    def find_param_element(self, path, tree=None):
         # Split the path by slashes to navigate through the nodes
         elements = path.split('/')
-        current_element = self.root
+
+        if tree is None:
+            tree = self.tree
+        root = tree.getroot()
+
+        current_element = root
 
         # Navigate through the tree to find the target element
         for element in elements[1:-2]:  # Ignore the last segment because it's the attribute key
@@ -78,7 +86,11 @@ class ConfigurationManager:
 
         return target_element
 
-    def add_param_element(self, path, value):
+    def add_param_element(self, path, value, tree=None):
+        if tree is None:
+            tree = self.tree
+        root = tree.getroot()
+
         try:
             # Assume self.root is already an ElementTree object of the loaded XML
             elements = path.split('/')
@@ -87,7 +99,7 @@ class ConfigurationManager:
             key = elements[-1]
 
             # Navigate to the parent element
-            parent = self.root.find(parent_path)
+            parent = root.find(parent_path)
             if parent is None:
                 print(f"Could not find the parent path: {parent_path}")
                 return False
@@ -102,15 +114,37 @@ class ConfigurationManager:
                 new_element.text = value
                 parent.append(new_element)
 
-            ET.indent(self.tree, space="\t", level=0)
-            return True
+            ET.indent(tree, space="\t", level=0)
+            return tree
         except Exception as e:
             print(f"Error when adding parameter: {e}")
-            return False
+            return None
+        
+    def create_train_parameters_file(self, parameters_path, train_data_path):
+        train_tree = copy.deepcopy(self.tree)
 
+        self.set_param_element("ECF/Registry/Entry/input_file", train_data_path, train_tree)
+
+        # Save the modified parameters file
+        train_parameters_path = parameters_path.replace('.txt', '_train.txt')
+        delete_file_if_exists(train_parameters_path)
+        train_tree.write(train_parameters_path)
+
+        return train_parameters_path
     
-    def set_tree_and_root(self):
-        self.tree, self.root = self.parse_XML()
+    def create_test_parameters_file(self, parameters_path, test_data_path, best_file_path):
+        test_tree = copy.deepcopy(self.tree)
+        
+        self.set_param_element("ECF/Registry/Entry/input_file", test_data_path, test_tree)
+        self.set_param_element("ECF/Registry/Entry/linear_scaling", "false", test_tree)
+        self.set_param_element("ECF/Registry/Entry/bestfile", best_file_path, test_tree)
+
+        # Save the modified parameters file
+        test_parameters_path = parameters_path.replace('.txt', '_test.txt')
+        delete_file_if_exists(test_parameters_path)
+        test_tree.write(test_parameters_path)
+
+        return test_parameters_path
 
     def split_train_test(self, input_data_path, train_test_split_ratio, test_sample_choice):
         # Define output file paths

@@ -12,7 +12,7 @@
 		</Tree>
 	</Genotype>
 	<Registry>
-		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var_train.txt</Entry>
+		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
 		<Entry key="linear_scaling">false</Entry>
 		<Entry key="bestfile">srm/best.txt</Entry>
 		<Entry key="randomizer.seed">0</Entry>

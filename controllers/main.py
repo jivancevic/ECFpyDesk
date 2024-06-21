@@ -25,6 +25,7 @@ class Controller:
         self.results_controller.initialize_frame()
 
         self.process_manager = ProcessManager(self.config["SRM_path"], self.config["SRM_parameters_path"], self.handle_process_output)
+        self.model.set_process_manager(self.process_manager)
         
         self.register_callbacks()
 
@@ -97,6 +98,7 @@ class Controller:
     def apply_configurations(self):
         self.model.split_train_test()
         self.model.update_configuration()
+        self.results_controller.clear_frame()
 
     def pre_process_setup(self):
         self.view.results_frame.clear_output_display()

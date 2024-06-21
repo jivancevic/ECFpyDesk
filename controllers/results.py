@@ -61,6 +61,8 @@ class ResultsController(BaseController):
                         self.select_row(i)
             else:
                 self.frame.create_solution_row(func, i)
+                if self.frame.current_active_row is None and i == 0:
+                    self.select_row(i)
 
         if len(best_functions) < len(self.frame.best_functions):
             for i in range(len(best_functions), len(self.frame.best_functions)):
