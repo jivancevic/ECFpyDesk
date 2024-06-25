@@ -14,6 +14,7 @@ class InputController(BaseController):
         self.frame.register_callback('change_button_click', self.on_change_button_click)
         self.frame.register_callback('terminal_set_change', self.handle_terminal_set_change)
         self.frame.register_callback('function_toggle', self.handle_function_toggle)
+        self.frame.register_callback('other_parameter_change', self.handle_other_parameter_change)
         self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
     def initialize_frame(self):
@@ -36,7 +37,7 @@ class InputController(BaseController):
         for func, checkbox in self.frame.checkbox_vars.items():
             checkbox.select() if func in function_set else checkbox.deselect()
 
-        for path, (var, entry) in self.frame.params_vars.items():
+        for path, var in self.frame.params_vars.items():
             current_value = self.model.config_manager.get_current_param_value(path)
             var.set(current_value)
 
@@ -56,7 +57,7 @@ class InputController(BaseController):
     def populate_terminal_scroll_frame(self):
         curr_terminal_set = self.model.get_current_terminal_set()
         terminal_set_without_vars = self.get_terminal_set_without_variables(curr_terminal_set)
-        data, multivar = self.model.load_input_data()
+        data = self.model.load_input_data()
         var_num = len(data)-1
         self.frame.populate_terminal_scroll_frame(var_num, curr_terminal_set, terminal_set_without_vars)
 
@@ -101,6 +102,9 @@ class InputController(BaseController):
         # Update model based on the state of the function checkbox
         is_selected = self.frame.checkbox_vars[func].get()
         self.model.enable_function(func) if is_selected else self.model.disable_function(func)
+
+    def handle_other_parameter_change(self, path, value):
+        self.model.set_variable_with_path(path, value.get())
 
     def handle_dropdown_option_change(self, variable_name, value):
         self.model.set_variable(variable_name, value)

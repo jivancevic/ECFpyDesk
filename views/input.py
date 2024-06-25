@@ -82,7 +82,7 @@ class InputView(BaseView):
     def add_search_options(self, frame):
         for idx, option in enumerate(search_options):
             variable_name, label, choices = option
-            self.setup_dropdown(frame, variable_name, label, choices, idx)
+            self.setup_dropdown(frame, variable_name, label, choices, idx, 1)
 
     def setup_parameters_scroll_area(self):
         self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=150, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
@@ -107,10 +107,11 @@ class InputView(BaseView):
                     param_label = ctk.CTkLabel(self.scroll_frame, text=label)
                     param_label.grid(row=row_counter, column=0, sticky='w', padx=5, pady=3)
 
-                    params_var = StringVar()
+                    params_var = StringVar(value="")
+                    params_var.trace_add('write', lambda var, index, mode, p=path, v=params_var: self.invoke_callback('other_parameter_change', p, v))
                     param_entry = ctk.CTkEntry(self.scroll_frame, textvariable=params_var)
                     param_entry.grid(row=row_counter, column=1, sticky='ew', padx=5, pady=3)
-                    self.params_vars[path] = (params_var, param_entry)  # Storing entry widget is an exception to avoid direct data handling
+                    self.params_vars[path] = params_var  # Storing entry widget is an exception to avoid direct data handling
                     row_counter += 1
 
     def setup_other_options_frame(self):
@@ -125,7 +126,7 @@ class InputView(BaseView):
 
         for idx, option in enumerate(plot_options):
             variable_name, label, choices = option
-            self.setup_dropdown(self.other_options_frame, variable_name, label, choices, idx+2)
+            self.setup_dropdown(self.other_options_frame, variable_name, label, choices, idx+2, 1)
 
     def setup_number_of_threads(self, frame, row):
         label = ctk.CTkLabel(frame, text="Number of threads")
@@ -146,17 +147,6 @@ class InputView(BaseView):
         minus_button.grid(row=0, column=1, padx=5)
         plus_button = ctk.CTkButton(thread_frame, text="+", command=lambda *args: self.change_number(thread_var, 1))
         plus_button.grid(row=0, column=2, padx=5)
-
-    def setup_dropdown(self, frame, variable_name, label_text, choices, row):
-        label = ctk.CTkLabel(frame, text=label_text)
-        label.grid(row=row, column=0, sticky="w", padx=5, pady=5)
-        display_var = StringVar()
-        display_var.trace_add('write', lambda *args: self.invoke_callback('dropdown_option_change', variable_name, label_to_value_map[display_var.get()]))
-        label_to_value_map = {label: value for label, value in choices}
-        dropdown_labels = list(label_to_value_map.keys())
-        display_var.set(dropdown_labels[0])
-        dropdown = ctk.CTkOptionMenu(frame, variable=display_var, values=dropdown_labels)
-        dropdown.grid(row=row, column=1, sticky="ew", padx=5, pady=5)
 
     def change_number(self, var, delta):
         new_value = min(max(1, var.get() + delta), self.max_threads)   # Prevent going below 1

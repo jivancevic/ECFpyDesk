@@ -12,6 +12,21 @@ search_options = [
         ])
     ]
 
+plot_options = [
+        ("plot_y_index", "Plot y axis", [
+            ("Target variable", "0"), 
+            ("Xxx", "1")
+        ]),
+        ("plot_x_index", "Plot x axis", [
+            ("Row number", -1), 
+            ("x1", 0), 
+            ("x2", 1)
+        ]),
+        ("plot_scale", "Plot scale", [
+            ("Regular", 0)
+        ])
+    ]
+
 # dictionary for options for Input screen
 options = {
     "Functions": [
@@ -28,19 +43,3 @@ options = {
     ]
 
 }
-
-plot_options = [
-        ("plot_y_index", "Plot y axis", [
-            ("Target variable", "0"), 
-            ("Xxx", "1")
-        ]),
-        ("plot_x_index", "Plot x axis", [
-            ("Row number", -1), 
-            ("x1", 0), 
-            ("x2", 1)
-        ]),
-        ("plot_scale", "Plot scale", [
-            ("Regular", 0), 
-            ("Xxx", 1)
-        ])
-    ]
