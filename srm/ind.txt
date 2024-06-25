@@ -1,4 +1,0 @@
-<Individual size="1">
-	<FitnessMin value="0.0146418"/>
-	<Tree size="32">- * D_-0.590178 x1 * cos + * x2 * x1 x1 / + D_-0.199658 D_-0.292611 cos x1 cos - / + D_-0.199658 D_-0.327295 cos x2 - + x1 sin x2 D_0.166161 </Tree>
-</Individual>

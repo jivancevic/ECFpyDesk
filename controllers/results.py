@@ -13,6 +13,7 @@ class ResultsController(BaseController):
         self.frame.register_callback('move_selection', self.move_selection)
         self.frame.register_callback('select_row', self.select_row)
         self.frame.register_callback('update_plot', self.update_plot)
+        self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
     def move_selection(self, direction):
         if direction == "up" and self.frame.current_active_row > 0:
@@ -73,3 +74,14 @@ class ResultsController(BaseController):
     def clear_frame(self):
         self.frame.clear_frame()
         self.update_plot()
+
+    def handle_dropdown_option_change(self, variable_name, value):
+        self.model.set_variable(variable_name, value)
+        function = None
+        if self.frame.current_active_row is not None:
+            function = self.model.best_functions[self.frame.current_active_row]["function"]
+        self.update_plot(function)
+
+    def add_test_option(self, should_add=False):
+        print("Adding test option")
+        self.frame.setup_info_frame(test_option=should_add)

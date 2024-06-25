@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 from utils.plot import safe_dict
+from utils.parameters import plot_options
 from .base import BaseView
 
 plt.rcParams['font.family'] = 'sans-serif'
@@ -75,32 +76,47 @@ class ResultsView(BaseView):
         self.solutions_master_frame.grid_rowconfigure(1, weight=1)  # Allocate most space to the list frame
         self.solutions_master_frame.grid_columnconfigure(0, weight=1)  # Allocate most space to the list frame
 
-    def setup_info_frame(self):
+    def setup_info_frame(self, test_option=False):
         """Setup the information display frame."""
         info_frame = ctk.CTkFrame(self)
         info_frame.grid(row=1, column=0, columnspan=3, sticky="nsew")
-        info_frame.rowconfigure(0, weight=1)  # Allow dynamic expansion for text box
-        labels = ["Function", "Mean error", "Mean error (relative)", "RMS error", "Classification accuracy"]
-        self.setup_labels(info_frame, labels)
+        start_row = 1 if test_option else 0
 
-    def setup_labels(self, info_frame, labels):
+        info_frame.rowconfigure(start_row, weight=1)  # Allow dynamic expansion for text box
+        info_frame.columnconfigure(1, weight=1)  # Allow dynamic expansion for text box
+
+        if test_option:
+            checkbox_text = "Show Test Data"
+            checkbox = ctk.CTkCheckBox(info_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("show_test_data"))
+            checkbox.grid(row=0, column=0, columnspan=2, sticky='e', padx=5, pady=3)
+
+        labels = ["Function", "Error"]
+        self.setup_labels(info_frame, labels, start_row=start_row)
+        self.setup_plot_options(info_frame, start_row=start_row+2)
+
+    def setup_labels(self, frame, labels, start_row=0):
         """Create labels and variable displays for information."""
         self.info_vars = {label: ctk.StringVar(value="0") for label in labels if label != "Function"}
-        self.function_display = self.create_textbox(info_frame)
+        self.function_display = self.create_textbox(frame, start_row)
         for i, label in enumerate(labels):
-            ctk.CTkLabel(info_frame, text=label).grid(row=i, column=0, sticky='w', padx=(10, 0), pady=5)
+            ctk.CTkLabel(frame, text=label).grid(row=i+start_row, column=0, sticky='w', padx=5, pady=5)
             if label != "Function":
-                ctk.CTkLabel(info_frame, textvariable=self.info_vars[label]).grid(row=i, column=1, sticky='ew', padx=(0, 20), pady=5)
+                ctk.CTkLabel(frame, textvariable=self.info_vars[label]).grid(row=i+start_row, column=1, sticky='ew', padx=(0, 20), pady=5)
 
-    def create_textbox(self, parent):
+    def create_textbox(self, parent, row):
         """Create a textbox for function display."""
         textbox = ctk.CTkTextbox(parent, state='disabled', wrap='word', fg_color='transparent', height=100)
-        textbox.grid(row=0, column=1, sticky='ew', pady=5)
+        textbox.grid(row=row, column=1, sticky='ew', pady=5)
         return textbox
+    
+    def setup_plot_options(self, frame, start_row=2):
+        for idx, option in enumerate(plot_options):
+            variable_name, label, choices = option
+            self.setup_dropdown(frame, variable_name, label, choices, idx+start_row, 1)
 
     def setup_plot_area(self):
         """Setup the plotting area."""
-        self.figure = plt.Figure(figsize=(2, 2))
+        self.figure = plt.Figure(figsize=(3, 3))
         self.ax = self.figure.add_subplot(111)
         self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.canvas.draw()
@@ -134,9 +150,7 @@ class ResultsView(BaseView):
         self.function_display.insert("end", function)
 
         # Update other information variables
-        self.info_vars["Mean error"].set(f"{float(error):.6f}")
-        for key in ["Mean error (relative)", "RMS error", "Classification accuracy"]:
-            self.info_vars[key].set("0")
+        self.info_vars["Error"].set(f"{float(error):.6f}")
 
     def update_plot(self, x_data, y_data, x_values=None, function_results=None, multivar=False):
         self.ax.clear()  # Clear the previous plot
