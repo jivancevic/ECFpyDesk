@@ -19,11 +19,9 @@ class NavigationController(BaseController):
 
     def on_toggle_process_button_click(self):
         self.view.switch("results")
-        self.frame.switch_toggle_process_button_icon()
         self.controller.handle_toggle_process()
 
     def on_stop_process_button_click(self):
-        self.frame.switch_stop_process_button_icon()
         self.controller.handle_stop_process()
 
     def set_toggle_process_button_icon(self, icon: str):

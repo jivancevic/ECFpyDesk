@@ -95,7 +95,7 @@ class InputController(BaseController):
     def handle_terminal_set_change(self, variable_checkboxes, terminal_set):
         if self.frame.variable_checkboxes is not None:
             terminal_set_string = self.generate_terminal_set_string(variable_checkboxes, terminal_set)
-            self.model.terminal_set = terminal_set_string
+            self.model.set_terminal_set(terminal_set_string)
 
     def generate_terminal_set_string(self, variable_checkboxes, terminal_text):
         selected_variables = [f"x{i+1}" for i, checkbox in variable_checkboxes.items() if checkbox.get()]

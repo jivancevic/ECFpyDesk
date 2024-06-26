@@ -4,7 +4,7 @@ import json
 from .config import ConfigurationManager
 from .parameters import param_paths
 from utils.helper import set_to_string, string_to_set
-from utils.file import create_directory
+from utils.file import create_directory, delete_file_if_exists
 from utils.publisher import Publisher
 
 class Model(Publisher):
@@ -27,6 +27,7 @@ class Model(Publisher):
         self.plot_x_index = None
         self.plot_y_index = None
         self.plot_scale = None
+        self.plot_type = None
         self.best_file = self.config["best_file_path"]
         self.thread_num = 1
 
@@ -233,6 +234,7 @@ class Model(Publisher):
 
     def parse_best_functions(self, id):
         best_file_path = self.config_manager.configurations[id].best_file_path
+        print("Best file path: ", best_file_path, "for process ", id)
         best_functions = self.parse_best_file(id, best_file_path)
         return best_functions
     
@@ -242,8 +244,6 @@ class Model(Publisher):
         generation_data = {}
         lines = []
         new_data, state['current_file_size'] = self.read_new_data(file_path, state['current_file_size'])
-        if id == 0:
-            print(f"Current file size: {state['current_file_size']}")
 
         if new_data is None:
             return state['best_functions'].copy()
@@ -357,7 +357,6 @@ class Model(Publisher):
         self.config_manager.split_train_test(self.get_input_path(), train_output_path=self.train_file_path, test_output_path=self.test_file_path, train_test_split_ratio=self.train_test_split, test_sample_choice=self.test_sample)
         self.train_input_data = self.load_data(self.train_file_path)
         self.test_input_data = self.load_data(self.test_file_path)
-        print(f"Train file path: {self.train_file_path}, Test file path: {self.test_file_path}")
 
     def update_default_parameters_file(self):
         self.config_manager.update_config(self.params)
@@ -365,7 +364,7 @@ class Model(Publisher):
     def get_parameters_paths(self):
         return [self.config_manager.configurations[id]['parameters_path'] for id in range(self.thread_num)]
     
-    def create_process_config(self, process_id, is_test=False):
+    def create_process_config(self, process_id, is_test=False, delete_logs=False):
         base_process_path = f'srm/temp/{process_id}'
         create_directory(base_process_path)
         parameters_path = f'{base_process_path}/parameters{"_test" if is_test else ""}.txt'
@@ -375,6 +374,9 @@ class Model(Publisher):
         self.config_manager.create_config(
             process_id=process_id, parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, is_test=is_test or process_id=='eval'
         )
+        if delete_logs:
+            delete_file_if_exists(best_file_path)
+            delete_file_if_exists(log_file_path)
 
         return parameters_path
 

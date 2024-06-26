@@ -11,7 +11,7 @@ from controllers.input import InputController
 from controllers.results import ResultsController
 
 class Controller:
-    REFRESH_RATE = 1
+    REFRESH_RATE = 0.5
 
     def __init__(self, model, view, app_directory):
         with open('config.json', 'r') as file:
@@ -68,7 +68,7 @@ class Controller:
 
     def update_best_functions(self, id):
         # Your existing logic here to update best functions, handle testing, etc.
-        old_best_functions = self.model.get_best_functions(id=id, copy=False)
+        old_best_functions = self.model.get_best_functions(id=id, copy=True)
         best_functions = self.model.parse_best_functions(id)
 
         if self.model.is_test():
@@ -92,8 +92,10 @@ class Controller:
             print(f"Has new data for process {id}")
             self.update_best_functions(id)
         else:
-            #print(f"No new data found for process {id}: last generation {best_functions[-1]['generation']}")
-            self.process_manager.running[id] = True
+            print(f"No new data for process {id}")
+            self.process_manager.start_update_timer(id)
+            if id in self.process_manager.running:
+                self.process_manager.running[id] = True
 
     def handle_frame_timer_finished(self):
         self.update_solutions_frame()
@@ -111,8 +113,7 @@ class Controller:
         self.toggle_process()
 
     def handle_stop_process(self):
-        stop_thread = threading.Thread(target=self.stop_all_processes)
-        stop_thread.start()
+        self.stop_all_processes()
 
     def toggle_process(self):
         if self.process_manager.global_running:
@@ -120,9 +121,11 @@ class Controller:
         elif len(self.process_manager.processes)>0:
             self.continue_all_processes()
         else:
+            print(f"************Starting all processes**********")
             self.start_all_processes()
 
     def start_all_processes(self):
+        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
         print("Starting all processes")
         if self.model.input_data is None:
             self.model.load_input_data()
@@ -134,14 +137,15 @@ class Controller:
         parameters_paths = []
         test_parameters_paths = []
         for id in range(self.model.thread_num):
-            path = self.model.create_process_config(id, False)
+            path = self.model.create_process_config(id, is_test=False, delete_logs=False)
             parameters_paths.append(path)
             if is_test:
-                path = self.model.create_process_config(id, True)
-                print(f"Test parameters path: {path}")
+                path = self.model.create_process_config(id, True, delete_logs=False)
                 test_parameters_paths.append(path)
         
         self.process_manager.set_thread_num(self.model.thread_num)
+        print(f"Thread num: {self.model.thread_num}")
+        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
         self.process_manager.set_parameters_paths(parameters_paths)
         self.process_manager.set_test_parameters_paths(test_parameters_paths)
         self.model.register_all_processes()
@@ -151,6 +155,7 @@ class Controller:
         self.navigation_controller.set_stop_process_button_icon(True)
         self.results_controller.clear_frame()
         
+        self.process_manager.reset_running_flags()
         self.process_manager.start_all_processes()
         self.start_update_timer()
 
@@ -167,9 +172,12 @@ class Controller:
 
     def stop_all_processes(self):
         self.process_manager.stop_all_processes()
+        if self.update_timer:
+            self.update_timer.cancel()
         self.navigation_controller.set_toggle_process_button_icon("start")
         self.navigation_controller.set_stop_process_button_icon(False)
         self.update_solutions_frame()
+        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
     
     def apply_configurations(self):
         self.model.update_default_parameters_file()
@@ -180,7 +188,9 @@ class Controller:
         self.model.reset_file_reading(id)
 
     def handle_input_data_change(self):
-        self.model.load_input_data()
+        data = self.model.load_input_data()
+        var_num = len(data)-1
+        self.results_controller.update_plot_x_axis(var_num)
         self.results_controller.update_plot()
     
     def evaluate_function(self, function_str, multivar=False, data=None, data_type=None):
@@ -210,7 +220,6 @@ class Controller:
         individual_file_path = f'srm/temp/{id}/individual.txt'
         self.model.config_manager.create_individual_file(individual_file_path, individual_data['error'], individual_data['size'], individual_data['prefix_function'])
 
-        print(f"Running evaluation for function: {function_str}, parameters path: {config.parameters_path}, individual path: {individual_file_path}, data type: {data_type}")
         self.process_manager.run_test_process(id=id, executable_path=None, parameters_path=config.parameters_path, individual_path=individual_file_path)
         error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
 
