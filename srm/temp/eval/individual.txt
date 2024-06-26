@@ -1,4 +1,4 @@
 <Individual size="1">
-	<FitnessMin value="0.0647223"/>
-	<Tree size="9">- * * x1 + x2 x1 D_0.775941 D_0.746359  </Tree>
+	<FitnessMin value="0.00101858"/>
+	<Tree size="43">+ D_3.36616 * D_0.387263 + + - + x2 * D_-0.974908 x1 * x2 / x1 D_-0.283359 - D_-10.8246 D_0.0193949 * + - x2 + x1 D_-0.0686319 * + x1 D_0.0193949 + x2 D_0.0171102 - + * x2 x1 - x2 D_-0.146334 x1  </Tree>
 </Individual>

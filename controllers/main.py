@@ -92,7 +92,7 @@ class Controller:
             print(f"Has new data for process {id}")
             self.update_best_functions(id)
         else:
-            print(f"No new data found for process {id}: last generation {best_functions[-1]['generation']}")
+            #print(f"No new data found for process {id}: last generation {best_functions[-1]['generation']}")
             self.process_manager.running[id] = True
 
     def handle_frame_timer_finished(self):
@@ -202,7 +202,7 @@ class Controller:
         config = self.model.get_evaluation_configurations(id)
 
         individual_data_index = find_index_of_dict_with_value_in_array(self.model.get_best_functions(), 'function', function_str)
-        if individual_data_index is -1:
+        if individual_data_index == -1:
             print(f"Function '{function_str}' not found in best functions")
             return None, None
         
@@ -210,6 +210,7 @@ class Controller:
         individual_file_path = f'srm/temp/{id}/individual.txt'
         self.model.config_manager.create_individual_file(individual_file_path, individual_data['error'], individual_data['size'], individual_data['prefix_function'])
 
+        print(f"Running evaluation for function: {function_str}, parameters path: {config.parameters_path}, individual path: {individual_file_path}, data type: {data_type}")
         self.process_manager.run_test_process(id=id, executable_path=None, parameters_path=config.parameters_path, individual_path=individual_file_path)
         error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
 
@@ -217,8 +218,6 @@ class Controller:
     
     def start_update_timer(self):
         print("\nStarting global update timer\n")
-        if 0 in self.process_manager.processes and self.process_manager.processes[0].poll() is None:
-            print("Process 0 is still running")
         self.update_timer = threading.Timer(self.REFRESH_RATE, self.handle_frame_timer_finished)    
         self.update_timer.start()
 

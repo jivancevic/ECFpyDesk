@@ -1,0 +1,29 @@
+<ECF>
+	<Algorithm>
+  		<SteadyStateTournament>
+			<Entry key="tsize">3</Entry> <!-- velicina turnira -->
+		</SteadyStateTournament>
+	</Algorithm>
+ 
+	<Genotype>
+		<Tree>
+			<Entry key="maxdepth">7</Entry> <!-- maxdepth = trunc(4.5 + sqrt(variables)) -->
+			<Entry key="functionset">avg log sqrt min max pos + - * / sin cos</Entry>
+			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+		</Tree>
+	</Genotype>
+
+	<Registry>
+		<Entry key="input_file">f6.txt</Entry>
+		<Entry key="linear_scaling">false</Entry>
+		<Entry key="bestfile">log2.txt</Entry>
+
+		<Entry key="randomizer.seed">0</Entry>
+		<Entry key="population.size">1</Entry>
+		<Entry key="mutation.indprob">0.75</Entry>
+		<Entry key="term.eval">1</Entry>
+		<Entry key="term.stagnation">300</Entry>
+		<Entry key="log.level">3</Entry>
+		<Entry key="log.frequency">10</Entry>
+	</Registry>
+</ECF>

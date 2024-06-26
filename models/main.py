@@ -15,7 +15,7 @@ class Model(Publisher):
         with open(self.config_path, 'r') as file:
             self.config = json.load(file)
 
-        self.config_manager = ConfigurationManager(self.config['SRM_parameters_path'])
+        self.config_manager = ConfigurationManager()
 
         self.configs = {}
         self.process_states = {}
@@ -370,7 +370,7 @@ class Model(Publisher):
         best_file_path = f'{base_process_path}/best{"_test" if is_test else ""}.txt'
         log_file_path = f'{base_process_path}/log{"_test" if is_test else ""}.txt'
         self.config_manager.create_config(
-            process_id=process_id, parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, is_test=is_test
+            process_id=process_id, parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, is_test=is_test or process_id=='eval'
         )
 
         return parameters_path

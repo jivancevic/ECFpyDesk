@@ -14,8 +14,7 @@ search_options = [
 
 plot_options = [
         ("plot_y_index", "Plot y axis", [
-            ("Target variable", "0"), 
-            ("Xxx", "1")
+            ("Target variable", "0")
         ]),
         ("plot_x_index", "Plot x axis", [
             ("Row number", -1), 

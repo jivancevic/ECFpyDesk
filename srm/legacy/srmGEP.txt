@@ -1,0 +1,37 @@
+<ECF>
+	<Algorithm>
+  		<SteadyStateTournament>
+			<Entry key="tsize">3</Entry> <!-- velicina turnira -->
+		</SteadyStateTournament>
+	</Algorithm>
+ 
+	<Genotype>
+		<GEPChromosome>
+			<Entry key="headlength">3</Entry>
+			<Entry key="genes">3</Entry>
+			<Entry key="functionset">avg log min max pos + - * / sin cos</Entry>
+			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+			<Entry key="linkingfunctions">+ * - </Entry>
+			<Entry key="linklength">3</Entry>
+			<Entry key="crx.onepoint">0.3</Entry>
+			<Entry key="crx.twopoint">0.4</Entry>
+			<Entry key="crx.gene">0.3</Entry>
+			<Entry key="mut.simple">0.5</Entry>
+			<Entry key="mut.gauss">0.5</Entry>
+		</GEPChromosome>
+	</Genotype>
+
+	<Registry>
+		<Entry key="input_file">f6.txt</Entry>
+		<Entry key="linear_scaling">true</Entry>
+		<Entry key="bestfile">log2.txt</Entry>
+
+		<Entry key="randomizer.seed">0</Entry>
+		<Entry key="population.size">500</Entry>
+		<Entry key="mutation.indprob">0.8</Entry>
+		<Entry key="term.eval">1000000</Entry>
+		<Entry key="term.stagnation">250</Entry>
+		<Entry key="log.level">3</Entry>
+		<Entry key="log.frequency">10</Entry>
+	</Registry>
+</ECF>

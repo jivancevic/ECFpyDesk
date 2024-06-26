@@ -1,9 +1,11 @@
 import xml.etree.ElementTree as ET
-import copy
+import re
+import math
 import pandas as pd
 import shutil
 from sklearn.model_selection import train_test_split
 from utils.file import delete_file_if_exists
+from utils.helper import choose_random_element_with_probability
 
 class ProcessConfiguration:
     def __init__(self, parameters_path, input_file_path, best_file_path, log_file_path=None, tree=None, root=None):
@@ -18,17 +20,31 @@ class ConfigurationManager:
     tree = None
     root = None
 
-    def __init__(self, default_parameters_path):
-        self.default_parameters_path = default_parameters_path
-        self.eval_configurations = {}  # Stores ET trees for different processes
-        self.configurations = {}  # Stores ET trees for different processes
-        self.test_configurations = {} # Stores ET trees for different test processes
+    def __init__(self):
+        # Default parameters file paths, they are written in format (path, probability of being chosen)
+        self.default_parameters_paths = [
+            ("srm/srmGP.txt", 0.8),
+            ("srm/srmGEP.txt", 0.1),
+            ("srm/srmAP.txt", 0.1)
+        ]
+        self.default_evaluation_parameters_paths = [
+            ("srm/srm_eval.txt", 1)
+        ]
+        self.eval_configurations = {}
+        self.configurations = {}
+        self.test_configurations = {}
 
     def set_tree_and_root(self):
-        self.tree, self.root = self.parse_XML(self.default_parameters_path)
+        self.tree, self.root = self.parse_XML("srm/srmGP.txt")
 
     def create_config(self, process_id, parameters_path, input_file_path, best_file_path, log_file_path, is_test=False):
-        tree, root = self.parse_XML(self.default_parameters_path)
+        if is_test:
+            default_parameters_path = choose_random_element_with_probability(self.default_evaluation_parameters_paths)
+        else:
+            default_parameters_path = choose_random_element_with_probability(self.default_parameters_paths)
+        
+        tree, root = self.parse_XML(default_parameters_path)
+        self.prepare_config(tree, default_parameters_path)
         
         process_config = ProcessConfiguration(parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, tree=tree, root=root)
         self.create_parameters_file(process_config, is_test)
@@ -64,8 +80,18 @@ class ConfigurationManager:
 
     def update_config(self, params, process_id=None, is_test=False):
         if process_id is None:
-            tree = self.tree
-            parameters_path = self.default_parameters_path
+            for (path, probs) in self.default_parameters_paths:
+                print(f"Path: {path}, Probs: {probs}")
+                tree, root = self.parse_XML(path)
+                self.update_parameters(params, tree)
+                self.prepare_config(tree, path)
+                self.write_config(tree, path)
+            for (path, probs) in self.default_evaluation_parameters_paths:
+                tree, root = self.parse_XML(path)
+                self.update_parameters(params, tree)
+                self.prepare_config(tree, path)
+                self.write_config(tree, path)
+            
         else:
             if process_id == 'eval':
                 config = self.configurations[process_id]
@@ -75,12 +101,13 @@ class ConfigurationManager:
                 config = self.test_configurations[process_id]
             tree = config.tree
             parameters_path = config.parameters_path
+            self.update_parameters(params, tree)
+            self.write_config(tree, parameters_path)
+
+    def update_parameters(self, params, tree):
         for path, value in params.items():
             if value is not None and value != "":
-                print(f"Setting parameter {path} to {value}")
                 self.set_param_element(path, value, tree)
-
-        self.write_config(tree, parameters_path)
 
     def get_current_function_set(self):
         return self.get_current_param_value("ECF/Genotype/Entry/functionset")
@@ -93,21 +120,22 @@ class ConfigurationManager:
         if self.tree is None:
             self.set_tree_and_root()
 
-        target_element = self.find_param_element(path, self.tree)
+        target_elements = self.find_param_elements(path, self.tree)
 
-        if target_element is not None:
-            return target_element.text  # Return the text content of the element
+        if target_elements != []:
+            return target_elements[0].text  # Return the text content of the element
         return None  # If the element with the key doesn't exist, return None
     
     def set_param_element(self, path, value, tree):
-        target_element = self.find_param_element(path, tree)
-        if target_element is not None:
-            target_element.text = value
+        target_elements = self.find_param_elements(path, tree)
+        if target_elements != []:
+            for element in target_elements:
+                element.text = str(value)
         else:
             # If the parameter doesn't exist, consider creating it
             self.add_param_element(path, value, tree)
     
-    def find_param_element(self, path, tree=None):
+    def find_param_elements(self, path, tree=None):
         # Split the path by slashes to navigate through the nodes
         elements = path.split('/')
 
@@ -118,23 +146,26 @@ class ConfigurationManager:
         current_element = root
 
         # Navigate through the tree to find the target element
-        for element in elements[1:-2]:  # Ignore the last segment because it's the attribute key
+        for element in elements[1:-2]:  # Use all elements except the last one for navigation
+
             current_element = current_element.find(f".//{element}")
             if current_element is None:
-                return None  # If the path is invalid at any point, return None
+                return []  # Return an empty list if any part of the path is invalid
 
         # The last part of the path should be the key of the attribute you are looking for
         entry = elements[-2]
         key = elements[-1]
-        target_element = current_element.find(f".//{entry}[@key='{key}']")  # Find the element with the specified key
 
-        return target_element
+        # Use findall to collect all elements that match the final part of the path
+        target_elements = current_element.findall(f".//{entry}[@key='{key}']")
+
+        return target_elements
+
 
     def add_param_element(self, path, value, tree=None):
         if tree is None:
             tree = self.tree
         root = tree.getroot()
-
         try:
             # Assume self.root is already an ElementTree object of the loaded XML
             elements = path.split('/')
@@ -151,11 +182,11 @@ class ConfigurationManager:
             # Check if the element already exists
             existing_element = parent.find(f"{entry}[@key='{key}']")
             if existing_element is not None:
-                existing_element.text = value  # Update existing element
+                existing_element.text = str(value)  # Update existing element
             else:
                 # Create a new element and append it to the parent
                 new_element = ET.Element(entry, key=key)
-                new_element.text = value
+                new_element.text = str(value)
                 parent.append(new_element)
 
             ET.indent(tree, space="\t", level=0)
@@ -163,6 +194,29 @@ class ConfigurationManager:
         except Exception as e:
             print(f"Error when adding parameter: {e}")
             return None
+        
+    def prepare_config(self, tree, parameters_path):
+        num_vars = self.calculate_num_vars(tree)
+        max_depth = math.trunc(4.5 + math.sqrt(num_vars))
+        dimension = 2 * max_depth
+        
+        if parameters_path == 'srm/srmGP.txt':
+            self.set_param_element("ECF/Genotype/Tree/Entry/maxdepth", max_depth, tree)
+        elif parameters_path == 'srm/srmAP.txt':
+            self.set_param_element("ECF/Genotype/APGenotype/Entry/dimension", dimension, tree)
+            self.set_param_element("ECF/Genotype/Tree/Entry/maxdepth", max_depth, tree)
+        elif parameters_path == 'srm/srm_eval.txt':
+            self.set_param_element("ECF/Genotype/Tree/Entry/maxdepth", max_depth, tree)
+
+    def calculate_num_vars(self, tree):
+        terminal_set_element = self.find_param_elements("ECF/Genotype/Entry/terminalset", tree)[0]
+        terminal_set = terminal_set_element.text
+
+        terminal_set = terminal_set.split(" ")
+        pattern = re.compile(r'^x\d+$')
+        variables = [element for element in terminal_set if re.match(pattern, element)]
+        
+        return len(variables)
 
     def split_train_test(self, input_data_path, train_output_path, test_output_path, train_test_split_ratio=1, test_sample_choice="random"):
         delete_file_if_exists(train_output_path)

@@ -39,7 +39,7 @@ class InputController(BaseController):
 
         for path, var in self.frame.params_vars.items():
             current_value = self.model.config_manager.get_current_param_value(path)
-            var.set(current_value)
+            var.set(current_value if current_value is not None else "")
 
     def handle_browse_file(self, button_type):
         filepath = filedialog.askopenfilename()
