@@ -3,5 +3,6 @@ param_paths = {
     "error_path": "ECF/Registry/Entry/error_weights.file",
     "terminal_set": "ECF/Genotype/Entry/terminalset",
     "search_metric": "ECF/Registry/Entry/error_metric",
-    "function_set": "ECF/Genotype/Entry/functionset"
+    "function_set": "ECF/Genotype/Entry/functionset",
+    "linear_scaling": "ECF/Registry/Entry/linear_scaling"
 }

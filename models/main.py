@@ -58,6 +58,9 @@ class Model(Publisher):
     
     def get_current_input_path(self):
         return self.config_manager.get_current_param_value(param_paths["input_path"])
+    
+    def get_current_variable(self, name):
+        return self.config_manager.get_current_param_value(param_paths[name])
 
     def set_error_path(self, path):
         self.params[param_paths["error_path"]] = path

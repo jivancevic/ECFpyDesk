@@ -81,7 +81,6 @@ class ConfigurationManager:
     def update_config(self, params, process_id=None, is_test=False):
         if process_id is None:
             for (path, probs) in self.default_parameters_paths:
-                print(f"Path: {path}, Probs: {probs}")
                 tree, root = self.parse_XML(path)
                 self.update_parameters(params, tree)
                 self.prepare_config(tree, path)

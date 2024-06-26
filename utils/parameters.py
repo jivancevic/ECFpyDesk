@@ -34,10 +34,9 @@ options = {
         ("Maximum", "max"), ("Position", "pos"),("sin(x)", "sin"), ("cos(x)", "cos")
     ],
     "Registry parameters": [
-        ("Linear scaling", "ECF/Registry/Entry/linear_scaling"),
+        ("Max generations", "ECF/Registry/Entry/term.maxgen"),
         ("Population size", "ECF/Registry/Entry/population.size"),
         ("Mutation probability", "ECF/Registry/Entry/mutation.indprob"),
-        ("Max generations", "ECF/Registry/Entry/term.maxgen"),
         ("Log frequency", "ECF/Registry/Entry/log.frequency"),
     ]
 

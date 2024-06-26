@@ -32,35 +32,42 @@ class InputView(BaseView):
         self.grid_columnconfigure(0, weight=1, uniform="Silent_Creme")
         self.grid_columnconfigure(1, weight=1, uniform="Silent_Creme")
 
+    def configure_frame_grid(self, frame):
+        frame.grid_columnconfigure(0, weight=2, uniform="Silent_Creme")
+        frame.grid_columnconfigure(1, weight=3, uniform="Silent_Creme")
+
     def setup_file_section(self):
         self.data_frame = ctk.CTkFrame(self)
-        self.data_frame.grid(row=0, column=0, sticky='ew', padx=5, pady=5)
-        self.setup_file_widgets(self.data_frame)
-        self.setup_terminal_frame(self.data_frame)
+        self.data_frame.grid(row=0, column=0, sticky='ew', padx=0, pady=0)
+        self.configure_frame_grid(self.data_frame)
+        title_label = ctk.CTkLabel(self.data_frame, text="Input options", font=self.font)
+        title_label.grid(row=0, column=0, columnspan=2, sticky="w", padx=2)
+        self.setup_file_widgets(self.data_frame, 1)
+        self.setup_terminal_frame(self.data_frame, 3)
 
-    def setup_file_widgets(self, frame):
-        self.input_file_button = self.create_file_button(frame, "Input file", 0)
-        self.error_file_button = self.create_file_button(frame, "Error weights file", 1)
+    def setup_file_widgets(self, frame, start_row=1):
+        self.input_file_button = self.create_file_button(frame, "Input file", start_row)
+        self.error_file_button = self.create_file_button(frame, "Error weights file", start_row+1)
 
     def create_file_button(self, frame, text, row):
-        ctk.CTkLabel(frame, text=text).grid(row=row, column=0, sticky='w', pady=5)
+        ctk.CTkLabel(frame, text=text).grid(row=row, column=0, sticky='w', padx=5, pady=5)
         button = ctk.CTkButton(frame, text="Select File", command=lambda bt=row: self.invoke_callback('browse_file', bt))
         button.grid(row=row, column=1, sticky='ew', padx=5, pady=5)
         return button
     
-    def setup_terminal_frame(self, frame):
-        ctk.CTkLabel(frame, text="Input variables").grid(row=2, column=0, sticky='w', pady=5)
+    def setup_terminal_frame(self, frame, start_row=3):
+        ctk.CTkLabel(frame, text="Input variables").grid(row=start_row, column=0, sticky='w', padx=5, pady=5)
         button = ctk.CTkButton(frame, text="All/None", command=self.toggle_variables)
-        button.grid(row=3, column=0, sticky='ew', padx=5, pady=5)
+        button.grid(row=start_row+1, column=0, sticky='ew', padx=5, pady=5)
 
         self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=180, height=70, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
         self.terminal_scroll_frame._scrollbar.configure(height=0)
-        self.terminal_scroll_frame.grid(row=2, column=1, rowspan=2, sticky="ew", pady=5)
+        self.terminal_scroll_frame.grid(row=start_row, column=1, rowspan=2, sticky="ew", padx=5, pady=5)
 
-        ctk.CTkLabel(frame, text="Terminal set").grid(row=4, column=0, sticky='w', pady=5)
+        ctk.CTkLabel(frame, text="Terminal set").grid(row=start_row+2, column=0, sticky='w', padx=5, pady=5)
         self.terminal_set = StringVar(value="")
         self.terminal_set.trace_add('write', lambda *args: self.invoke_callback("terminal_set_change", self.variable_checkboxes, self.terminal_set.get()))
-        ctk.CTkEntry(frame, textvariable=self.terminal_set).grid(row=4, column=1, sticky='ew', padx=5, pady=5)
+        ctk.CTkEntry(frame, textvariable=self.terminal_set).grid(row=start_row+2, column=1, sticky='ew', padx=5, pady=5)
 
     def populate_terminal_scroll_frame(self, var_num, curr_terminal_set, terminal_set_without_vars):
         self.terminal_set.set(terminal_set_without_vars)
@@ -76,17 +83,21 @@ class InputView(BaseView):
 
     def setup_search_options(self):
         self.search_frame = ctk.CTkFrame(self)
-        self.search_frame.grid(row=1, column=0, sticky='ew', padx=5, pady=5)
+        self.search_frame.grid(row=1, column=0, sticky='ew', padx=0, pady=5)
+        self.configure_frame_grid(self.search_frame)
         self.add_search_options(self.search_frame)
 
     def add_search_options(self, frame):
+        title_label = ctk.CTkLabel(frame, text="Search options", font=self.font)
+        title_label.grid(row=0, column=0, columnspan=2, sticky="w", padx=2)
+
         for idx, option in enumerate(search_options):
             variable_name, label, choices = option
-            self.setup_dropdown(frame, variable_name, label, choices, idx, 1)
+            self.setup_dropdown(frame, variable_name, label, choices, idx+1, 1)
 
     def setup_parameters_scroll_area(self):
-        self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=150, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
-        self.scroll_frame.grid(row=0, column=1, rowspan=2, sticky="ew", pady=5)
+        self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=500, scrollbar_fg_color=self.FG_COLOR, fg_color="#f0f0f0")
+        self.scroll_frame.grid(row=0, column=1, rowspan=3, sticky="ew", pady=0)
 
     def populate_scroll_frame(self, options):
         row_counter = 0
@@ -116,17 +127,20 @@ class InputView(BaseView):
 
     def setup_other_options_frame(self):
         self.other_options_frame = ctk.CTkFrame(self)
-        self.other_options_frame.grid(row=3, column=0, columnspan=2, sticky='ew', pady=5)
-        self.other_options_frame.grid_columnconfigure(1, weight=1)
+        self.other_options_frame.grid(row=2, column=0, sticky='ew', pady=0)
+        self.configure_frame_grid(self.other_options_frame)
 
-        title_label = ctk.CTkLabel(self.other_options_frame, text="Other options")
-        title_label.grid(row=0, column=0, columnspan=2, sticky="w")
+        title_label = ctk.CTkLabel(self.other_options_frame, text="Other options", font=self.font)
+        title_label.grid(row=0, column=0, columnspan=2, sticky="w", padx=2)
 
         self.setup_number_of_threads(self.other_options_frame, row=1)
 
-        for idx, option in enumerate(plot_options):
-            variable_name, label, choices = option
-            self.setup_dropdown(self.other_options_frame, variable_name, label, choices, idx+2, 1)
+        label = ctk.CTkLabel(self.other_options_frame, text="Linear scaling")
+        label.grid(row=2, column=0, sticky="w", padx=5, pady=5)
+
+        self.linear_scaling_checkbox = ctk.CTkCheckBox(self.other_options_frame, text="", command=lambda: self.invoke_callback('linear_scaling_toggle'))
+        self.linear_scaling_checkbox.grid(row=2, column=1, sticky='ew', padx=5, pady=5)
+
 
     def setup_number_of_threads(self, frame, row):
         label = ctk.CTkLabel(frame, text="Number of threads")
@@ -154,15 +168,15 @@ class InputView(BaseView):
 
     def setup_action_buttons(self):
         action_frame = ctk.CTkFrame(self)
-        action_frame.grid(row=4, column=0, columnspan=2, sticky='ew', pady=5)
+        action_frame.grid(row=3, column=0, columnspan=2, sticky='ew')
         action_frame.grid_columnconfigure(0, weight=1)
         action_frame.grid_columnconfigure(1, weight=1)
 
         self.apply_button = ctk.CTkButton(action_frame, text="Apply", command=lambda: self.invoke_callback('apply_button_click'))
-        self.apply_button.grid(row=0, column=0, sticky='ew', padx=5)
+        self.apply_button.grid(row=0, column=0, sticky='e', padx=10, pady=10)
 
         self.change_button = ctk.CTkButton(action_frame, text="Change Manually", command=lambda: self.invoke_callback('change_button_click'))
-        self.change_button.grid(row=0, column=1, sticky='ew', padx=5)
+        self.change_button.grid(row=0, column=1, sticky='w', padx=10, pady=30)
 
     def on_change_button_click(self):
         if not self.edit_mode:
