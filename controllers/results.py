@@ -1,3 +1,4 @@
+from utils.parameters import plot_options
 from .base import BaseController
 
 class ResultsController(BaseController):
@@ -43,6 +44,9 @@ class ResultsController(BaseController):
             data_type = self.model.get_data_type()
 
         x_data, y_data = self.model.get_plot_data(data_type)
+        plot_scale = self.model.plot_scale
+        plot_y_index = self.model.plot_y_index
+        plot_type = self.model.plot_type
         
         if x_data is None or y_data is None:
             return
@@ -52,9 +56,9 @@ class ResultsController(BaseController):
         try:
             if function:
                 x_values, function_results = self.controller.evaluate_function(function, multivar, data_type=data_type)
-                self.frame.update_plot(x_data, y_data, x_values, function_results, multivar)
+                self.frame.update_plot(x_data, y_data, x_values, function_results, multivar, plot_scale=plot_scale, plot_y_index=plot_y_index, plot_type=plot_type)
             else:
-                self.frame.update_plot(x_data, y_data)
+                self.frame.update_plot(x_data, y_data, plot_scale=plot_scale, plot_y_index=plot_y_index, plot_type=plot_type)
         except Exception as e:
             print(f"Error evaluating function '{function}': {e}")
             self.view.display_error(f"Error evaluating function '{function}': {e}")
@@ -98,6 +102,13 @@ class ResultsController(BaseController):
             function = self.model.best_functions[self.frame.current_active_row]["function"]
         self.update_plot(function)
 
+    
+    def update_plot_x_axis(self, var_num, start_row=2):
+        for idx, option in enumerate(plot_options):
+            variable_name, label, choices = option
+            if variable_name == "plot_x_index":
+                choices = [("Row number", -1)] + [(f"x{i+1}", i) for i in range(var_num)]
+                self.frame.setup_dropdown(self.frame.info_frame, variable_name, label, choices, idx+start_row, 1)
+
     def add_test_option(self, should_add=False):
-        print("Adding test option")
         self.frame.setup_info_frame(test_option=should_add)

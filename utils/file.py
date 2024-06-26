@@ -32,6 +32,6 @@ def create_directory(directory_path):
         os.makedirs(directory_path)
         print(f"Directory created successfully: {directory_path}")
     except FileExistsError:
-        print(f"Directory '{directory_path}' already exists.")
+        pass
     except Exception as e:
         print(f"Error creating directory '{directory_path}': {e}")

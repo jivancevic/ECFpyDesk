@@ -14,15 +14,24 @@ search_options = [
 
 plot_options = [
         ("plot_y_index", "Plot y axis", [
-            ("Target variable", "0")
+            ("Target variable", 0),
+            ("Residual error", 1),
+            ("Residual error (%)", 2),
         ]),
         ("plot_x_index", "Plot x axis", [
             ("Row number", -1), 
             ("x1", 0), 
             ("x2", 1)
         ]),
+        ("plot_type", "Plot type", [
+            ("Scatter", "scatter"), 
+            ("Line", "plot")
+        ]),
         ("plot_scale", "Plot scale", [
-            ("Regular", 0)
+            ("Regular", 0),
+            ("log y", 1),
+            ("log x", 2),
+            ("log x and log y", 3)
         ])
     ]
 

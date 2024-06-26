@@ -75,7 +75,6 @@ class ConfigurationManager:
     
     def write_config(self, tree, file_path):
         ET.indent(tree, space="\t", level=0)
-        print(f"Writing to file: {file_path}")
         tree.write(file_path)
 
     def update_config(self, params, process_id=None, is_test=False):

@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter import StringVar, IntVar, Text, END
-from utils.parameters import search_options, plot_options
+from utils.parameters import search_options
 from .base import BaseView
 
 class InputView(BaseView):
@@ -46,13 +46,13 @@ class InputView(BaseView):
         self.setup_terminal_frame(self.data_frame, 3)
 
     def setup_file_widgets(self, frame, start_row=1):
-        self.input_file_button = self.create_file_button(frame, "Input file", start_row)
-        self.error_file_button = self.create_file_button(frame, "Error weights file", start_row+1)
+        self.input_file_button = self.create_file_button(frame, "Input file", start_row, 0)
+        self.error_file_button = self.create_file_button(frame, "Error weights file", start_row, 1)
 
-    def create_file_button(self, frame, text, row):
-        ctk.CTkLabel(frame, text=text).grid(row=row, column=0, sticky='w', padx=5, pady=5)
-        button = ctk.CTkButton(frame, text="Select File", command=lambda bt=row: self.invoke_callback('browse_file', bt))
-        button.grid(row=row, column=1, sticky='ew', padx=5, pady=5)
+    def create_file_button(self, frame, text, start_row, add_row):
+        ctk.CTkLabel(frame, text=text).grid(row=start_row+add_row, column=0, sticky='w', padx=5, pady=5)
+        button = ctk.CTkButton(frame, text="Select File", command=lambda bt=add_row: self.invoke_callback('browse_file', bt))
+        button.grid(row=start_row+add_row, column=1, sticky='ew', padx=5, pady=5)
         return button
     
     def setup_terminal_frame(self, frame, start_row=3):
@@ -75,7 +75,7 @@ class InputView(BaseView):
 
         for i in range(var_num):
             checkbox_text = f"x{i+1}"
-            checkbox = ctk.CTkCheckBox(self.terminal_scroll_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("terminal_set_change", self.variable_checkboxes, self.terminal_set))
+            checkbox = ctk.CTkCheckBox(self.terminal_scroll_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("terminal_set_change", self.variable_checkboxes, self.terminal_set.get()))
             checkbox.grid(row=i, column=0, sticky='ew', padx=5, pady=3)
             if checkbox_text in curr_terminal_set:
                 checkbox.select()
@@ -194,7 +194,7 @@ class InputView(BaseView):
         # Display the configuration file for editing
         if not hasattr(self, 'config_editor'):
             self.config_editor = Text(self, height=10, width=50)
-            self.config_editor.grid(row=0, column=0, rowspan=4, columnspan=2, sticky='nsew')
+            self.config_editor.grid(row=0, column=0, rowspan=3, columnspan=2, sticky='nsew')
         
         self.config_editor.insert(END, text)
         self.config_editor.lift()

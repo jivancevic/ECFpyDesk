@@ -23,7 +23,6 @@ class ResultsView(BaseView):
     def initialize_ui(self):
         """Setup the initial UI elements and frame configurations."""
         self.configure_grid()
-        #self.setup_terminal_frame()
         self.setup_solutions_frame()
         self.setup_info_frame()
         self.setup_plot_area()
@@ -34,28 +33,10 @@ class ResultsView(BaseView):
         self.rowconfigure(list(range(6)), weight = 1, uniform="Silent_Creme")
         self.columnconfigure(list(range(6)), weight = 1, uniform="Silent_Creme")
 
-    def setup_terminal_frame(self):
-        # Terminal output frame
-        self.terminal_frame = ctk.CTkFrame(self)
-        self.terminal_frame.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=5, pady=5)
-        self.terminal_frame.grid_columnconfigure(0, weight=1)
-        self.terminal_frame.grid_rowconfigure(0, weight=1)
-
-        # Create a scrolled text widget for terminal output
-        self.output_display = ctk.CTkTextbox(self.terminal_frame, state='normal', wrap='word')
-        self.output_display.grid(row=0, column=0, sticky="nsew")
-
-    def append_output(self, text):
-        """Append text to the output display."""
-        self.output_display.configure(state='normal')
-        self.output_display.insert('end', text)
-        self.output_display.configure(state='disabled')
-        self.output_display.yview('end')  # Auto-scroll to the end
-
     def setup_solutions_frame(self):
         """Setup solutions frame with a separate header and list section."""
         self.solutions_master_frame = ctk.CTkFrame(self)
-        self.solutions_master_frame.grid(row=0, column=0, columnspan=6, sticky="nsew")
+        self.solutions_master_frame.grid(row=0, column=0, columnspan=6, rowspan=3, sticky="nsew")
         
         # Setup header frame for column titles
         self.header_frame = ctk.CTkFrame(self.solutions_master_frame)
@@ -77,21 +58,21 @@ class ResultsView(BaseView):
 
     def setup_info_frame(self, test_option=False):
         """Setup the information display frame."""
-        info_frame = ctk.CTkFrame(self)
-        info_frame.grid(row=1, column=0, columnspan=3, sticky="nsew")
+        self.info_frame = ctk.CTkFrame(self)
+        self.info_frame.grid(row=3, column=0, columnspan=3, rowspan=3, sticky="nsew")
         start_row = 1 if test_option else 0
 
-        info_frame.rowconfigure(start_row, weight=1)  # Allow dynamic expansion for text box
-        info_frame.columnconfigure(1, weight=1)  # Allow dynamic expansion for text box
+        self.info_frame.rowconfigure(start_row, weight=1)  # Allow dynamic expansion for text box
+        self.info_frame.columnconfigure(1, weight=1)  # Allow dynamic expansion for text box
 
         if test_option:
             checkbox_text = "Show Test Data"
-            checkbox = ctk.CTkCheckBox(info_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("show_test_data", checkbox.get()))
+            checkbox = ctk.CTkCheckBox(self.info_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("show_test_data", checkbox.get()))
             checkbox.grid(row=0, column=0, columnspan=2, sticky='e', padx=5, pady=3)
 
         labels = ["Function", "Error"]
-        self.setup_labels(info_frame, labels, start_row=start_row)
-        self.setup_plot_options(info_frame, start_row=start_row+2)
+        self.setup_labels(self.info_frame, labels, start_row=start_row)
+        self.setup_plot_options(self.info_frame, start_row=start_row+2)
 
     def setup_labels(self, frame, labels, start_row=0):
         """Create labels and variable displays for information."""
@@ -120,7 +101,7 @@ class ResultsView(BaseView):
         self.canvas = FigureCanvasTkAgg(self.figure, self)
         self.canvas.draw()
         self.canvas_widget = self.canvas.get_tk_widget()
-        self.canvas_widget.grid(row=1, column=3, columnspan=3, sticky='nsew')
+        self.canvas_widget.grid(row=3, column=3, columnspan=3, rowspan=3, sticky='nsew')
     
     def setup_keyboard_bindings(self):
         # Ensure the frame can receive focus
@@ -151,18 +132,52 @@ class ResultsView(BaseView):
         # Update other information variables
         self.info_vars["Error"].set(f"{float(error):.6f}")
 
-    def update_plot(self, x_data, y_data, x_values=None, function_results=None, multivar=False):
+    def update_plot(self, x_data, y_data, x_values=None, function_results=None, multivar=False, plot_type="scatter", plot_scale=0, plot_y_index=0):
         self.ax.clear()  # Clear the previous plot
-        self.ax.scatter(x_data, y_data, color='blue', label='Data')  # Scatter plot of original data
+        
+        x_data = np.array(x_data)
+        y_data = np.array(y_data)
+
+        if plot_y_index == 0:
+            self.ax.scatter(x_data, y_data, color='blue', label='Data')  # Scatter plot of original data
 
         if function_results is not None:
-            if not multivar:
-                self.ax.plot(x_values, function_results, 'g-', label='Function')  # Plot the custom function
+            function_results = np.array(function_results)
+            residuals = np.subtract(y_data, function_results)
+
+            if plot_y_index == 1:
+                self.add_to_plot(x_data, residuals, 'black', 'Residual Error', plot_type)
+                #self.ax.plot(x_data, residuals, 'r-', label='Residual Error')
+            elif plot_y_index == 2:
+                with np.errstate(divide='ignore', invalid='ignore'):
+                    residual_percent = np.abs(residuals / y_data) * 100
+                    valid_mask = np.isfinite(residual_percent)
+                    print(f"valid_mask: {valid_mask}")
+                    print(f"Residual percent: {residual_percent}")
+                    self.add_to_plot(x_data[valid_mask], residual_percent[valid_mask], 'magenta', 'Residual Error %', plot_type)
+                    #self.ax.plot(x_data[valid_mask], residual_percent[valid_mask], 'm-', label='Residual Error %')
             else:
-                self.ax.scatter(x_data, function_results, color='red', label='Function')  # Scatter plot of function evaluation
+                self.add_to_plot(x_data, function_results, 'red', 'Target variable', plot_type)
+                #self.ax.plot(x_data, function_results, color='red', label='Function')  # Scatter plot of function evaluation
+
+        if plot_scale == 1:  # Log scale for y-axis
+            self.ax.set_yscale('log')
+        elif plot_scale == 2:  # Log scale for x-axis
+            self.ax.set_xscale('log')
+        elif plot_scale == 3:  # Log scale for both axes
+            self.ax.set_yscale('log')
+            self.ax.set_xscale('log')
 
         self.ax.legend()  # Add a legend to distinguish plotted lines
         self.canvas.draw()  # Update the canvas
+
+    def add_to_plot(self, x, y, color, label, type):
+        if type == "plot":
+            self.ax.plot(x, y, color=color, label=label)
+        elif type == "bar":
+            self.ax.bar(x, y, color=color, label=label)
+        else:
+            self.ax.scatter(x, y, color=color, label=label)
 
     def create_solution_row(self, func, row_index):
         size_label = ctk.CTkLabel(self.solutions_list_frame, text=str(func["size"]), justify="center")
@@ -205,21 +220,12 @@ class ResultsView(BaseView):
             if info['row'] == row_index and widget.winfo_exists():
                 widget.destroy()
 
-    '''
-    def clear_output_display(self):
-        self.output_display.configure(state='normal')
-        self.output_display.delete(1.0, "end")
-        self.output_display.configure(state='disabled')
-    '''
-
     def clear_function_display(self):
         self.function_display.configure(state='normal')
         self.function_display.delete(1.0, "end")
         self.function_display.configure(state='disabled')
 
     def clear_frame(self):
-        #self.clear_output_display()
-
         # Clear the solutions frame
         for widget in self.solutions_list_frame.winfo_children():
             widget.destroy()
