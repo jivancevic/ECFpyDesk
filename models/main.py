@@ -36,8 +36,10 @@ class Model(Publisher):
         self.train_input_data = None
         self.test_input_data = None
         self.data_type = 'input'
+        self.function_solutions = {}
         self.multivar = False
         self.enabled_functions = set()
+        self.best_functions = None
 
     def set_variable(self, name, value):
         if name in param_paths:
@@ -122,12 +124,28 @@ class Model(Publisher):
     
     def is_test(self):
         return self.train_test_split < 1
+    
+    def get_function_solutions(self, function, data_type):
+        if function in self.function_solutions:
+            if data_type in self.function_solutions[function]:
+                return self.function_solutions[function][data_type]
+        return None
+    
+    def update_function_solutions(self, function, solutions, data_type):
+        if data_type != 'train' and data_type != 'test':
+            print("Invalid data type. Cannot update function_solutions. Must be 'train' or 'test'")
+            return
+        
+        if function not in self.function_solutions:
+            self.function_solutions[function] = {}
+
+        self.function_solutions[function][data_type] = solutions
 
     def update_best_functions(self, copy=True):
         return self.update_aggregate_best_functions().copy() if copy else self.update_aggregate_best_functions()
         
     def get_best_functions(self, id=None, copy=True):
-        if id is not None:
+        if id is None:
             if self.best_functions is not None:
                 return self.best_functions.copy() if copy else self.best_functions
             else:
@@ -140,6 +158,11 @@ class Model(Publisher):
 
     def get_test_configurations(self, id):
         return self.config_manager.test_configurations[id]
+    
+    def get_evaluation_configurations(self, id):
+        if id not in self.config_manager.eval_configurations:
+            print(f"Configuration with id {id} not found")
+        return self.config_manager.eval_configurations[id]
         
     def update_aggregate_best_functions(self):
         all_best_functions = []
