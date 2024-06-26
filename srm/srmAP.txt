@@ -1,39 +1,37 @@
 <ECF>
 	<Algorithm>
-  		<SteadyStateTournament>
-			<Entry key="tsize">3</Entry> <!-- velicina turnira -->
+		<SteadyStateTournament>
+			<Entry key="tsize">3</Entry>
 		</SteadyStateTournament>
 	</Algorithm>
- 
 	<Genotype>
 		<APGenotype>
 			<Entry key="lbound">-1</Entry>
 			<Entry key="ubound">1</Entry>
-			<Entry key="dimension">14</Entry> <!-- dimension = 2 * maxdepth -->
-			<Entry key="functionset">avg log sqrt min max pos + - * / cos sin</Entry>
+			<Entry key="dimension">10</Entry>
+			<Entry key="functionset">/ * + -</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</APGenotype>
 		<Tree>
-			<Entry key="maxdepth">7</Entry> <!-- maxdepth = trunc(4.5 + sqrt(variables)) -->
-			<Entry key="functionset">avg log sqrt min max pos + - * / sin cos</Entry>
+			<Entry key="maxdepth">5</Entry>
+			<Entry key="functionset">/ * + -</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
-
 	<Registry>
 		<Entry key="mutation.protected">1 </Entry>
 		<Entry key="crossover.protected">1 </Entry>
-
-		<Entry key="input_file">f6.txt</Entry>
+		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
 		<Entry key="linear_scaling">true</Entry>
 		<Entry key="bestfile">log2.txt</Entry>
-
 		<Entry key="randomizer.seed">0</Entry>
-		<Entry key="population.size">500</Entry>
-		<Entry key="mutation.indprob">0.8</Entry>
+		<Entry key="population.size">750</Entry>
+		<Entry key="mutation.indprob">0.75</Entry>
 		<Entry key="term.eval">1000000</Entry>
 		<Entry key="term.stagnation">250</Entry>
 		<Entry key="log.level">3</Entry>
 		<Entry key="log.frequency">10</Entry>
+		<Entry key="error_metric">mean_square_error</Entry>
+		<Entry key="term.maxgen">500</Entry>
 	</Registry>
 </ECF>

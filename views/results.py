@@ -2,7 +2,6 @@ import customtkinter as ctk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
-from utils.plot import safe_dict
 from utils.parameters import plot_options
 from .base import BaseView
 

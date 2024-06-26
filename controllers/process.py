@@ -63,8 +63,7 @@ class ProcessManager(Publisher):
         try:
             self.processes[id] = self.run_process(executable_path, parameters_path)
             while id in self.processes and self.processes[id].poll() is None:
-                output = self.processes[id].stderr.readline()
-                print(f"Output{id}:{output}")
+                output = self.processes[id].stdout.readline()
         except Exception as e:
             print(f"Error running train ECF process: {e}")    
         finally:
@@ -93,6 +92,7 @@ class ProcessManager(Publisher):
             print(f"Error running ECF test process {id}: No individual path provided")
 
         try:
+            print(f"Running test process {id} with individual path: {individual_path}")
             self.test_processes[id] = self.run_process(self.executable_path, parameters_path, individual_path)
             while self.test_processes[id].poll() is None:
                 pass
@@ -106,7 +106,7 @@ class ProcessManager(Publisher):
             return subprocess.Popen(
                 [*args],
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
                 text=True,
                 bufsize=1
             )

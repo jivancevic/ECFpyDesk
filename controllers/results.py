@@ -52,8 +52,6 @@ class ResultsController(BaseController):
         try:
             if function:
                 x_values, function_results = self.controller.evaluate_function(function, multivar, data_type=data_type)
-                print(f"X values: {x_values}")
-                print(f"Function results: {function_results}")
                 self.frame.update_plot(x_data, y_data, x_values, function_results, multivar)
             else:
                 self.frame.update_plot(x_data, y_data)
