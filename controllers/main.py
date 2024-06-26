@@ -1,9 +1,10 @@
 import json
 import numpy as np
-from utils.plot import safe_dict
 import threading
 
 from utils.file import delete_all_files_in_directory
+from utils.helper import find_index_of_dict_with_value_in_array
+
 from controllers.process import ProcessManager
 from controllers.navigation import NavigationController
 from controllers.input import InputController
@@ -80,6 +81,7 @@ class Controller:
                     self.process_manager.run_test_process(id=id, individual_path=individual_file_path)
 
                     error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
+                    self.model.update_function_solutions(function=generation_data['function'], solutions=solutions, data_type='test')
                     generation_data['error'] = error  # Update error after test process execution
         
         pareto_functions = self.model.filter_best_functions(best_functions)
@@ -180,32 +182,38 @@ class Controller:
     def handle_input_data_change(self):
         self.model.load_input_data()
         self.results_controller.update_plot()
-
+    
     def evaluate_function(self, function_str, multivar=False, data=None, data_type=None):
         if data is None:
             data = self.model.get_data(data_type)
+
+        x_values = np.arange(len(data[0]))
+        solutions = self.model.get_function_solutions(function_str, data_type)
         
-        x_values = None
-    
-        if not multivar:
-            # Ensure x_values covers all possible data inputs
-            x_values = np.linspace(np.min(data[0]), np.max(data[0]), 400)
-            safe_dict['x1'] = x_values
-        else:
-            variable_dict = {f'x{i+1}': np.array(data[i]) for i in range(len(data))}
-            safe_dict.update(variable_dict)
-            x_values = np.arange(len(data[0]))  # Assumes the first dimension covers all data points
-    
-        # Try to evaluate the function string
-        try:
-            results = eval(function_str, {"__builtins__": None}, safe_dict)
-            if np.isscalar(results):
-                results = np.full_like(x_values, results)  # Fill the array with the scalar value
-        except Exception as e:
-            print(f"Error evaluating function '{function_str}': {e}")
+        if solutions is None:
+            solutions = self.calculate_solutions(function_str, data_type)
+            self.model.update_function_solutions(function=function_str, solutions=solutions, data_type=data_type)
+
+        return x_values, solutions
+
+    def calculate_solutions(self, function_str, data_type='train'):
+        id = 'eval'
+        self.model.create_process_config(id, data_type == 'test')
+        config = self.model.get_evaluation_configurations(id)
+
+        individual_data_index = find_index_of_dict_with_value_in_array(self.model.get_best_functions(), 'function', function_str)
+        if individual_data_index is -1:
+            print(f"Function '{function_str}' not found in best functions")
             return None, None
         
-        return x_values, results
+        individual_data = self.model.get_best_functions()[individual_data_index]
+        individual_file_path = f'srm/temp/{id}/individual.txt'
+        self.model.config_manager.create_individual_file(individual_file_path, individual_data['error'], individual_data['size'], individual_data['prefix_function'])
+
+        self.process_manager.run_test_process(id=id, executable_path=None, parameters_path=config.parameters_path, individual_path=individual_file_path)
+        error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
+
+        return solutions
     
     def start_update_timer(self):
         print("\nStarting global update timer\n")

@@ -14,6 +14,8 @@ class ProcessManager(Publisher):
         self.parameters_paths = []
         self.test_processes = {}
         self.test_parameters_paths = []
+        self.evaluation_processes = {}
+        self.evaluation_processes_paths = []
         self.process_threads = {}
         self.running = {}
         self.global_running = False

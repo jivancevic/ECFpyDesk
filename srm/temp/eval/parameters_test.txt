@@ -1,0 +1,33 @@
+<ECF>
+	<Algorithm>
+		<SteadyStateTournament>
+			<Entry key="tsize">3</Entry>
+		</SteadyStateTournament>
+	</Algorithm>
+	<Genotype>
+		<Tree>
+			<Entry key="maxdepth">7</Entry>
+			<Entry key="functionset">/ - + *</Entry>
+			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
+		</Tree>
+	</Genotype>
+	<Registry>
+		<Entry key="input_file">srm/temp/test.txt</Entry>
+		<Entry key="linear_scaling">false</Entry>
+		<Entry key="bestfile">srm/temp/eval/best_test.txt</Entry>
+		<Entry key="randomizer.seed">0</Entry>
+		<Entry key="population.size">500</Entry>
+		<Entry key="population.demes">1</Entry>
+		<Entry key="mutation.indprob">0.5</Entry>
+		<Entry key="term.maxgen">500</Entry>
+		<Entry key="term.eval">5000000</Entry>
+		<Entry key="term.stagnation">5000</Entry>
+		<Entry key="term.fitnessval">0.0000001</Entry>
+		<Entry key="log.level">3</Entry>
+		<Entry key="log.filename">srm/temp/eval/log_test.txt</Entry>
+		<Entry key="log.frequency">10</Entry>
+		<Entry key="batch.repeats">1</Entry>
+		<Entry key="batch.statsfile">stats.txt</Entry>
+		<Entry key="error_metric">mean_square_error</Entry>
+	</Registry>
+</ECF>

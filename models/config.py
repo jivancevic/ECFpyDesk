@@ -20,6 +20,7 @@ class ConfigurationManager:
 
     def __init__(self, default_parameters_path):
         self.default_parameters_path = default_parameters_path
+        self.eval_configurations = {}  # Stores ET trees for different processes
         self.configurations = {}  # Stores ET trees for different processes
         self.test_configurations = {} # Stores ET trees for different test processes
 
@@ -32,7 +33,9 @@ class ConfigurationManager:
         process_config = ProcessConfiguration(parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, tree=tree, root=root)
         self.create_parameters_file(process_config, is_test)
 
-        if not is_test:
+        if process_id == 'eval':
+            self.eval_configurations[process_id] = process_config
+        elif not is_test:
             self.configurations[process_id] = process_config
         else:
             self.test_configurations[process_id] = process_config
@@ -63,13 +66,13 @@ class ConfigurationManager:
         if process_id is None:
             tree = self.tree
             parameters_path = self.default_parameters_path
-        elif not is_test:
-            config = self.configurations[process_id]
-            tree = config.tree
-            parameters_path = config.parameters_path
         else:
-            print(f"Updating test configuration for process {process_id}")
-            config = self.test_configurations[process_id]
+            if process_id == 'eval':
+                config = self.configurations[process_id]
+            elif not is_test:
+                config = self.configurations[process_id]
+            else:
+                config = self.test_configurations[process_id]
             tree = config.tree
             parameters_path = config.parameters_path
         for path, value in params.items():
