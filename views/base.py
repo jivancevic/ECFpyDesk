@@ -6,8 +6,9 @@ class BaseView(ctk.CTkFrame, Publisher):
     def __init__(self, parent):
         ctk.CTkFrame.__init__(self, parent)
         Publisher.__init__(self)
+        self.font = ctk.CTkFont(family="Arial", size=14, weight="bold")
 
-    def setup_dropdown(self, frame, variable_name, label_text, choices, row, column):
+    def setup_dropdown(self, frame, variable_name, label_text, choices, row, column=1):
         label = ctk.CTkLabel(frame, text=label_text)
         label.grid(row=row, column=0, sticky="w", padx=5, pady=5)
         display_var = StringVar()

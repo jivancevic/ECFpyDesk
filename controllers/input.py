@@ -14,6 +14,7 @@ class InputController(BaseController):
         self.frame.register_callback('change_button_click', self.on_change_button_click)
         self.frame.register_callback('terminal_set_change', self.handle_terminal_set_change)
         self.frame.register_callback('function_toggle', self.handle_function_toggle)
+        self.frame.register_callback('linear_scaling_toggle', self.handle_linear_scaling_toggle)
         self.frame.register_callback('other_parameter_change', self.handle_other_parameter_change)
         self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
@@ -40,6 +41,9 @@ class InputController(BaseController):
         for path, var in self.frame.params_vars.items():
             current_value = self.model.config_manager.get_current_param_value(path)
             var.set(current_value if current_value is not None else "")
+
+        self.model.get_current_variable("linear_scaling")
+        self.frame.linear_scaling_checkbox.select() if self.model.get_current_variable("linear_scaling") == "true" else self.frame.linear_scaling_checkbox.deselect()
 
     def handle_browse_file(self, button_type):
         filepath = filedialog.askopenfilename()
@@ -102,6 +106,10 @@ class InputController(BaseController):
         # Update model based on the state of the function checkbox
         is_selected = self.frame.checkbox_vars[func].get()
         self.model.enable_function(func) if is_selected else self.model.disable_function(func)
+
+    def handle_linear_scaling_toggle(self):
+        is_true = self.frame.linear_scaling_checkbox.get()
+        self.model.set_variable("linear_scaling", "true" if is_true else "false")
 
     def handle_other_parameter_change(self, path, value):
         self.model.set_variable_with_path(path, value.get())
