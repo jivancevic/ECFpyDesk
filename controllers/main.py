@@ -81,7 +81,6 @@ class Controller:
 
                     error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
                     generation_data['error'] = error  # Update error after test process execution
-                    #print(f"Processed test data for generation {generation_data['generation']} in process {id}: Size: {generation_data['size']}, Error {error}, Function: {generation_data['function'][:20]}, Solutions: {solutions[:3]}")
         
         pareto_functions = self.model.filter_best_functions(best_functions)
         self.model.set_best_functions(best_functions=pareto_functions, id=id)
@@ -91,6 +90,7 @@ class Controller:
             print(f"Has new data for process {id}")
             self.update_best_functions(id)
         else:
+            print(f"No new data found for process {id}: last generation {best_functions[-1]['generation']}")
             self.process_manager.running[id] = True
 
     def handle_frame_timer_finished(self):
@@ -143,6 +143,7 @@ class Controller:
         self.process_manager.set_parameters_paths(parameters_paths)
         self.process_manager.set_test_parameters_paths(test_parameters_paths)
         self.model.register_all_processes()
+        self.model.data_type = 'train'
         
         self.navigation_controller.set_toggle_process_button_icon("pause")
         self.navigation_controller.set_stop_process_button_icon(True)
@@ -172,7 +173,7 @@ class Controller:
         self.model.update_default_parameters_file()
 
     def pre_process_setup(self, id):
-        self.view.results_frame.clear_output_display()
+        #self.view.results_frame.clear_output_display()
         print(f"Starting process {id}")
         self.model.reset_file_reading(id)
 
@@ -180,9 +181,9 @@ class Controller:
         self.model.load_input_data()
         self.results_controller.update_plot()
 
-    def evaluate_function(self, function_str, multivar=False, data=None):
+    def evaluate_function(self, function_str, multivar=False, data=None, data_type=None):
         if data is None:
-            data = self.model.get_input_data()
+            data = self.model.get_data(data_type)
         
         x_values = None
     

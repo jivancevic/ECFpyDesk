@@ -13,6 +13,7 @@ class ResultsController(BaseController):
         self.frame.register_callback('move_selection', self.move_selection)
         self.frame.register_callback('select_row', self.select_row)
         self.frame.register_callback('update_plot', self.update_plot)
+        self.frame.register_callback('show_test_data', self.handle_show_test_data)
         self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
     def move_selection(self, direction):
@@ -24,17 +25,24 @@ class ResultsController(BaseController):
     def select_row(self, row):
         if row != self.frame.current_active_row:
             self.frame.current_active_row = row
-            function = self.model.best_functions[row]["function"]
-            error = self.model.best_functions[row]["error"]
-            
-            self.frame.update_info(function, error)
-            self.update_plot(function)
-            self.frame.solutions_list_frame.focus_set()
-            self.frame.reset_row_colors()
-            self.frame.set_active_row_color(row)
+            self.select_active_row()
 
-    def update_plot(self, function=None):
-        x_data, y_data = self.model.get_plot_data()
+    def select_active_row(self):
+        row = self.frame.current_active_row
+        function = self.model.best_functions[row]["function"]
+        error = self.model.best_functions[row]["error"]
+        
+        self.frame.update_info(function, error)
+        self.update_plot(function)
+        self.frame.solutions_list_frame.focus_set()
+        self.frame.reset_row_colors()
+        self.frame.set_active_row_color(row)
+
+    def update_plot(self, function=None, data_type=None):
+        if data_type is None:
+            data_type = self.model.get_data_type()
+
+        x_data, y_data = self.model.get_plot_data(data_type)
         
         if x_data is None or y_data is None:
             return
@@ -43,7 +51,7 @@ class ResultsController(BaseController):
 
         try:
             if function:
-                x_values, function_results = self.controller.evaluate_function(function, multivar)
+                x_values, function_results = self.controller.evaluate_function(function, multivar, data_type=data_type)
                 self.frame.update_plot(x_data, y_data, x_values, function_results, multivar)
             else:
                 self.frame.update_plot(x_data, y_data)
@@ -68,12 +76,19 @@ class ResultsController(BaseController):
         if len(best_functions) < len(self.frame.best_functions):
             for i in range(len(best_functions), len(self.frame.best_functions)):
                 self.frame.destroy_solution_row(i)
+                if self.frame.current_active_row is not None and self.frame.current_active_row == i:
+                    self.select_row(len(best_functions)-1)
 
         self.frame.best_functions = best_functions
 
     def clear_frame(self):
         self.frame.clear_frame()
         self.update_plot()
+
+    def handle_show_test_data(self, should_show):
+        data_type = 'test' if should_show else 'train'
+        self.model.data_type = data_type
+        self.select_active_row()
 
     def handle_dropdown_option_change(self, variable_name, value):
         self.model.set_variable(variable_name, value)

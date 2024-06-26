@@ -61,7 +61,8 @@ class ProcessManager(Publisher):
         try:
             self.processes[id] = self.run_process(executable_path, parameters_path)
             while id in self.processes and self.processes[id].poll() is None:
-                time.sleep(0.1)
+                output = self.processes[id].stderr.readline()
+                print(f"Output{id}:{output}")
         except Exception as e:
             print(f"Error running train ECF process: {e}")    
         finally:
@@ -72,6 +73,7 @@ class ProcessManager(Publisher):
                 # Cleanup the process if it hasn't exited yet
                 self.processes[id].terminate()
                 self.processes[id].wait()
+                print(f"Process {id} terminated.")
 
             # Cancel the update timer safely
             if hasattr(self, 'update_timers'):
@@ -102,7 +104,7 @@ class ProcessManager(Publisher):
             return subprocess.Popen(
                 [*args],
                 stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
+                stderr=subprocess.PIPE,
                 text=True,
                 bufsize=1
             )
