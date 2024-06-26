@@ -30,11 +30,12 @@ class Model(Publisher):
         self.best_file = self.config["best_file_path"]
         self.thread_num = 1
 
-        self.input_data = None
         self.train_file_path = 'srm/temp/train.txt'
         self.test_file_path = 'srm/temp/test.txt'
+        self.input_data = None
         self.train_input_data = None
         self.test_input_data = None
+        self.data_type = 'input'
         self.multivar = False
         self.enabled_functions = set()
 
@@ -101,6 +102,20 @@ class Model(Publisher):
     
     def get_input_data(self):
         return self.input_data
+    
+    def get_data(self, type='input'):
+        if type == 'input':
+            return self.input_data
+        elif type == 'train':
+            return self.train_input_data
+        elif type == 'test':
+            return self.test_input_data
+        else:
+            print("Invalid data type requested.")
+            return None
+        
+    def get_data_type(self):
+        return self.data_type
     
     def is_multivar(self):
         return self.multivar
@@ -287,19 +302,28 @@ class Model(Publisher):
 
         return filtered_functions
 
-    def get_plot_data(self):
-        if self.input_data is None:
+    def get_plot_data(self, type='input'):
+        data = None
+
+        if type == 'input':
+            data = self.input_data
+        elif type == 'train':
+            data = self.train_input_data
+        elif type == 'test':
+            data = self.test_input_data
+
+        if data is None:
+            print("No data to plot")
             return None, None
         
         x_index = self.plot_x_index if self.plot_x_index is not None else -1
 
-        # Assuming self.input_data is structured appropriately
         if x_index == -1:
-            x_data = list(range(len(self.input_data[0])))
+            x_data = list(range(len(data[0])))
         else:
-            x_data = self.input_data[x_index]
+            x_data = data[x_index]
 
-        y_data = self.input_data[-1]  # Assuming the last list in self.input_data is y data
+        y_data = data[-1]
 
         return x_data, y_data
     

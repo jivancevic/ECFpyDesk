@@ -24,7 +24,7 @@ class ResultsView(BaseView):
     def initialize_ui(self):
         """Setup the initial UI elements and frame configurations."""
         self.configure_grid()
-        self.setup_terminal_frame()
+        #self.setup_terminal_frame()
         self.setup_solutions_frame()
         self.setup_info_frame()
         self.setup_plot_area()
@@ -56,7 +56,7 @@ class ResultsView(BaseView):
     def setup_solutions_frame(self):
         """Setup solutions frame with a separate header and list section."""
         self.solutions_master_frame = ctk.CTkFrame(self)
-        self.solutions_master_frame.grid(row=0, column=2, columnspan=4, sticky="nsew")
+        self.solutions_master_frame.grid(row=0, column=0, columnspan=6, sticky="nsew")
         
         # Setup header frame for column titles
         self.header_frame = ctk.CTkFrame(self.solutions_master_frame)
@@ -87,7 +87,7 @@ class ResultsView(BaseView):
 
         if test_option:
             checkbox_text = "Show Test Data"
-            checkbox = ctk.CTkCheckBox(info_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("show_test_data"))
+            checkbox = ctk.CTkCheckBox(info_frame, text=checkbox_text, command=lambda *args: self.invoke_callback("show_test_data", checkbox.get()))
             checkbox.grid(row=0, column=0, columnspan=2, sticky='e', padx=5, pady=3)
 
         labels = ["Function", "Error"]
@@ -172,7 +172,7 @@ class ResultsView(BaseView):
         error_label = ctk.CTkLabel(self.solutions_list_frame, text=f'{func["error"]:.4f}', justify="center")
         error_label.grid(row=row_index, column=1, sticky='ew')
 
-        function_text = func["function"] if len(func["function"]) <= 60 else func["function"][:57] + "..."
+        function_text = func["function"] if len(func["function"]) <= 70 else func["function"][:67] + "..."
         function_label = ctk.CTkLabel(self.solutions_list_frame, text=function_text, justify="left")
         function_label.grid(row=row_index, column=2, sticky='ew')
 
@@ -192,7 +192,7 @@ class ResultsView(BaseView):
                 if info['column'] == 1:
                     widget.configure(text=f'{func["error"]:.4f}')
                 if info['column'] == 2:
-                    function_text = func["function"] if len(func["function"]) <= 40 else func["function"][:37] + "..."
+                    function_text = func["function"] if len(func["function"]) <= 70 else func["function"][:67] + "..."
                     widget.configure(text=function_text)
                 widget.unbind("<Button-1>")
                 widget.bind("<Button-1>", lambda event, row=row_index: self.invoke_callback('select_row', row))
@@ -206,10 +206,12 @@ class ResultsView(BaseView):
             if info['row'] == row_index and widget.winfo_exists():
                 widget.destroy()
 
+    '''
     def clear_output_display(self):
         self.output_display.configure(state='normal')
         self.output_display.delete(1.0, "end")
         self.output_display.configure(state='disabled')
+    '''
 
     def clear_function_display(self):
         self.function_display.configure(state='normal')
@@ -217,7 +219,7 @@ class ResultsView(BaseView):
         self.function_display.configure(state='disabled')
 
     def clear_frame(self):
-        self.clear_output_display()
+        #self.clear_output_display()
 
         # Clear the solutions frame
         for widget in self.solutions_list_frame.winfo_children():
