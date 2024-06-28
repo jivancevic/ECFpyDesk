@@ -49,7 +49,7 @@ class Controller:
         return self.config["SRM_parameters_path"]
     
     def handle_timer_finished(self, id):
-        print(f"\nTimer finished for id: {id}\n")
+        print(f"\nTimer finished for id: {id}")
         self.update_solutions(id)
 
     def update_solutions(self, id=None):
@@ -89,10 +89,8 @@ class Controller:
         
         # Recursively update if new data is present
         if self.model.has_new_data(id):
-            print(f"Has new data for process {id}")
             self.update_best_functions(id)
         else:
-            print(f"No new data for process {id}")
             self.process_manager.start_update_timer(id)
             if id in self.process_manager.running:
                 self.process_manager.running[id] = True
@@ -121,12 +119,10 @@ class Controller:
         elif len(self.process_manager.processes)>0:
             self.continue_all_processes()
         else:
-            print(f"************Starting all processes**********")
             self.start_all_processes()
 
     def start_all_processes(self):
-        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
-        print("Starting all processes")
+        print(f"\n{5*'*'}Starting all processes{5*'*'}\n")
         if self.model.input_data is None:
             self.model.load_input_data()
         self.model.split_train_test()
@@ -144,8 +140,6 @@ class Controller:
                 test_parameters_paths.append(path)
         
         self.process_manager.set_thread_num(self.model.thread_num)
-        print(f"Thread num: {self.model.thread_num}")
-        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
         self.process_manager.set_parameters_paths(parameters_paths)
         self.process_manager.set_test_parameters_paths(test_parameters_paths)
         self.model.register_all_processes()

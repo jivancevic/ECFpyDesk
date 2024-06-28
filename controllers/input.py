@@ -62,7 +62,9 @@ class InputController(BaseController):
         curr_terminal_set = self.model.get_current_terminal_set()
         terminal_set_without_vars = self.get_terminal_set_without_variables(curr_terminal_set)
         data = self.model.load_input_data()
+        print("Variable number: ", len(data)-1)
         var_num = len(data)-1
+        self.frame.clear_terminal_scroll_frame()
         self.frame.populate_terminal_scroll_frame(var_num, curr_terminal_set, terminal_set_without_vars)
 
     def get_terminal_set_without_variables(self, terminal_set):

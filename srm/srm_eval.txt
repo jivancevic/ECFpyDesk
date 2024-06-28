@@ -7,7 +7,7 @@
 	<Genotype>
 		<Tree>
 			<Entry key="maxdepth">5</Entry>
-			<Entry key="functionset">/ * - +</Entry>
+			<Entry key="functionset">- / + log *</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
@@ -23,6 +23,6 @@
 		<Entry key="log.level">3</Entry>
 		<Entry key="log.frequency">10</Entry>
 		<Entry key="error_metric">mean_square_error</Entry>
-		<Entry key="term.maxgen">10000</Entry>
+		<Entry key="term.maxgen">1000</Entry>
 	</Registry>
 </ECF>

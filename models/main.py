@@ -360,6 +360,7 @@ class Model(Publisher):
 
     def update_default_parameters_file(self):
         self.config_manager.update_config(self.params)
+        self.config_manager.set_tree_and_root()
 
     def get_parameters_paths(self):
         return [self.config_manager.configurations[id]['parameters_path'] for id in range(self.thread_num)]

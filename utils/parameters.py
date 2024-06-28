@@ -12,6 +12,7 @@ search_options = [
         ])
     ]
 
+# Plot options, if changed, change in 
 plot_options = [
         ("plot_y_index", "Plot y axis", [
             ("Target variable", 0),
