@@ -7,14 +7,14 @@
 	<Genotype>
 		<Tree>
 			<Entry key="maxdepth">5</Entry>
-			<Entry key="functionset">/ * - +</Entry>
+			<Entry key="functionset">- / + log *</Entry>
 			<Entry key="terminalset">x1 x2 [-1 1]</Entry>
 		</Tree>
 	</Genotype>
 	<Registry>
 		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
 		<Entry key="linear_scaling">true</Entry>
-		<Entry key="bestfile">log2.txt</Entry>
+		<Entry key="bestfile">best.txt</Entry>
 		<Entry key="randomizer.seed">0</Entry>
 		<Entry key="population.size">1000</Entry>
 		<Entry key="mutation.indprob">0.75</Entry>
@@ -23,6 +23,6 @@
 		<Entry key="log.level">3</Entry>
 		<Entry key="log.frequency">10</Entry>
 		<Entry key="error_metric">mean_square_error</Entry>
-		<Entry key="term.maxgen">10000</Entry>
+		<Entry key="term.maxgen">1000</Entry>
 	</Registry>
 </ECF>
