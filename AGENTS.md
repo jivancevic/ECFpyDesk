@@ -6,7 +6,7 @@ A desktop GUI for symbolic regression: a Python app (customtkinter, MVC) that dr
 
 - `main.py`, `models/`, `views/`, `controllers/`, `utils/`: the Python app
 - `native/ecf/`: vendored ECF 1.6.1, `native/SRM/`: SRM source (ADR 0001)
-- `srm/`: the SRM binary, parameter file templates and sample data
+- `srm/`: parameter file templates and sample data, and the SRM binary once built (gitignored, see `native/README.md`)
 
 ## How work ships
 
