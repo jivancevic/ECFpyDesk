@@ -53,7 +53,7 @@ class ResultsView(BaseView):
             self.header_frame.columnconfigure(i, weight=self.COLUMN_WEIGHTS[i], uniform="Silent_Creme")
 
         # Setup scrollable list frame for displaying solutions
-        self.solutions_list_frame = ctk.CTkScrollableFrame(self.solutions_master_frame, width=300, height=200, scrollbar_fg_color=self.SCROLLBAR_COLOR, fg_color=self.LIST_COLOR)
+        self.solutions_list_frame = ctk.CTkScrollableFrame(self.solutions_master_frame, width=300, height=200, scrollbar_fg_color="transparent", scrollbar_button_color=self.SCROLLBAR_COLOR, scrollbar_button_hover_color=self.SCROLLBAR_HOVER, fg_color=self.LIST_COLOR)
         self.solutions_list_frame.grid(row=1, column=0, sticky="nsew", padx=self.PAD, pady=(0, self.PAD))
         for i, weight in enumerate(self.COLUMN_WEIGHTS):
             self.solutions_list_frame.grid_columnconfigure(i, weight=weight, uniform="Silent_Creme")
