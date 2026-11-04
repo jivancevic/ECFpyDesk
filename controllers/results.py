@@ -69,7 +69,7 @@ class ResultsController(BaseController):
 
         for i, func in enumerate(best_functions):
             if i < len(self.frame.best_functions):
-                if func["function"] != self.frame.best_functions[i]["function"]:
+                if func["function"] != self.frame.best_functions[i]["function"] and func["error"] != self.frame.best_functions[i]["error"]:
                     self.frame.update_solution_row(func, i)
                     if self.frame.current_active_row is not None and self.frame.current_active_row == i:
                         self.select_row(i)
@@ -92,7 +92,9 @@ class ResultsController(BaseController):
 
     def handle_show_test_data(self, should_show):
         data_type = 'test' if should_show else 'train'
+        print(f"Inside controllers/results/handle_show_test_data, data_type={data_type}")
         self.model.data_type = data_type
+        self.controller.update_solutions_frame()
         self.select_active_row()
 
     def handle_dropdown_option_change(self, variable_name, value):

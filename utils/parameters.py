@@ -41,7 +41,7 @@ options = {
     "Functions": [
         ("Addition", "+"), ("Subtraction", "-"), ("Multiplication", "*"), ("Division", "/"),
         ("Average", "avg"), ("Logarithm", "log"), ("Square root", "sqrt"), ("Minimum", "min"), 
-        ("Maximum", "max"), ("Position", "pos"),("sin(x)", "sin"), ("cos(x)", "cos")
+        ("Maximum", "max"), ("Position", "pos"),("sin(x)", "sin"), ("cos(x)", "cos"), ("Functionn", "func")
     ],
     "Registry parameters": [
         ("Max generations", "ECF/Registry/Entry/term.maxgen"),

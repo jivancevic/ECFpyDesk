@@ -62,6 +62,9 @@ class InputController(BaseController):
         curr_terminal_set = self.model.get_current_terminal_set()
         terminal_set_without_vars = self.get_terminal_set_without_variables(curr_terminal_set)
         data = self.model.load_input_data()
+        if data is None:
+            print("No input data loaded; skipping terminal frame population")
+            return
         print("Variable number: ", len(data)-1)
         var_num = len(data)-1
         self.frame.clear_terminal_scroll_frame()

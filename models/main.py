@@ -1,3 +1,5 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
 import numpy as np
 import os
 import json
@@ -145,20 +147,28 @@ class Model(Publisher):
 
         self.function_solutions[function][data_type] = solutions
 
-    def update_best_functions(self, copy=True):
-        return self.update_aggregate_best_functions().copy() if copy else self.update_aggregate_best_functions()
+    def update_best_functions(self, is_test=False, copy=True):
+        is_test = self.data_type == 'test'
+        print(f"Inside models/update_best_functions, is_test={is_test}")
+        return self.update_aggregate_best_functions(is_test).copy() if copy else self.update_aggregate_best_functions(is_test)
         
-    def get_best_functions(self, id=None, copy=True):
+    def get_best_functions(self, id=None, data_type=None, copy=True):
+        if data_type is None:
+            data_type = self.data_type if self.data_type is not None else 'train'
         if id is None:
             if self.best_functions is not None:
                 return self.best_functions.copy() if copy else self.best_functions
             else:
                 return None
         else:
-            return self.process_states[id]['best_functions'].copy() if copy else self.process_states[id]['best_functions']
+            functions_key = 'best_test_functions' if data_type == 'test' else 'best_functions'
+            print(f"Inside model/get_best_functions, functions_key={functions_key}, len={len(self.process_states[id][functions_key])}")
+
+            return self.process_states[id][functions_key].copy() if copy else self.process_states[id][functions_key]
         
-    def set_best_functions(self, id, best_functions):
-        self.process_states[id]['best_functions'] = best_functions
+    def set_best_functions(self, id, best_functions, data_type='train'):
+        functions_key = 'best_test_functions' if data_type == 'test' else 'best_functions'
+        self.process_states[id][functions_key] = best_functions
 
     def get_test_configurations(self, id):
         return self.config_manager.test_configurations[id]
@@ -168,18 +178,31 @@ class Model(Publisher):
             print(f"Configuration with id {id} not found")
         return self.config_manager.eval_configurations[id]
         
-    def update_aggregate_best_functions(self):
+    def update_aggregate_best_functions(self, is_test=False):
         all_best_functions = []
+        best_functions_key = 'best_test_functions' if is_test else 'best_functions'
+        print("Best_functions_key:", best_functions_key, "\n\n\n")
         for id, value in self.process_states.items():
-
-            #print(f"\n\nvalue['best_functions'] for process {id}: {value['best_functions']}")
-
-            all_best_functions.extend(value['best_functions'])
+            print(f"len(bf): {len(value['best_functions'])}")
+            print(f"len(tbf): {len(value['best_test_functions'])}")
+            all_best_functions.extend(value[best_functions_key].copy())
         
-        self.best_functions = self.filter_best_functions(all_best_functions)
-        #print(f"\nFiltered best_functions: {self.best_functions}\n")
+        best_functions = self.filter_best_functions(all_best_functions, 'test' if is_test else 'train')
+        if is_test:
+            best_functions = self.filter_errors(best_functions)
+        if len(best_functions) > 0 and 'test_error' in best_functions[0]:
+            print(f"Is error and test_error same: {best_functions[0]['error'] == best_functions[0]['test_error']}")
+            print(best_functions[0])
+        self.best_functions = best_functions
 
         return self.best_functions
+    
+    def filter_errors(self, best_functions):
+        print(f"Inside models/filter_error")
+        for func in best_functions:
+            if 'test_error' in func:
+                func['error'] = func['test_error']
+        return best_functions
 
     def enable_function(self, function):
         self.enabled_functions.add(function)
@@ -208,12 +231,17 @@ class Model(Publisher):
     def register_process(self, id):
         self.process_states[id] = {
             'best_functions': [],
+            'best_test_functions': [],
             'functions_seen': set(),
             'current_file_size': 0,
         }
 
     def load_input_data(self):
-        self.input_data = self.load_data(self.get_input_path())
+        input_path = self.get_input_path()
+        self.input_data = self.load_data(input_path)
+        if self.input_data is None:
+            print(f"Error loading data: input path '{input_path}' invalid or unreadable")
+            return None
         self.multivar = len(self.input_data) > 2
         return self.input_data.copy()
 
@@ -311,20 +339,27 @@ class Model(Publisher):
             'prefix_function': tree_line.split(">")[1].split("<")[0]
         })
 
-    def filter_best_functions(self, data):
+    def filter_best_functions(self, data, data_type='train'):
+        if data_type == 'test':
+            error_name = 'test_error'
+        else:
+            error_name = 'error'
+        
+        print(f"In models/filter_best_functions, data_type={data_type}")
+
         if len(data) == 0:
             return data
         # Sort the data by size first, then by error in ascending order
-        sorted_data = sorted(data, key=lambda x: (x['size'], x['error']))
+        sorted_data = sorted(data, key=lambda x: (x['size'], x[error_name]))
 
         # Prepare the filtered list of best functions
         filtered_functions = []
         last_valid_error = float('inf')  # Set a high initial error to compare against
 
         for function in sorted_data:
-            if function['error'] < last_valid_error:
+            if function[error_name] < last_valid_error:
                 filtered_functions.append(function)
-                last_valid_error = function['error']  # Update the last valid error to the current one
+                last_valid_error = function[error_name]  # Update the last valid error to the current one
 
         return filtered_functions
 
@@ -379,6 +414,7 @@ class Model(Publisher):
             delete_file_if_exists(best_file_path)
             delete_file_if_exists(log_file_path)
 
+        print(parameters_path)
         return parameters_path
 
     def create_individual_file(self, file_path, error, size, prefix_function):

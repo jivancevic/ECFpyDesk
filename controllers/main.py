@@ -72,6 +72,7 @@ class Controller:
         best_functions = self.model.parse_best_functions(id)
 
         if self.model.is_test():
+            best_test_functions = self.model.get_best_functions(id=id, copy=True, data_type='test')
             for generation_data in best_functions:
                 if generation_data not in old_best_functions:
                     config = self.model.get_test_configurations(id)
@@ -82,8 +83,13 @@ class Controller:
 
                     error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
                     self.model.update_function_solutions(function=generation_data['function'], solutions=solutions, data_type='test')
-                    generation_data['error'] = error  # Update error after test process execution
-        
+                    print(f"e & te same? {generation_data['error'] == error}")
+                    generation_data['test_error'] = error  # Update error after test process execution
+                    best_test_functions.append(generation_data.copy())
+            print(f"Inside controllers/update_best_functions")
+            pareto_test_functions = self.model.filter_best_functions(best_test_functions, data_type='test')
+            self.model.set_best_functions(best_functions=pareto_test_functions, id=id, data_type='test')
+            
         pareto_functions = self.model.filter_best_functions(best_functions)
         self.model.set_best_functions(best_functions=pareto_functions, id=id)
         
@@ -136,7 +142,7 @@ class Controller:
             path = self.model.create_process_config(id, is_test=False, delete_logs=False)
             parameters_paths.append(path)
             if is_test:
-                path = self.model.create_process_config(id, True, delete_logs=False)
+                path = self.model.create_process_config(id, is_test=True, delete_logs=False)
                 test_parameters_paths.append(path)
         
         self.process_manager.set_thread_num(self.model.thread_num)
@@ -183,6 +189,9 @@ class Controller:
 
     def handle_input_data_change(self):
         data = self.model.load_input_data()
+        if data is None:
+            print("No input data loaded; skipping plot updates")
+            return
         var_num = len(data)-1
         self.results_controller.update_plot_x_axis(var_num)
         self.results_controller.update_plot()
