@@ -84,7 +84,8 @@ class BaseView(ctk.CTkFrame, Publisher):
     ENTRY_WIDTH = 140
     CARD_COLOR = "#e4e4e4"
     LIST_COLOR = "#f0f0f0"
-    SCROLLBAR_COLOR = "#008000"
+    SCROLLBAR_COLOR = "#b8b8b8"   # the handle; the track is transparent, so it blends with its frame
+    SCROLLBAR_HOVER = "#9a9a9a"
 
     def __init__(self, parent):
         ctk.CTkFrame.__init__(self, parent)
