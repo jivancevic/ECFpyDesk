@@ -1,6 +1,6 @@
 # Building SRM
 
-`native/ecf` is ECF 1.6.1 with a small patch and `native/SRM` is the SRM source (see ADR 0001). The build puts the binary where the app looks for it: `srm/SRM`, or `srm/SRM.exe` on Windows.
+`native/ecf` is ECF 1.6.1 with two small changes and `native/SRM` is the SRM source (see ADR 0001). The changes are `GEPChromosome::addFunction`, which SRM needs, and `SimpleRandomizer::initialize`, which read uninitialized memory for `randomizer.seed` 0 and now uses `std::random_device`. The build puts the binary where the app looks for it: `srm/SRM`, or `srm/SRM.exe` on Windows.
 
 You need CMake 3.24 or newer and a C++ compiler: Xcode command line tools on macOS, GCC or Clang on Linux, Visual Studio 2022 on Windows. From the repo root:
 
