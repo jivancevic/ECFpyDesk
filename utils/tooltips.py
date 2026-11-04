@@ -73,6 +73,7 @@ class Tooltip:
     `text` may be a string or a function returning one, for widgets whose meaning changes.
     """
     DELAY_MS = 600
+    AUTO_HIDE_MS = 10000
     BG = "#fffbe6"
     FG = "#222222"
 
@@ -123,6 +124,7 @@ class Tooltip:
         x = max(0, min(x, self.widget.winfo_screenwidth() - window.winfo_reqwidth() - 4))
         window.wm_geometry(f"+{x}+{y}")
         self._window = window
+        self._after_id = self.widget.after(self.AUTO_HIDE_MS, self._hide)  # never leave a tip behind
 
     def _pointer_inside(self):
         px, py = self.widget.winfo_pointerxy()
