@@ -1,5 +1,5 @@
 #pragma once
-#include "ECF/ECF.h"
+#include <ecf/ECF.h>
 
 //
 // ispis Tree u infix formatu
