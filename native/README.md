@@ -6,7 +6,7 @@ You need CMake 3.24 or newer and a C++ compiler: Xcode command line tools on mac
 
 ```bash
 cmake -S native -B build
-cmake --build build --config Release --parallel
+cmake --build build --config Release --parallel 4
 python native/smoke_test.py
 ```
 

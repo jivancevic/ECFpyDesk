@@ -32,7 +32,7 @@ jobs:
       - name: Build SRM
         run: |
           cmake -S native -B build -DCMAKE_CXX_FLAGS=-g
-          cmake --build build --config Release --parallel
+          cmake --build build --config Release --parallel 4
       - name: Smoke run
         run: python native/smoke_test.py
       - name: TEMPORARY backtrace of the macOS crash
