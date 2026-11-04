@@ -142,4 +142,18 @@ The first value is the label and the second is the path of the entry in the XML.
 
 ## 6. Releases
 
-A tagged release is built by GitHub Actions and attaches a Windows and a macOS package to a GitHub Release; each is smoke-run in CI. *(The packaging workflow is being added by a separate change; this section will describe it once it has merged.)*
+Pushing a tag that starts with `v` runs `.github/workflows/release.yml`. It builds both packages from the tagged commit with PyInstaller (`packaging/ECFpyDesk.spec`, driven by `packaging/build.py`, with SRM bundled), smoke-tests each one, and only then creates the GitHub Release with `ECFpyDesk-<version>-macos-arm64.zip` and `ECFpyDesk-<version>-windows-x64.zip`. A tag with a hyphen, such as `v1.0.0-rc.1`, becomes a pre-release.
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+The smoke test (`packaging/smoke_test.py`) unzips the package outside the repository, into a path with a space and non-ASCII characters, starts it with a fresh home folder, and reads the report of the app's built-in self-test. The self-test is also available by hand:
+
+```bash
+python main.py --self-test report.json
+```
+
+It opens the real window, presses the real Start, Stop and Select File buttons, runs GP, GEP and AP, checks the Pareto front, pause and continue, and the plot options, then writes a JSON report after every step. An error dialog, a Tk callback exception or a logged error fails it.
+
+Hand out only packages built by CI. A package built on your own machine may need a newer system than the minimum, because it follows the Python that built it. The packages are unsigned: see the [user guide](user-guide.md#1-start-the-app) for the first-launch steps users need. Windows packages have been verified by CI only.
