@@ -1,6 +1,7 @@
 #include "ECF_base.h"
 #include "SimpleRandomizer.h"
 #include <time.h>
+#include <random>
 
 
 SimpleRandomizer::SimpleRandomizer(uint seed)
@@ -45,20 +46,17 @@ bool SimpleRandomizer::initialize(StateP state)
 		seed = *((int*)sptr.get());
 	}
 
-	uint *memSeed = new uint;
-
 	if(seed != 0)
 		srand((unsigned int) seed);
-	else
+	else {
+		// time alone would give processes started in the same second the same run
+		std::random_device rd;
 #ifdef _MPI
-		srand((uint) time(NULL) + state->getCommunicator()->getCommRank() + (uint) memSeed);
+		srand((uint) time(NULL) + state->getCommunicator()->getCommRank() + (uint) rd());
 #else
-	{
-		srand((unsigned int) time(NULL) + (unsigned int) *memSeed);
-	}
+		srand((unsigned int) time(NULL) + (unsigned int) rd());
 #endif
-
-	delete memSeed;
+	}
 
 	return true;
 }
