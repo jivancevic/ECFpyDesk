@@ -8,19 +8,25 @@ answered by the test.
 
 A windowed app has no stdout, so the result is a JSON report, rewritten after each step: a
 crash still shows how far the test got. The exit code is 0 only if every step passed.
+
+The test uses a data directory of its own, so that it neither reads nor changes a user's saved
+parameters. It is removed at the end.
 """
 import json
 import logging
 import math
 import os
 import platform
+import shutil
 import sys
+import tempfile
 import threading
 import time
 import traceback
 from unittest import mock
 
 import customtkinter
+import numpy as np
 import psutil
 
 import controllers.input
@@ -317,6 +323,13 @@ class SelfTest:
         check(self.controller.process_manager.state == IDLE, "The run did not stop")
         check(all(process.poll() is not None for process in self.running), "SRM still runs after stop")
 
+    def drawing(self):
+        """What is on the plot, in a form that compares."""
+        ax = self.view.results_frame.ax
+        lines = tuple(line.get_xydata().tobytes() for line in ax.lines)
+        points = tuple(np.asarray(collection.get_offsets()).tobytes() for collection in ax.collections)
+        return ax.get_xscale(), ax.get_yscale(), lines, points
+
     def draw_plot_options(self):
         frame = self.view.results_frame
         drawn = 0
@@ -324,13 +337,16 @@ class SelfTest:
             frame.invoke_callback("show_test_data", show_test_data)
             self.pump_until(lambda: frame.current_active_row is not None, "a selected row")
             for name, values in PLOT_OPTIONS:
+                drawings = set()
                 for value in values:
                     frame.invoke_callback("dropdown_option_change", name, value)
                     self.view.update()
                     labels = frame.ax.get_legend_handles_labels()[1]
                     expected = PLOT_LABELS[self.model.plot_y_index or 0]
                     check(expected in labels, f"{name}={value} drew {labels}, not {expected}")
+                    drawings.add(self.drawing())
                     drawn += 1
+                check(len(drawings) == len(values), f"The {len(values)} values of {name} drew only {len(drawings)} different plots")
                 frame.invoke_callback("dropdown_option_change", name, values[0])
         check(not self.errors, f"Drawing failed: {self.errors}")
         return f"{drawn} plots"
@@ -358,6 +374,8 @@ class SelfTest:
 def run(report_path):
     """Returns the exit code."""
     report_path = os.path.abspath(report_path)
+    data_directory = tempfile.mkdtemp(prefix="ECFpyDesk self-test ")
+    os.environ[paths.DATA_DIR_ENV] = data_directory
     self_test = SelfTest(report_path)
     self_test.write_report()
     logging.getLogger().addHandler(ErrorLogHandler(self_test))
@@ -379,4 +397,5 @@ def run(report_path):
         self_test.abandon()
     watchdog.cancel()
     self_test.write_report()
+    shutil.rmtree(data_directory, ignore_errors=True)
     return 0 if self_test.report["passed"] else EXIT_FAILED
