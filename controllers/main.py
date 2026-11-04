@@ -46,6 +46,9 @@ class Controller:
         self.handle_input_data_change()
 
         self.view.protocol("WM_DELETE_WINDOW", self.handle_close)
+        if self.view.tk.call("tk", "windowingsystem") == "aqua":
+            # Cmd+Q and Quit in the macOS menu do not go through the window's close button
+            self.view.createcommand("::tk::mac::Quit", self.handle_close)
 
     def register_callbacks(self):
         self.process_manager.register_callback('pre_process_start', self.pre_process_setup)
@@ -96,7 +99,12 @@ class Controller:
         self.model.add_individuals(id, individuals)
 
     def evaluate_on_test_set(self, id, individual):
-        result = self.run_evaluation(id, self.model.get_test_configurations(id), individual)
+        # A failed evaluation costs this Individual its test error, not the rest of the batch
+        try:
+            result = self.run_evaluation(id, self.model.get_test_configurations(id), individual)
+        except (OSError, ValueError) as e:
+            logger.warning(f"Evaluating '{individual['function']}' failed: {e}")
+            return
         if result is None:
             return
         error, solutions = result
@@ -155,13 +163,14 @@ class Controller:
             self.start_all_processes()
 
     def start_all_processes(self):
+        # The collectors of the last run may still be evaluating on the files about to change
+        for thread in self.collector_threads.values():
+            thread.join()
+
         problem = self.prepare_input_data()
         if problem:
             self.view.display_error(problem)
             return
-
-        for thread in self.collector_threads.values():
-            thread.join()
 
         self.model.prepare_run()
         is_test = self.model.run_has_test_set
@@ -232,6 +241,7 @@ class Controller:
 
     def pre_process_setup(self, id):
         self.model.reset_file_reading(id)
+        self.config_manager.set_new_seed(id)
 
     def handle_input_data_change(self):
         data = self.model.load_input_data()

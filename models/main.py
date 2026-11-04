@@ -46,6 +46,8 @@ class Model(Publisher):
         self.enabled_functions = set()
         self.best_functions = None
         self.run_has_test_set = False
+        self.run_params = {}
+        self.run_error_path = None
 
     def set_variable(self, name, value):
         if name in param_paths:
@@ -60,7 +62,7 @@ class Model(Publisher):
         self.params[param_paths["input_path"]] = path
     
     def get_input_path(self):
-        return self.params[param_paths["input_path"]]
+        return self.params.get(param_paths["input_path"])
     
     def get_current_input_path(self):
         input_path = self.config_manager.get_current_param_value(param_paths["input_path"])
@@ -73,7 +75,8 @@ class Model(Publisher):
         self.params[param_paths["error_path"]] = path
 
     def get_error_path(self):
-        return self.params.get(param_paths["error_path"]) or self.config_manager.get_current_param_value(param_paths["error_path"])
+        error_path = self.params.get(param_paths["error_path"]) or self.config_manager.get_current_param_value(param_paths["error_path"])
+        return paths.resolve_resource(error_path) if error_path else None
     
     def set_terminal_set(self, terminal_set):
         self.params[param_paths["terminal_set"]] = terminal_set
@@ -153,11 +156,15 @@ class Model(Publisher):
     def prepare_run(self):
         self.thread_num = max(1, min(self.thread_num, multiprocessing.cpu_count()))
         self.run_has_test_set = self.train_test_split < 1
+        # The input panel stays editable during a run, and evaluations must match the run
+        self.run_params = dict(self.params)
+        self.run_error_path = self.get_error_path()
         self.data_type = 'train'
         self.function_solutions = {}
         self.best_functions = None
         self.config_manager.configurations = {}
         self.config_manager.test_configurations = {}
+        self.process_states = {}
         self.register_all_processes()
 
     def get_function_solutions(self, function, data_type):
@@ -236,11 +243,14 @@ class Model(Publisher):
         return list(self.enabled_functions)
     
     def reset_file_reading(self, id):
-        """Called before a Process starts SRM. The best file goes first, so that no read can
-        pick up the previous run's file while SRM is still starting."""
+        """Called before a Process starts SRM. SRM can finish right after writing its best
+        Individual, so what is left in the file is read first. The file then goes, so that no
+        read can pick up the previous run's file while SRM is still starting."""
         state = self.process_states[id]
+        best_file_path = self.config_manager.configurations[id].best_file_path
         with state['lock']:
-            delete_file_if_exists(self.config_manager.configurations[id].best_file_path)
+            state['unread_individuals'] += self.read_best_file(id)
+            delete_file_if_exists(best_file_path)
             state['current_file_size'] = 0
             state['unparsed_text'] = ''
 
@@ -255,6 +265,7 @@ class Model(Publisher):
             'functions_seen': set(),
             'current_file_size': 0,
             'unparsed_text': '',
+            'unread_individuals': [],
             'lock': threading.Lock(),
         }
 
@@ -269,7 +280,7 @@ class Model(Publisher):
 
     def load_data(self, file_path):
         try:
-            input_data = np.loadtxt(file_path, delimiter='\t')
+            input_data = np.loadtxt(file_path, delimiter='\t', ndmin=2)
             converted_input_data = self.convert_to_2d_array(input_data)
         except Exception as e:
             logger.error(f"Error loading data: {e}")
@@ -284,14 +295,11 @@ class Model(Publisher):
 
     def read_new_individuals(self, id):
         """Returns the Individuals a Process wrote since the last call, each one once."""
-        best_file_path = self.config_manager.configurations[id].best_file_path
         state = self.process_states[id]
 
         with state['lock']:
-            new_text, state['current_file_size'] = self.read_new_data(best_file_path, state['current_file_size'])
-            if new_text is None:
-                return []
-            individuals, state['unparsed_text'] = parse_best_text(state['unparsed_text'] + new_text)
+            individuals = state['unread_individuals'] + self.read_best_file(id)
+            state['unread_individuals'] = []
 
         new_individuals = []
         for individual in individuals:
@@ -299,6 +307,16 @@ class Model(Publisher):
                 state['functions_seen'].add(individual['function'])
                 new_individuals.append(individual)
         return new_individuals
+
+    def read_best_file(self, id):
+        """Moves the reading position to the end of the best file. Holds the state's lock."""
+        state = self.process_states[id]
+        best_file_path = self.config_manager.configurations[id].best_file_path
+        new_text, state['current_file_size'] = self.read_new_data(best_file_path, state['current_file_size'])
+        if new_text is None:
+            return []
+        individuals, state['unparsed_text'] = parse_best_text(state['unparsed_text'] + new_text)
+        return individuals
 
     def has_best_output(self, id):
         best_file_path = self.config_manager.configurations[id].best_file_path
@@ -353,7 +371,8 @@ class Model(Publisher):
         
         x_index = self.plot_x_index if self.plot_x_index is not None else -1
 
-        if x_index == -1:
+        # Another input file can have been chosen since this data was split
+        if x_index == -1 or x_index >= len(data) - 1:
             x_data = list(range(len(data[0])))
         else:
             x_data = data[x_index]
@@ -395,10 +414,10 @@ class Model(Publisher):
         log_file_path = os.path.join(base_process_path, f'log{suffix}.txt')
         input_file_path = self.test_file_path if is_test else self.train_file_path
         error_weights_path = None
-        if self.get_error_path():
+        if self.run_error_path:
             error_weights_path = self.test_weights_path if is_test else self.train_weights_path
         self.config_manager.create_config(
-            process_id=process_id, parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, is_test=is_test or process_id=='eval', params=self.params, error_weights_path=error_weights_path
+            process_id=process_id, parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, is_test=is_test or process_id=='eval', params=self.run_params, error_weights_path=error_weights_path
         )
         if delete_logs:
             delete_file_if_exists(best_file_path)

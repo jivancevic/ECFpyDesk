@@ -330,6 +330,24 @@ def test_a_process_marked_failed_is_not_started_again(tmp_path):
     assert run.runs() == 1
 
 
+def test_an_error_in_the_process_loop_is_reported(tmp_path):
+    run = Run(tmp_path / "process")
+    failures = []
+
+    def fail(_id):
+        raise KeyError("something unexpected")
+
+    run.manager.register_callback('pre_process_start', fail)
+    run.manager.register_callback('process_failed', lambda id, reason: failures.append((id, reason)))
+
+    run.manager.start_all_processes()
+
+    assert wait_until(lambda: failures)
+    assert failures[0][0] == 0 and "something unexpected" in failures[0][1]
+    assert wait_until(lambda: run.manager.active_process_count() == 0)
+    run.manager.stop_all_processes()
+
+
 def test_a_missing_executable_is_reported(tmp_path):
     run = Run(tmp_path / "process")
     run.manager.executable_path = os.path.join(str(tmp_path), "no such file")

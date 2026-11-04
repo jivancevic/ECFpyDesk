@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 
 import pytest
 
-from models.config import ALL_FUNCTIONS, ConfigurationManager
+from models.config import ALL_FUNCTIONS, EVALUATION_POPULATION_SIZE, ConfigurationManager
 from models.main import Model
 from utils import paths
 
@@ -20,6 +20,7 @@ def entry(root, key):
 
 
 def generated(model, process_id=0, is_test=False):
+    model.prepare_run()
     path = model.create_process_config(process_id, is_test=is_test)
     return ET.parse(path).getroot()
 
@@ -108,6 +109,7 @@ def test_linking_functions_stay_inside_the_function_set(gep):
 
 def test_gep_without_any_linking_function_falls_back_to_gp(gep):
     gep.set_function_set("sin cos")
+    gep.prepare_run()
     gep.create_process_config(0)
 
     assert os.path.basename(gep.config_manager.configurations[0].template_path) == "srmGP.txt"
@@ -223,3 +225,146 @@ def test_an_unreadable_input_file_stops_a_run(model, tmp_path):
     model.load_input_data()
 
     assert "could not be read" in model.validate_run_settings()
+
+
+def test_evaluation_uses_a_small_population(model):
+    model.set_variable_with_path("ECF/Registry/Entry/population.size", "5000")
+
+    assert entry(generated(model, "eval", is_test=True), "population.size") == [str(EVALUATION_POPULATION_SIZE)]
+    assert entry(generated(model, 0), "population.size") == ["5000"]
+
+
+def test_every_process_and_every_restart_gets_its_own_seed(gp):
+    gp.thread_num = 2
+    gp.prepare_run()
+    paths_by_id = {id: gp.create_process_config(id) for id in (0, 1)}
+
+    seeds = []
+    for _ in range(3):
+        for id, path in paths_by_id.items():
+            gp.config_manager.set_new_seed(id)
+            seeds += entry(ET.parse(path).getroot(), "randomizer.seed")
+
+    assert len(set(seeds)) == 6
+    assert "0" not in seeds
+    assert all(0 < int(seed) < 2**31 for seed in seeds)
+
+
+def test_a_seed_the_user_chose_stays(gp):
+    gp.set_variable_with_path("ECF/Registry/Entry/randomizer.seed", "42")
+    gp.prepare_run()
+    path = gp.create_process_config(0)
+
+    gp.config_manager.set_new_seed(0)
+
+    assert entry(ET.parse(path).getroot(), "randomizer.seed") == ["42"]
+
+
+def test_a_run_keeps_its_parameters_when_the_input_panel_changes(gp, tmp_path):
+    gp.set_error_path(str(tmp_path / "weights.txt"))
+    gp.prepare_run()
+
+    gp.set_variable("search_metric", "mean_absolute_error")
+    gp.set_function_set("sin")
+    gp.params.pop("ECF/Registry/Entry/error_weights.file")
+    root = ET.parse(gp.create_process_config("eval", is_test=True)).getroot()
+
+    assert entry(root, "error_metric") == ["mean_square_error"]
+    assert entry(root, "error_weights.file") == ["test_weights.txt"]
+
+
+def test_apply_saves_paths_inside_the_app_as_relative(gp):
+    """A packaged app unpacks to a new place on each launch."""
+    gp.set_input_path(paths.resource_path("srm", "data_2var.txt"))
+
+    gp.update_default_parameters_file()
+
+    saved = ET.parse(os.path.join(paths.saved_parameters_dir(), "srmGP.txt")).getroot()
+    assert entry(saved, "input_file") == ["srm/data_2var.txt"]
+    assert Model().get_current_input_path() == paths.resource_path("srm", "data_2var.txt")
+
+
+def test_apply_keeps_a_users_own_file_absolute(gp, tmp_path):
+    own_file = str(tmp_path / "data.txt")
+    gp.set_input_path(own_file)
+
+    gp.update_default_parameters_file()
+
+    assert Model().get_current_input_path() == own_file
+
+
+@pytest.mark.parametrize("old,new,missing", [
+    ('<Entry key="functionset">- / + log *</Entry>', "", "functionset"),
+    ('<Entry key="terminalset">x1 x2 [-1 1]</Entry>', "", "terminalset"),
+    ('<Entry key="functionset">- / + log *</Entry>', '<Entry key="functionset"> </Entry>', "functionset"),
+])
+def test_manual_edit_without_a_required_entry_is_refused(old, new, missing):
+    manager = ConfigurationManager()
+    text = manager.read_manual_parameters()
+    assert old in text
+
+    with pytest.raises(ValueError, match=missing):
+        manager.save_manual_parameters(text.replace(old, new))
+
+    assert not os.path.exists(manager.saved_path("srmGP.txt"))
+
+
+@pytest.mark.parametrize("content", [
+    '<ECF><Registry/></ECF>',
+    '<ECF><Genotype><Tree><Entry key="functionset">+</Entry><Entry key="terminalset">x1</Entry></Tree></Genotype></ECF>',
+])
+def test_a_saved_file_the_app_cannot_use_is_ignored(content):
+    manager = ConfigurationManager()
+    with open(manager.saved_path("srmGP.txt"), "w") as file:
+        file.write(content)
+
+    model = Model()
+
+    assert model.get_current_function_set() == "- / + log *"
+    assert model.get_current_terminal_set() == "x1 x2 [-1 1]"
+
+
+def test_a_saved_error_metric_is_a_current_value():
+    manager = ConfigurationManager()
+    manager.save_manual_parameters(manager.read_manual_parameters().replace("mean_square_error", "mean_absolute_error"))
+
+    assert Model().get_current_variable("search_metric") == "mean_absolute_error"
+
+
+def test_an_old_front_does_not_leak_into_a_run_with_fewer_processes(model):
+    model.thread_num = 2
+    model.prepare_run()
+    model.add_individuals(1, [{"size": 1, "error": 0.1, "function": "old"}])
+
+    model.thread_num = 1
+    model.prepare_run()
+
+    assert model.update_best_functions() == []
+    assert list(model.process_states) == [0]
+
+
+def test_a_one_row_data_file_keeps_its_shape(tmp_path):
+    data = tmp_path / "data.txt"
+    data.write_text("1\t2\t3\n")
+
+    assert Model().load_data(str(data)) == [[1.0], [2.0], [3.0]]
+
+
+def test_a_one_row_test_set_can_be_plotted(model, tmp_path):
+    data = tmp_path / "data.txt"
+    data.write_text("".join(f"{i}\t{i + 1}\t{i + 2}\n" for i in range(5)))
+    model.set_input_path(str(data))
+    model.set_variable("train_test_split", 0.8)
+    model.set_variable("test_sample", "sequential")
+
+    model.split_train_test()
+    model.plot_x_index = 0
+
+    assert model.get_plot_data("test") == ([4.0], [6.0])
+
+
+def test_the_plot_falls_back_to_row_numbers_for_a_variable_the_data_lacks(model):
+    model.test_input_data = [[1.0, 2.0], [3.0, 4.0]]
+    model.plot_x_index = 1
+
+    assert model.get_plot_data("test") == ([0, 1], [3.0, 4.0])

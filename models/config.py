@@ -1,3 +1,4 @@
+import itertools
 import logging
 import math
 import os
@@ -16,11 +17,15 @@ logger = logging.getLogger(__name__)
 FUNCTION_SET_PATH = "ECF/Genotype/Entry/functionset"
 TERMINAL_SET_PATH = "ECF/Genotype/Entry/terminalset"
 LINKING_FUNCTIONS_PATH = "ECF/Genotype/GEPChromosome/Entry/linkingfunctions"
+INPUT_FILE_PATH = "ECF/Registry/Entry/input_file"
 ERROR_WEIGHTS_PATH = "ECF/Registry/Entry/error_weights.file"
+POPULATION_SIZE_PATH = "ECF/Registry/Entry/population.size"
+SEED_PATH = "ECF/Registry/Entry/randomizer.seed"
+EVALUATION_POPULATION_SIZE = 10  # an evaluation run builds a population it never uses
 ALL_FUNCTIONS = [function for _, function in options["Functions"]]
 
 class ProcessConfiguration:
-    def __init__(self, parameters_path, input_file_path, best_file_path, log_file_path=None, tree=None, root=None, template_path=None, error_weights_path=None):
+    def __init__(self, parameters_path, input_file_path, best_file_path, log_file_path=None, tree=None, root=None, template_path=None, error_weights_path=None, keeps_seed=False):
         self.parameters_path = parameters_path
         self.input_file_path = input_file_path
         self.best_file_path = best_file_path
@@ -29,6 +34,7 @@ class ProcessConfiguration:
         self.root = root
         self.template_path = template_path
         self.error_weights_path = error_weights_path
+        self.keeps_seed = keeps_seed
 
 class ConfigurationManager:
     tree = None
@@ -47,6 +53,8 @@ class ConfigurationManager:
         self.eval_configurations = {}
         self.configurations = {}
         self.test_configurations = {}
+        # Counting up, so that no two runs of SRM in this session share a seed
+        self.seeds = itertools.count(random.randrange(1, 2**30))
 
     def set_tree_and_root(self):
         self.tree, self.root = self.load_template(self.default_parameters_paths[0][0])
@@ -59,10 +67,21 @@ class ConfigurationManager:
         saved_path = self.saved_path(template_path)
         if os.path.exists(saved_path):
             try:
-                return self.parse_XML(saved_path)
-            except ET.ParseError as e:
-                logger.warning(f"Ignoring unreadable saved parameters {saved_path}: {e}")
+                tree, root = self.parse_XML(saved_path)
+                self.validate_parameters(tree)
+                return tree, root
+            except (ET.ParseError, ValueError) as e:
+                logger.warning(f"Ignoring unusable saved parameters {saved_path}: {e}")
         return self.parse_XML(template_path)
+
+    def validate_parameters(self, tree):
+        """The app and SRM cannot work with parameters that lack these."""
+        if tree.getroot().find("Registry") is None:
+            raise ValueError("The parameters have no Registry section")
+        for path, name in ((FUNCTION_SET_PATH, "functionset"), (TERMINAL_SET_PATH, "terminalset")):
+            elements = self.find_param_elements(path, tree)
+            if not elements or not (elements[0].text or "").strip():
+                raise ValueError(f"The parameters have no {name}")
 
     def create_config(self, process_id, parameters_path, input_file_path, best_file_path, log_file_path, is_test=False, params=None, error_weights_path=None):
         if is_test:
@@ -73,12 +92,13 @@ class ConfigurationManager:
         tree, root = self.load_configured_template(template_path, params)
         if is_test:
             self.allow_all_functions(tree)
+            self.set_param_element(POPULATION_SIZE_PATH, EVALUATION_POPULATION_SIZE, tree)
         elif not self.restrict_linking_functions(tree):
             # GEP cannot run without a linking function, so this Process uses GP instead
             template_path = self.default_parameters_paths[0][0]
             tree, root = self.load_configured_template(template_path, params)
 
-        process_config = ProcessConfiguration(parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, tree=tree, root=root, template_path=template_path, error_weights_path=error_weights_path)
+        process_config = ProcessConfiguration(parameters_path=parameters_path, input_file_path=input_file_path, best_file_path=best_file_path, log_file_path=log_file_path, tree=tree, root=root, template_path=template_path, error_weights_path=error_weights_path, keeps_seed=self.has_chosen_seed(tree))
         self.create_parameters_file(process_config, is_test)
 
         if process_id == 'eval':
@@ -97,7 +117,7 @@ class ConfigurationManager:
     def create_parameters_file(self, config, is_test=False):
         # SRM runs in the temp directory. Relative paths keep spaces and non-ASCII characters
         # of the user's home directory away from it.
-        self.set_param_element("ECF/Registry/Entry/input_file", self.relative_path(config.input_file_path), config.tree)
+        self.set_param_element(INPUT_FILE_PATH, self.relative_path(config.input_file_path), config.tree)
         self.set_param_element("ECF/Registry/Entry/bestfile", self.relative_path(config.best_file_path), config.tree)
         self.set_param_element("ECF/Registry/Entry/log.filename", self.relative_path(config.log_file_path), config.tree)
         if config.error_weights_path:
@@ -122,8 +142,12 @@ class ConfigurationManager:
 
     def update_config(self, params):
         """Saves params as the user's defaults. The templates themselves never change."""
+        saved_params = dict(params)
+        for path in (INPUT_FILE_PATH, ERROR_WEIGHTS_PATH):
+            if saved_params.get(path):
+                saved_params[path] = paths.portable_path(saved_params[path])
         for (path, probs) in self.default_parameters_paths + self.default_evaluation_parameters_paths:
-            tree, root = self.load_configured_template(path, params)
+            tree, root = self.load_configured_template(path, saved_params)
             self.write_config(tree, self.saved_path(path))
 
     def read_manual_parameters(self):
@@ -135,9 +159,10 @@ class ConfigurationManager:
 
     def save_manual_parameters(self, text):
         try:
-            ET.fromstring(text)
+            tree = ET.ElementTree(ET.fromstring(text))
         except ET.ParseError as e:
             raise ValueError(f"The parameters are not valid XML: {e}") from e
+        self.validate_parameters(tree)
         with open(self.saved_path(self.default_parameters_paths[0][0]), 'w') as file:
             file.write(text)
         self.set_tree_and_root()
@@ -146,6 +171,19 @@ class ConfigurationManager:
         for path, value in params.items():
             if value is not None and value != "":
                 self.set_param_element(path, value, tree)
+
+    def set_new_seed(self, process_id):
+        """SRM seeds itself from the clock, so Processes started in the same second could run
+        alike. Each run of SRM gets its own seed, unless the user set one in the parameters."""
+        config = self.configurations[process_id]
+        if config.keeps_seed:
+            return
+        self.set_param_element(SEED_PATH, next(self.seeds), config.tree)
+        self.write_config(config.tree, config.parameters_path)
+
+    def has_chosen_seed(self, tree):
+        elements = self.find_param_elements(SEED_PATH, tree)
+        return bool(elements) and (elements[0].text or "0").strip() != "0"
 
     def allow_all_functions(self, tree):
         """An evaluation run must read any Individual, and SRM aborts on a function outside the

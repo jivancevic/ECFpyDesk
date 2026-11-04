@@ -12,6 +12,13 @@ def find_index_of_dict_with_value_in_array(array, key, value):
             return i
     return -1
 
+def initial_label(choices, value):
+    """The dropdown label for a value, or the first label if no choice has that value."""
+    for label, choice_value in choices:
+        if choice_value == value:
+            return label
+    return choices[0][0]
+
 def choose_random_element_with_probability(array):
     keys, probabilities = zip(*array)
     return random.choices(keys, weights=probabilities, k=1)[0]

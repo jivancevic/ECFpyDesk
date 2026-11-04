@@ -9,8 +9,10 @@ import pytest
 from conftest import requires_srm
 from controllers.main import Controller
 from controllers.process import IDLE, PAUSED, RUNNING
+from models.best_file import parse_best_text
 from models.main import Model
 from utils import paths
+from utils.helper import initial_label
 
 pytestmark = requires_srm
 
@@ -18,7 +20,9 @@ pytestmark = requires_srm
 class StubView:
     """Stands in for the Tk window. Timers run when the test pumps them, as the main loop would."""
 
-    def __init__(self):
+    def __init__(self, windowing_system="x11"):
+        self.tk = MagicMock(call=MagicMock(return_value=windowing_system))
+        self.commands = {}
         self.timers = {}
         self.errors = []
         self.next_timer = 0
@@ -53,6 +57,9 @@ class StubView:
 
     def protocol(self, *_args):
         pass
+
+    def createcommand(self, name, callback):
+        self.commands[name] = callback
 
     def destroy(self):
         pass
@@ -268,6 +275,111 @@ def test_stop_from_pause_then_a_new_run_starts_clean(app):
     assert run.view.frames["results"].best_functions == []
     assert run.pump_until(lambda: run.front())
     run.finish()
+
+
+def test_the_last_block_of_every_srm_run_reaches_the_results(app):
+    """At the real collect interval: SRM ends and restarts faster than the app reads."""
+    run = app(generations=10, threads=1)
+    run.controller.COLLECT_INTERVAL = Controller.COLLECT_INTERVAL
+    last_functions = []
+    reset_file_reading = run.model.reset_file_reading
+
+    def record_last_block(id):
+        path = run.model.config_manager.configurations[id].best_file_path
+        if os.path.exists(path):
+            with open(path) as file:
+                last_functions.append(parse_best_text(file.read())[0][-1]["function"])
+        reset_file_reading(id)
+
+    run.model.reset_file_reading = record_last_block
+    run.controller.toggle_process()
+
+    assert run.pump_until(lambda: len(last_functions) >= 5)
+    run.finish()
+
+    assert set(last_functions) <= run.model.process_states[0]["functions_seen"]
+
+
+def test_a_failed_evaluation_costs_one_individual_not_the_batch(app, monkeypatch):
+    run = app(threads=1, split=0.7)
+    run.controller.toggle_process()
+    run.controller.stop_all_processes()
+    run.pump_until(lambda: not run.controller.is_run_active())
+    run.model.prepare_run()
+    run.model.create_process_config(0, is_test=False)
+    run.model.create_process_config(0, is_test=True)
+
+    def fail_on_first(_id, _config, individual):
+        if individual["function"] == "first":
+            raise ValueError("SRM wrote no evaluation result")
+        return 0.5, [1.0]
+
+    monkeypatch.setattr(run.controller, "run_evaluation", fail_on_first)
+    individuals = [
+        {"generation": 0, "function": "first", "error": 0.9, "size": 3, "prefix_function": "x1"},
+        {"generation": 10, "function": "second", "error": 0.1, "size": 5, "prefix_function": "x2"},
+    ]
+    monkeypatch.setattr(run.model, "read_new_individuals", lambda _id: individuals)
+
+    run.controller.update_best_functions(0)
+
+    state = run.model.process_states[0]
+    assert [function["function"] for function in state["best_functions"]] == ["first", "second"]
+    assert [function["function"] for function in state["best_test_functions"]] == ["second"]
+
+
+def test_a_new_run_waits_for_the_collectors_of_the_last_one(app, monkeypatch):
+    run = app(threads=1)
+    run.controller.toggle_process()
+    assert run.pump_until(lambda: run.controller.collector_threads)
+    collectors = list(run.controller.collector_threads.values())
+    run.controller.process_manager.stop_all_processes()
+    run.controller.collectors_stop.set()
+    alive_during_prepare = []
+    prepare_input_data = run.controller.prepare_input_data
+
+    def check_collectors():
+        alive_during_prepare.extend(thread for thread in collectors if thread.is_alive())
+        return prepare_input_data()
+
+    monkeypatch.setattr(run.controller, "prepare_input_data", check_collectors)
+    run.controller.start_all_processes()
+
+    assert alive_during_prepare == []
+    run.finish()
+
+
+def test_a_saved_error_metric_starts_the_dropdown(app):
+    saved = Model().config_manager
+    saved.save_manual_parameters(saved.read_manual_parameters().replace("mean_square_error", "mean_absolute_error"))
+
+    run = app(threads=1)
+
+    initial = run.view.frames["input"].initial_values["search_metric"]
+    assert initial == "mean_absolute_error"
+    assert initial_label([("MSE", "mean_square_error"), ("MAE", "mean_absolute_error")], initial) == "MAE"
+    assert initial_label([("MSE", "mean_square_error")], "unknown") == "MSE"
+
+
+def test_rebuilt_plot_dropdowns_keep_the_users_choice(app):
+    run = app(threads=1)
+    run.model.plot_scale = 3
+    run.model.plot_type = "plot"
+
+    run.controller.results_controller.add_test_option(should_add=True)
+
+    assert run.view.frames["results"].initial_values["plot_scale"] == 3
+    assert run.view.frames["results"].initial_values["plot_type"] == "plot"
+
+
+@pytest.mark.parametrize("windowing_system,registered", [("aqua", True), ("x11", False), ("win32", False)])
+def test_quit_from_the_macos_menu_goes_through_the_same_close(windowing_system, registered, monkeypatch):
+    view = StubView(windowing_system)
+    controller = Controller(Model(), view)
+
+    assert ("::tk::mac::Quit" in view.commands) == registered
+    if registered:
+        assert view.commands["::tk::mac::Quit"] == controller.handle_close
 
 
 def test_a_process_that_cannot_run_is_reported_once_and_not_restarted(app, monkeypatch):
