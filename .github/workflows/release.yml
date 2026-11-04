@@ -1,0 +1,67 @@
+name: release
+
+# A tag builds both packages from the tagged commit. The release exists only if both passed
+# their smoke run. macOS minutes count 10x on a private repo, so nothing else triggers this.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Build SRM
+        run: |
+          cmake -S native -B build
+          cmake --build build --config Release --parallel 4
+      - name: Check SRM
+        run: python native/smoke_test.py
+      - run: pip install -r requirements-package.txt
+      - name: Build the package
+        run: python packaging/build.py "${GITHUB_REF_NAME#v}"
+      - name: Smoke run
+        run: python packaging/smoke_test.py dist/*.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.os }}
+          path: dist/*.zip
+          if-no-files-found: error
+          compression-level: 0
+
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: packages
+          merge-multiple: true
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=""
+          if [[ "$GITHUB_REF_NAME" == *-* ]]; then prerelease="--prerelease"; fi
+          gh release create "$GITHUB_REF_NAME" packages/*.zip \
+            --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes $prerelease
