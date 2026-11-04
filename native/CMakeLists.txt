@@ -14,6 +14,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # run down another path. Keeping it off matches the SRM binary this build replaced.
 add_compile_options($<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-ffp-contract=off>)
 
+# SRM uses M_PI, which MSVC defines only on request and before the first <math.h>.
+add_compile_definitions($<$<CXX_COMPILER_ID:MSVC>:_USE_MATH_DEFINES>)
+
 # Link the C++ runtime statically on MSVC so that SRM.exe runs on a clean Windows.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
