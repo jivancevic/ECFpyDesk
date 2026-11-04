@@ -73,7 +73,7 @@ The folder `srm/` has three sample files:
 | `data_2var.txt` | `x1`, `x2` | `x1 * x2` |
 | `data_2var_log.txt` | `x1`, `x2` | `log(x1) / log(x2)` |
 
-We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy, and so is the 15-row `data_2var_log.txt`: both get an exact answer within seconds.) In the packaged app, the sample data is inside the app bundle; you can also copy the files from the repository. Any file in the format above works.
+We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy; the 15-row `data_2var_log.txt` gets an exact answer within seconds.) In the packaged app, the sample data is inside the app bundle; you can also copy the files from the repository. Any file in the format above works.
 
 ### Step 1: set up the Input screen
 
