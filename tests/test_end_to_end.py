@@ -176,6 +176,44 @@ def test_individuals_are_ranked_by_test_error_with_a_test_set(app, metric, error
     assert front[0]["test_error"] != train_errors.get(front[0]["function"])
 
 
+@pytest.mark.parametrize("data_file,terminal_set", [
+    ("data_1var.txt", "x1 [-1 1]"),
+    ("data_2var.txt", "x1 x2 [-1 1]"),
+    ("data_2var_log.txt", "x1 x2 [-1 1]"),
+])
+def test_every_sample_file_runs(app, data_file, terminal_set):
+    run = app(threads=1, split=0.7)
+    run.model.set_input_path(paths.resource_path("srm", data_file))
+    run.model.set_terminal_set(terminal_set)
+    run.controller.toggle_process()
+
+    assert run.pump_until(lambda: run.front())
+    run.finish()
+
+    assert run.view.errors == []
+    assert len(run.controller.evaluate_function(run.front()[0]["function"], data_type="train")[1]) == len(run.model.train_input_data[0])
+
+
+def test_error_weights_follow_their_rows_through_a_real_run(app, tmp_path):
+    """All the weight is on the first row, so a Process can only fit that row, and the reported
+    error is the weighted one."""
+    rows = len(open(paths.resource_path("srm", "data_2var.txt")).readlines())
+    weights = tmp_path / "weights.txt"
+    weights.write_text("\n".join(["1000"] + ["0"] * (rows - 1)) + "\n")
+    run = app(threads=1, split=0.7)
+    run.model.set_variable("test_sample", "sequential")
+    run.model.set_error_path(str(weights))
+    run.controller.toggle_process()
+
+    assert run.pump_until(lambda: run.front())
+    run.finish()
+
+    assert run.view.errors == []
+    tested = run.model.process_states[0]["best_test_functions"]
+    # The test set holds the last rows, whose weights are all zero
+    assert tested and all(function["test_error"] == 0 for function in tested)
+
+
 def test_an_evaluation_needs_no_function_from_the_users_set(app, monkeypatch):
     """GEP links genes with - even when the user turned - off."""
     force_template(monkeypatch, 1)

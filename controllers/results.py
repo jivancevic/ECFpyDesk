@@ -35,6 +35,7 @@ class ResultsController(BaseController):
         if row != self.frame.current_active_row:
             self.frame.current_active_row = row
             self.select_active_row()
+            self.frame.solutions_list_frame.focus_set()
 
     def select_active_row(self):
         row = self.frame.current_active_row
@@ -43,7 +44,6 @@ class ResultsController(BaseController):
         
         self.frame.update_info(function, error)
         self.update_plot(function)
-        self.frame.solutions_list_frame.focus_set()
         self.frame.reset_row_colors()
         self.frame.set_active_row_color(row)
 
