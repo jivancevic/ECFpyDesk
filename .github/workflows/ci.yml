@@ -53,7 +53,7 @@ jobs:
       - name: Run tests
         if: hashFiles('tests/**') != ''
         run: |
-          pip install pytest
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; else pip install pytest; fi
           python -m pytest
 
   # The required check. It passes only when every system in the matrix passed.
