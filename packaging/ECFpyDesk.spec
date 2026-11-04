@@ -47,5 +47,9 @@ if sys.platform == "darwin":
         bundle_identifier="io.github.jivancevic.ecfpydesk",
         # A bundle version is numbers only, so 1.0.0-rc.1 goes in as 1.0.0
         version=re.match(r"[\d.]*", VERSION).group().rstrip(".") or "0.0.0",
-        info_plist={"NSHighResolutionCapable": True},
+        info_plist={
+            "NSHighResolutionCapable": True,
+            # What the numpy wheel needs, the highest of all parts. The smoke run prints the real value.
+            "LSMinimumSystemVersion": "14.0",
+        },
     )
