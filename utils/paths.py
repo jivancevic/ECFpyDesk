@@ -31,6 +31,17 @@ def resolve_resource(path):
     return resource_path(*path.split("/"))
 
 
+def portable_path(path):
+    """A path to keep in saved settings. Inside the app it is stored relative, because the
+    app's location can change between launches: a packaged app unpacks to a new place each time."""
+    root = app_root()
+    try:
+        inside = os.path.commonpath([os.path.abspath(path), root]) == root
+    except ValueError:  # another drive on Windows
+        inside = False
+    return os.path.relpath(path, root).replace(os.sep, "/") if inside else path
+
+
 def srm_executable(configured_path="srm/SRM"):
     path = resolve_resource(configured_path)
     if sys.platform == "win32" and not path.lower().endswith(".exe"):

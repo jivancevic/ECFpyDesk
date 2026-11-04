@@ -13,8 +13,18 @@ class ResultsController(BaseController):
         self.register_callbacks()
 
     def initialize_frame(self):
+        self.remember_plot_options()
         super().initialize_frame()
         self.update_plot()
+
+    def remember_plot_options(self):
+        """Rebuilding the dropdowns publishes their values, so they start on the current ones."""
+        self.frame.initial_values = {
+            "plot_y_index": self.model.plot_y_index,
+            "plot_x_index": self.model.plot_x_index,
+            "plot_type": self.model.plot_type,
+            "plot_scale": self.model.plot_scale,
+        }
 
     def register_callbacks(self):
         self.frame.register_callback('move_selection', self.move_selection)
@@ -127,6 +137,7 @@ class ResultsController(BaseController):
     def update_plot_x_axis(self, var_num):
         # The plot options sit below the test data checkbox when there is one
         start_row = 3 if self.test_option else 2
+        self.remember_plot_options()
         for idx, option in enumerate(plot_options):
             variable_name, label, choices = option
             if variable_name == "plot_x_index":
@@ -135,6 +146,6 @@ class ResultsController(BaseController):
 
     def add_test_option(self, should_add=False):
         self.test_option = should_add
-        self.frame.info_frame.destroy()
+        self.remember_plot_options()
         self.frame.setup_info_frame(test_option=should_add)
         self.update_plot_x_axis(len(self.model.input_data) - 1)

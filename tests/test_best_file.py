@@ -135,6 +135,19 @@ def test_a_restarted_process_starts_reading_from_the_top(reading):
     assert [i["function"] for i in reading.model.read_new_individuals(0)] == ["b"]
 
 
+def test_what_a_process_wrote_last_survives_its_restart(reading):
+    """SRM ends right after writing its best Individual, before the next read comes."""
+    reading.append(block(function="a"))
+    reading.model.read_new_individuals(0)
+    reading.append(block(function="b"))
+
+    reading.model.reset_file_reading(0)
+    reading.append(block(function="c"))
+
+    assert [i["function"] for i in reading.model.read_new_individuals(0)] == ["b", "c"]
+    assert reading.model.read_new_individuals(0) == []
+
+
 def test_a_shorter_file_does_not_lose_the_reading_position(reading):
     """If SRM truncates the file behind the app's back, reading must still find later blocks."""
     reading.append(block(function="a") * 3)

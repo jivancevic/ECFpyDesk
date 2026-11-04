@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from tkinter import StringVar
+from utils.helper import initial_label
 from utils.publisher import Publisher
 from utils.tooltips import add_tooltip
 
@@ -88,6 +89,7 @@ class BaseView(ctk.CTkFrame, Publisher):
     def __init__(self, parent):
         ctk.CTkFrame.__init__(self, parent)
         Publisher.__init__(self)
+        self.initial_values = {}  # controllers set this, by variable name, before building dropdowns
         self.font = ctk.CTkFont(family="Arial", size=14, weight="bold")
         self.button_font = ctk.CTkFont(size=13)
 
@@ -111,7 +113,7 @@ class BaseView(ctk.CTkFrame, Publisher):
         display_var.trace_add('write', lambda *args: self.invoke_callback('dropdown_option_change', variable_name, label_to_value_map[display_var.get()]))
         label_to_value_map = {label: value for label, value in choices}
         dropdown_labels = list(label_to_value_map.keys())
-        display_var.set(dropdown_labels[0])
+        display_var.set(initial_label(choices, self.initial_values.get(variable_name)))
         dropdown = ctk.CTkOptionMenu(frame, variable=display_var, values=dropdown_labels,
                                      width=self.DROPDOWN_WIDTH, height=self.FIELD_HEIGHT, dynamic_resizing=False)
         dropdown.grid(row=row, column=column, sticky="w", padx=self.PAD, pady=self.PAD // 2)

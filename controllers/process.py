@@ -53,6 +53,14 @@ class ProcessManager(Publisher):
             self.process_threads[id].start()
 
     def run_process_loop(self, id, params_path):
+        try:
+            self.keep_process_running(id, params_path)
+        except Exception as e:
+            logger.exception(f"Process {id} ended on an error")
+            self.failed_processes.add(id)
+            self.invoke_callback('process_failed', id, str(e))
+
+    def keep_process_running(self, id, params_path):
         while True:
             self.resume_event.wait()
             if self.state == IDLE:

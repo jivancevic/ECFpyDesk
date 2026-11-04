@@ -24,6 +24,12 @@ class InputController(BaseController):
         self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
     def initialize_frame(self):
+        # Building a dropdown publishes its value, so it must start on the saved value
+        self.frame.initial_values = {
+            "search_metric": self.model.get_current_variable("search_metric"),
+            "train_test_split": self.model.train_test_split,
+            "test_sample": self.model.test_sample,
+        }
         super().initialize_frame()
         self.frame.max_threads = multiprocessing.cpu_count()
         self.frame.populate_scroll_frame(options)

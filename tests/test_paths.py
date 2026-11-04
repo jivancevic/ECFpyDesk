@@ -17,6 +17,20 @@ def test_absolute_paths_stay_as_they_are(tmp_path):
     assert paths.resolve_resource(str(tmp_path)) == str(tmp_path)
 
 
+def test_a_path_inside_the_app_is_saved_relative_and_resolves_in_a_new_location(tmp_path, monkeypatch):
+    monkeypatch.setattr(sys, "_MEIPASS", str(tmp_path / "first"), raising=False)
+    saved = paths.portable_path(paths.resource_path("srm", "data_1var.txt"))
+
+    monkeypatch.setattr(sys, "_MEIPASS", str(tmp_path / "second"), raising=False)
+
+    assert saved == "srm/data_1var.txt"
+    assert paths.resolve_resource(saved) == os.path.join(str(tmp_path / "second"), "srm", "data_1var.txt")
+
+
+def test_a_path_outside_the_app_stays_absolute(tmp_path):
+    assert paths.portable_path(str(tmp_path / "data.txt")) == str(tmp_path / "data.txt")
+
+
 def test_a_bundled_app_reads_from_the_bundle(tmp_path, monkeypatch):
     monkeypatch.setattr(sys, "_MEIPASS", str(tmp_path), raising=False)
 
