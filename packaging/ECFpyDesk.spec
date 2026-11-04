@@ -6,6 +6,9 @@ import sys
 
 from PyInstaller.utils.hooks import collect_data_files
 
+sys.path.insert(0, SPECPATH)
+from settings import MINIMUM_MACOS
+
 ROOT = os.path.dirname(SPECPATH)
 VERSION = os.environ.get("ECFPYDESK_VERSION", "0.0.0")
 
@@ -49,7 +52,6 @@ if sys.platform == "darwin":
         version=re.match(r"[\d.]*", VERSION).group().rstrip(".") or "0.0.0",
         info_plist={
             "NSHighResolutionCapable": True,
-            # What the numpy wheel needs, the highest of all parts. The smoke run prints the real value.
-            "LSMinimumSystemVersion": "14.0",
+            "LSMinimumSystemVersion": MINIMUM_MACOS,
         },
     )

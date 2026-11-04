@@ -14,6 +14,8 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+from settings import MINIMUM_MACOS
+
 TIMEOUT = 660  # seconds, longer than the self-test's own limit, so that it can report first
 FOLDER_NAME = "smoke run čž"
 
@@ -56,7 +58,7 @@ def check_macos_package(folder):
     app = folder / "ECFpyDesk.app"
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True)
 
-    minimum_system = (0, 0)
+    needed = (0, 0)
     for path in app.rglob("*"):
         if path.is_symlink() or not path.is_file() or not is_mach_o(path):
             continue
@@ -66,11 +68,14 @@ def check_macos_package(folder):
                 sys.exit(f"{path.name} links {library}, which is outside the package and the system")
         load_commands = subprocess.run(["otool", "-l", str(path)], capture_output=True, text=True, check=True).stdout
         for version in MINIMUM_SYSTEM.findall(load_commands):
-            minimum_system = max(minimum_system, tuple(int(part) for part in version if part))
-    print(f"The package runs on macOS {minimum_system[0]}.{minimum_system[1]} and newer")
+            needed = max(needed, tuple(int(part) for part in version if part))
+    print(f"The package needs macOS {needed[0]}.{needed[1]}")
+    return needed
 
 
 def check_windows_package(folder):
+    """A library finds what the app has already loaded. An .exe starts on its own, SRM as a
+    process of its own, so its runtime must be linked in or sit right beside it."""
     import pefile  # comes with PyInstaller on Windows
 
     files = [path for path in folder.rglob("*") if path.suffix.lower() in (".exe", ".dll", ".pyd")]
@@ -81,7 +86,10 @@ def check_windows_package(folder):
         image.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
         for entry in getattr(image, "DIRECTORY_ENTRY_IMPORT", []):
             name = entry.dll.decode().lower()
-            if VISUAL_CPP_RUNTIME.match(name) and name not in bundled:
+            if not VISUAL_CPP_RUNTIME.match(name):
+                continue
+            found = (path.parent / name).exists() if path.suffix.lower() == ".exe" else name in bundled
+            if not found:
                 missing.add(f"{path.name} needs {name}")
         image.close()
     if missing:
@@ -90,9 +98,12 @@ def check_windows_package(folder):
 
 
 def user_environment(home):
-    """The new home directory leaves no settings or caches from this machine, and it is where
-    the app's default per-user directory ends up."""
+    """The new home directory leaves no settings or caches from this machine. Temporary files
+    go there too, and with them the self-test's own data directory."""
     environment = {key: value for key, value in os.environ.items() if not key.startswith(("PYTHON", "ECFPYDESK", "TCL_", "TK_", "MPL"))}
+    temporary = home / "temporary"
+    temporary.mkdir()
+    environment.update(TEMP=str(temporary), TMP=str(temporary), TMPDIR=str(temporary))
     if sys.platform == "win32":
         system_root = os.environ["SYSTEMROOT"]
         environment["PATH"] = f"{system_root}\\System32;{system_root}"
@@ -132,9 +143,8 @@ def main(archive):
 
         extract(archive, folder)
         check_bundled_files(folder)
-        if sys.platform == "darwin":
-            check_macos_package(folder)
-        else:
+        needed_macos = check_macos_package(folder) if sys.platform == "darwin" else None
+        if sys.platform == "win32":
             check_windows_package(folder)
 
         exit_code = run_self_test(executable_in(folder), home, report_path)
@@ -148,7 +158,11 @@ def main(archive):
         if not report["frozen"]:
             sys.exit("The self-test did not run in a package")
         if not Path(report["user_data"]).resolve().is_relative_to(home.resolve()):
-            sys.exit(f"The app did not use the user's directory: {report['user_data']}")
+            sys.exit(f"The app did not use the data directory of the test: {report['user_data']}")
+        # Last, so that a local build, which needs the macOS of its Python, still gets the whole run
+        declared = tuple(int(part) for part in MINIMUM_MACOS.split("."))
+        if needed_macos and needed_macos > declared:
+            sys.exit(f"The package needs macOS {needed_macos[0]}.{needed_macos[1]} but declares {MINIMUM_MACOS}")
     print(f"{Path(archive).name} passed")
 
 
