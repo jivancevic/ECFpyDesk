@@ -1,9 +1,14 @@
 import xml.etree.ElementTree as ET
 import re
 import math
-import pandas as pd
 import shutil
-from sklearn.model_selection import train_test_split
+
+# Lazy import wrapper to avoid import costs before needed (GUI startup)
+def _lazy_pandas_and_sklearn():
+    global pd, train_test_split
+    import pandas as pd  # type: ignore
+    from sklearn.model_selection import train_test_split  # type: ignore
+    return pd, train_test_split
 from utils.file import delete_file_if_exists
 from utils.helper import choose_random_element_with_probability
 
@@ -217,6 +222,10 @@ class ConfigurationManager:
         return len(variables)
 
     def split_train_test(self, input_data_path, train_output_path, test_output_path, train_test_split_ratio=1, test_sample_choice="random"):
+        try:
+            pd, train_test_split = _lazy_pandas_and_sklearn()
+        except Exception:
+            pass
         delete_file_if_exists(train_output_path)
         delete_file_if_exists(test_output_path) 
 

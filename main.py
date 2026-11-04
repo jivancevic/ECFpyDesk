@@ -1,7 +1,14 @@
 from models.main import Model
+
+import os
+import platform
+
+# Silence macOS system Tk deprecation warning (optional)
+if platform.system() == "Darwin":
+    os.environ.setdefault("TK_SILENCE_DEPRECATION", "1")
+
 from views.main import View
 from controllers.main import Controller
-import os
 
 def main():
     app_directory = os.path.dirname(os.path.abspath(__file__))  # Get the directory of main.py
