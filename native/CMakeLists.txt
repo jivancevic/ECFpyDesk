@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
+
+# Without these a binary refuses to run on a macOS older than the machine that built it.
+set(CMAKE_OSX_DEPLOYMENT_TARGET "12.0" CACHE STRING "Oldest macOS the binary runs on")
+set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE STRING "macOS architecture")
+
 project(ECFpyDeskNative LANGUAGES CXX)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
