@@ -73,18 +73,18 @@ The folder `srm/` has three sample files:
 | `data_2var.txt` | `x1`, `x2` | `x1 * x2` |
 | `data_2var_log.txt` | `x1`, `x2` | `log(x1) / log(x2)` |
 
-We use `data_2var_log.txt`: 15 rows, small enough to run fast, and not trivial. (In the packaged app, the sample data is inside the app bundle; you can also copy the file from the repository. Any file in the format above works.)
+We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy, and so is the 15-row `data_2var_log.txt`: both get an exact answer within seconds.) In the packaged app, the sample data is inside the app bundle; you can also copy the files from the repository. Any file in the format above works.
 
 ### Step 1: set up the Input screen
 
 ![The Input screen](images/input.png)
 
-1. **Input file → Select File**, and pick `data_2var_log.txt`. The file name appears next to the button, and one checkbox per variable (`x1`, `x2`) appears under **Input variables**. Both are ticked.
+1. **Input file → Select File**, and pick `data_2var.txt`. The file name appears next to the button, and one checkbox per variable (`x1`, `x2`) appears under **Input variables**. Both are ticked.
 2. **Terminal set** holds the constants an expression may use besides the ticked variables. `[-1 1]` means random constants between -1 and 1. Leave it.
-3. **Search options.** Leave **Search metric** on mean squared error. Set **Train/test split** to **70/30**: the search sees 70% of the rows, and the remaining 30% (the *test set*) is kept to judge the results. **Test sample → Chosen randomly** picks those rows at random.
-4. **Number of threads** is the number of SRM processes that run side by side, each searching on its own. Set it to the number of CPU cores you want to use (the **+** button stops at the number your machine has).
-5. On the right, under **Functions**, tick the operations expressions may use. The defaults (addition, subtraction, multiplication, division, logarithm) are what this data needs. Under **Registry parameters** are the search settings: **Max generations**, **Population size**, **Mutation probability** and **Log frequency**. A smaller population makes a run faster but less thorough.
-6. Leave **Linear scaling** on. It fits a scale and an offset to every expression, so you see expressions such as `0.33 + -0.33 * (...)`. It needs addition and multiplication in the function set, and the app tells you if they are missing.
+3. **Search options.** Leave **Search metric** on mean squared error. Set **Train/test split** to **80/20**: the search sees 80% of the rows, and the remaining 20% (the *test set*) is kept to judge the results. **Test sample → Chosen randomly** picks those rows at random.
+4. **Number of threads** is the number of SRM processes that run side by side, each searching on its own. Set it to 2 here (the **+** button stops at the number of cores your machine has).
+5. On the right, under **Functions**, tick the operations expressions may use. For this walkthrough, untick **Multiplication** and **Logarithm**, leaving addition, subtraction and division. Under **Registry parameters** are the search settings: set **Max generations** to 60 and **Population size** to 100, a small and quick search. For a real problem, keep the defaults or go larger.
+6. Untick **Linear scaling**. It needs addition and multiplication, so with multiplication off the app would refuse to start a run until you do. With it on, every expression is wrapped as `offset + factor * (...)`, which fits a scale and an offset for free; with it off you see the raw expressions as in the pictures.
 
 **Apply** saves what is on screen as the starting point for the next launch. You do not have to press it: a run always uses what is on screen. **Change Manually** swaps the screen for the raw parameter file (XML), for options the screen does not list; **Save** keeps your edit, **Back** returns.
 
@@ -99,13 +99,13 @@ Press the **play** button at the top right. The app starts the processes (each d
 - **Pause** (the same button, now showing two bars) freezes all processes, and the same button continues them.
 - **Stop** (the square) ends the run. Starting again clears the results.
 
-A process that finishes its generations starts again by itself, so results keep improving until you press Stop. This sample is easy: an exact answer, `log(x1) / log(x2)`, usually appears within seconds.
+A process that finishes its generations starts again by itself, so results keep improving until you press Stop. In this setup the front improves over the first half minute and then creeps.
 
 ### Step 3: read the results
 
 ![The Results screen with the test data shown](images/results.png)
 
-The first rows are the Pareto front at a glance: a size-8 expression with error 0.87, then the exact `log(x1) / log(x2)` at size 9 with error 0.0000 (the screen shows four decimals; the real error is far smaller). Larger rows are the same answer in more complicated clothes. The next section explains each part.
+The front runs from `-0.531186` (a single constant, error 0.1928) to a size-19 expression with error 0.0728: each step up in size buys a smaller error, with diminishing returns. The chosen row (size 11, error 0.0988, measured on the test rows) is plotted against `x1`, with the data in blue and the expression in red. Where only red is visible, the expression hits the data. The next section explains each part. Your own run will show different numbers: searches are random.
 
 ## 4. Reading the results
 
@@ -132,7 +132,7 @@ The plot is drawn from values computed by SRM itself, so it shows exactly what t
 | **Plot scale** | **Regular**, **log y**, **log x**, **log x and log y** (log scales need positive values) |
 | **Show Test Data** | tick to plot the test rows instead of the training rows (appears when you chose a split) |
 
-With the target plotted, blue dots hidden under red ones mean the expression fits there. The residual plot makes small misses visible:
+With the target plotted, a blue dot hidden under a red one means the expression fits there; a gap between them is a miss. The residual plot shows the misses directly, as data minus expression:
 
 ![Residual error on the test data](images/results-residual.png)
 
@@ -141,7 +141,7 @@ With the target plotted, blue dots hidden under red ones mean the expression fit
 - Run the search for a while, then look at the front: expressions that appear repeatedly at the same size are likely real structure, not luck.
 - If the front has many nearly equal errors, compare the sizes: the smallest one with a good error is usually the best explanation.
 - More threads means more independent searches, so a better front for the same waiting time.
-- Linear scaling shows up as a constant and a factor wrapped around the expression, for example `-4.15698e-07 + 1.00001 * (log(x1) / log(x2))`. Read it as "`log(x1) / log(x2)`, with a scale of about 1 and an offset of about 0".
+- With linear scaling on, every expression is shown wrapped in an offset and a factor, for example `-4.15698e-07 + 1.00001 * (log(x1) / log(x2))`. Read it as "`log(x1) / log(x2)`, with a scale of about 1 and an offset of about 0".
 
 ## 5. Settings reference
 
