@@ -30,8 +30,6 @@ def delete_all_files_in_directory(directory):
 
 def create_directory(directory_path):
     try:
-        os.makedirs(directory_path)
-    except FileExistsError:
-        pass
+        os.makedirs(directory_path, exist_ok=True)
     except Exception as e:
         logger.error(f"Error creating directory '{directory_path}': {e}")

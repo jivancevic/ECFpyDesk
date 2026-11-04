@@ -1,5 +1,4 @@
 {
     "SRM_path": "srm/SRM",
-    "SRM_parameters_path": "srm/srmGP.txt",
-    "best_file_path": "srm/best.txt"
+    "refresh_interval_ms": 500
 }

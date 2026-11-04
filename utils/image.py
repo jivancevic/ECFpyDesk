@@ -1,5 +1,6 @@
 from PIL import Image
 from customtkinter import CTkImage
+from utils.paths import resolve_resource
 
 # Pillow 10 removed Image.ANTIALIAS in favor of Image.Resampling.LANCZOS.
 # Resolve a cross-version resampling filter that works on Pillow 8/9/10+.
@@ -10,7 +11,7 @@ except AttributeError:
 
 def resize_image(image_path, new_height):
     # Open an image file
-    with Image.open(image_path) as img:
+    with Image.open(resolve_resource(image_path)) as img:
         # Calculate the new width maintaining the aspect ratio
         aspect_ratio = img.width / img.height
         new_width = int(new_height * aspect_ratio)
