@@ -46,7 +46,7 @@ class InputView(BaseView):
         card = ctk.CTkFrame(self.left_column, fg_color=self.CARD_COLOR)
         card.grid(row=row, column=0, sticky='ew', padx=(0, self.PAD), pady=(0, self.PAD))
         self.configure_frame_grid(card)
-        ctk.CTkLabel(card, text=title, font=self.font).grid(row=0, column=0, columnspan=2, sticky="w", padx=self.PAD, pady=(self.PAD, 2))
+        ctk.CTkLabel(card, text=title, font=self.font).grid(row=0, column=0, columnspan=2, sticky="w", padx=self.PAD, pady=(4, 0))
         return card
 
     def setup_file_section(self):
@@ -74,7 +74,7 @@ class InputView(BaseView):
         button = self.create_button(frame, "All/None", self.toggle_variables, tooltip="all_none")
         button.grid(row=start_row+1, column=0, sticky='nw', padx=self.PAD, pady=self.PAD // 2)
 
-        self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=self.DROPDOWN_WIDTH - 20, height=70, scrollbar_fg_color=self.SCROLLBAR_COLOR, fg_color=self.LIST_COLOR)
+        self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=self.DROPDOWN_WIDTH - 20, height=56, scrollbar_fg_color=self.SCROLLBAR_COLOR, fg_color=self.LIST_COLOR)
         self.terminal_scroll_frame._scrollbar.configure(height=0)
         self.terminal_scroll_frame.grid(row=start_row, column=1, rowspan=2, sticky="w", padx=self.PAD, pady=self.PAD // 2)
         add_tooltip(variables_label, "variables")
