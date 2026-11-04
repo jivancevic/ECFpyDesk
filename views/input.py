@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import StringVar, IntVar, Text, END
 from utils.parameters import search_options
 from utils.tooltips import add_tooltip, tooltip_text
-from .base import BaseView
+from .base import BaseView, FilePicker
 
 class InputView(BaseView):
     def __init__(self, parent):
@@ -31,6 +31,11 @@ class InputView(BaseView):
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)   # the parameters list takes the spare width
         self.grid_rowconfigure(3, weight=1)      # and the spare height
+        # The cards sit in a scrollable column so the screen stays usable in a small window
+        self.left_column = ctk.CTkScrollableFrame(self, width=470, height=200, fg_color="transparent",
+                                                  scrollbar_button_color=self.SCROLLBAR_COLOR)
+        self.left_column.grid(row=0, column=0, rowspan=4, sticky="ns", padx=(0, self.PAD), pady=(0, self.PAD))
+        self.left_column.grid_columnconfigure(0, weight=1)
 
     def configure_frame_grid(self, frame):
         frame.grid_columnconfigure(0, weight=0, minsize=130)
@@ -38,7 +43,7 @@ class InputView(BaseView):
 
     def create_card(self, row, title):
         """A titled card in the left column; returns the frame."""
-        card = ctk.CTkFrame(self, fg_color=self.CARD_COLOR)
+        card = ctk.CTkFrame(self.left_column, fg_color=self.CARD_COLOR)
         card.grid(row=row, column=0, sticky='ew', padx=(0, self.PAD), pady=(0, self.PAD))
         self.configure_frame_grid(card)
         ctk.CTkLabel(card, text=title, font=self.font).grid(row=0, column=0, columnspan=2, sticky="w", padx=self.PAD, pady=(self.PAD, 2))
@@ -56,12 +61,11 @@ class InputView(BaseView):
     def create_file_button(self, frame, text, start_row, add_row):
         label = ctk.CTkLabel(frame, text=text)
         label.grid(row=start_row+add_row, column=0, sticky='w', padx=self.PAD, pady=self.PAD // 2)
-        button = self.create_button(frame, "Select File", lambda bt=add_row: self.invoke_callback('browse_file', bt),
-                                    min_width=0)
-        button.grid(row=start_row+add_row, column=1, sticky='w', padx=self.PAD, pady=self.PAD // 2)
         tip = "input_file" if add_row == 0 else "error_file"
+        button = FilePicker(frame, lambda bt=add_row: self.invoke_callback('browse_file', bt), tip,
+                            side_pad=self.BUTTON_SIDE_PAD, height=self.BUTTON_HEIGHT, font=self.button_font)
+        button.grid(row=start_row+add_row, column=1, sticky='w', padx=self.PAD, pady=self.PAD // 2)
         add_tooltip(label, tip)
-        add_tooltip(button, tip)
         return button
     
     def setup_terminal_frame(self, frame, start_row=3):
@@ -95,6 +99,7 @@ class InputView(BaseView):
             checkbox.grid(row=i, column=0, sticky='w', padx=5, pady=3)
             if checkbox_text in curr_terminal_set:
                 checkbox.select()
+            add_tooltip(checkbox, "variables")
             self.variable_checkboxes[i] = checkbox
 
     def setup_search_options(self):
@@ -167,9 +172,9 @@ class InputView(BaseView):
         thread_var.set(1)
         entry = ctk.CTkEntry(thread_frame, textvariable=thread_var, width=self.ENTRY_WIDTH, height=self.FIELD_HEIGHT)
         entry.grid(row=0, column=0, padx=(0, self.PAD))
-        minus_button = ctk.CTkButton(thread_frame, text="-", width=self.FIELD_HEIGHT, height=self.FIELD_HEIGHT, command=lambda *args: self.change_number(thread_var, -1))
+        minus_button = ctk.CTkButton(thread_frame, text="-", width=self.BUTTON_HEIGHT, height=self.BUTTON_HEIGHT, corner_radius=self.BUTTON_HEIGHT // 2, command=lambda *args: self.change_number(thread_var, -1))
         minus_button.grid(row=0, column=1, padx=(0, self.PAD))
-        plus_button = ctk.CTkButton(thread_frame, text="+", width=self.FIELD_HEIGHT, height=self.FIELD_HEIGHT, command=lambda *args: self.change_number(thread_var, 1))
+        plus_button = ctk.CTkButton(thread_frame, text="+", width=self.BUTTON_HEIGHT, height=self.BUTTON_HEIGHT, corner_radius=self.BUTTON_HEIGHT // 2, command=lambda *args: self.change_number(thread_var, 1))
         plus_button.grid(row=0, column=2)
         for widget in (label, entry, minus_button, plus_button):
             add_tooltip(widget, "thread_num")
@@ -183,11 +188,11 @@ class InputView(BaseView):
         action_frame.grid(row=4, column=0, columnspan=2, pady=(self.PAD, 0))
 
         self.apply_button = self.create_button(action_frame, "Apply", lambda: self.invoke_callback('apply_button_click'),
-                                               min_width=170, tooltip=lambda: tooltip_text("apply_edit" if self.edit_mode else "apply"))
+                                               min_width=144, tooltip=lambda: tooltip_text("apply_edit" if self.edit_mode else "apply"))
         self.apply_button.grid(row=0, column=0, padx=self.PAD)
 
         self.change_button = self.create_button(action_frame, "Change Manually", lambda: self.invoke_callback('change_button_click'),
-                                                min_width=170, tooltip=lambda: tooltip_text("change_back" if self.edit_mode else "change"))
+                                                min_width=144, tooltip=lambda: tooltip_text("change_back" if self.edit_mode else "change"))
         self.change_button.grid(row=0, column=1, padx=self.PAD)
 
     def on_change_button_click(self):
