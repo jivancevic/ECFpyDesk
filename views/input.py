@@ -33,7 +33,7 @@ class InputView(BaseView):
         self.grid_rowconfigure(3, weight=1)      # and the spare height
         # The cards sit in a scrollable column so the screen stays usable in a small window
         self.left_column = ctk.CTkScrollableFrame(self, width=470, height=200, fg_color="transparent",
-                                                  scrollbar_button_color=self.SCROLLBAR_COLOR)
+                                                  scrollbar_button_color=self.SCROLLBAR_COLOR, scrollbar_button_hover_color=self.SCROLLBAR_HOVER)
         self.left_column.grid(row=0, column=0, rowspan=4, sticky="ns", padx=(0, self.PAD), pady=(0, self.PAD))
         self.left_column.grid_columnconfigure(0, weight=1)
 
@@ -74,7 +74,7 @@ class InputView(BaseView):
         button = self.create_button(frame, "All/None", self.toggle_variables, tooltip="all_none")
         button.grid(row=start_row+1, column=0, sticky='nw', padx=self.PAD, pady=self.PAD // 2)
 
-        self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=self.DROPDOWN_WIDTH - 20, height=56, scrollbar_fg_color=self.SCROLLBAR_COLOR, fg_color=self.LIST_COLOR)
+        self.terminal_scroll_frame = ctk.CTkScrollableFrame(frame, width=self.DROPDOWN_WIDTH - 20, height=56, scrollbar_fg_color="transparent", scrollbar_button_color=self.SCROLLBAR_COLOR, scrollbar_button_hover_color=self.SCROLLBAR_HOVER, fg_color=self.LIST_COLOR)
         self.terminal_scroll_frame._scrollbar.configure(height=0)
         self.terminal_scroll_frame.grid(row=start_row, column=1, rowspan=2, sticky="w", padx=self.PAD, pady=self.PAD // 2)
         add_tooltip(variables_label, "variables")
@@ -112,7 +112,7 @@ class InputView(BaseView):
             self.setup_dropdown(frame, variable_name, label, choices, idx+1, 1)
 
     def setup_parameters_scroll_area(self):
-        self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=300, scrollbar_fg_color=self.SCROLLBAR_COLOR, fg_color=self.LIST_COLOR)
+        self.scroll_frame = ctk.CTkScrollableFrame(self, width=300, height=300, scrollbar_fg_color="transparent", scrollbar_button_color=self.SCROLLBAR_COLOR, scrollbar_button_hover_color=self.SCROLLBAR_HOVER, fg_color=self.LIST_COLOR)
         self.scroll_frame.grid(row=0, column=1, rowspan=4, sticky="nsew", pady=(0, self.PAD))
         self.scroll_frame.grid_columnconfigure(0, weight=0)
         self.scroll_frame.grid_columnconfigure(1, weight=1)
