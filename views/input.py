@@ -70,7 +70,6 @@ class InputView(BaseView):
         ctk.CTkEntry(frame, textvariable=self.terminal_set).grid(row=start_row+2, column=1, sticky='ew', padx=5, pady=5)
 
     def populate_terminal_scroll_frame(self, var_num, curr_terminal_set, terminal_set_without_vars):
-        print("Current terminal set: ", curr_terminal_set)
         self.terminal_set.set(terminal_set_without_vars)
         self.variable_checkboxes = {}
 

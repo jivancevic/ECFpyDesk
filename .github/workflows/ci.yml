@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: pip install -r requirements.txt
+      - run: python -m compileall -q main.py models views controllers utils
+      - name: Generate a parameter file from every template
+        run: |
+          python - <<'EOF'
+          from models.config import ConfigurationManager
+          manager = ConfigurationManager()
+          for template, _ in manager.default_parameters_paths + manager.default_evaluation_parameters_paths:
+              tree, _ = manager.parse_XML(template)
+              manager.prepare_config(tree, template)
+          EOF

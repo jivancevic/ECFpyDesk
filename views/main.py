@@ -1,8 +1,11 @@
+import logging
 from .navigation import NavigationView
 from .input import InputView
 from .results import ResultsView
 import customtkinter as ctk
 from tkinter import messagebox
+
+logger = logging.getLogger(__name__)
 
 
 class View(ctk.CTk):
@@ -61,7 +64,7 @@ class View(ctk.CTk):
     def display_error(self, message):
         # Show an error message dialog
         messagebox.showerror("Error", message)
-        print(f"Error: {message}")
+        logger.error(f"Error: {message}")
 
     def start(self):
         self.mainloop()

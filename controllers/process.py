@@ -1,8 +1,11 @@
+import logging
 import subprocess
 import signal
 import time
 import threading
 from utils.publisher import Publisher
+
+logger = logging.getLogger(__name__)
 
 class ProcessManager(Publisher):
     REFRESH_RATE = 1
@@ -40,20 +43,15 @@ class ProcessManager(Publisher):
             self.start_process(i, params_path)
 
     def start_process(self, id, params_path):
-        print(f"Starting process with id: {id}")
         if id not in self.running or not self.running[id]:
-            print(f"Starting process {id}")
             self.running[id] = True
             self.process_threads[id] = threading.Thread(target=self.run_process_loop, args=(id, params_path))
             self.process_threads[id].start()
-            print(f"Native ID: {self.process_threads[id].native_id}.")
             self.start_update_timer(id)
 
     def run_process_loop(self, id, params_path):
-        print(f"Running process loop with id: {id}")
         while self.global_running:
             while not self.running[id]:
-                print(f"Process {id} paused, waiting...")
                 time.sleep(0.2)
             self.invoke_callback('pre_process_start', id)
             self.run_train_process(self.executable_path, params_path, id)
@@ -70,9 +68,8 @@ class ProcessManager(Publisher):
             while id in self.processes and self.processes[id].poll() is None:
                 output = self.processes[id].stdout.readline()
         except Exception as e:
-            print(f"Error running train ECF process: {e}")    
+            logger.error(f"Error running train ECF process: {e}")
         finally:
-            print(f"Cleaning up process {id}")
             self.running[id] = False
             if id in self.processes and self.processes[id]:
                 # Cleanup the process if it hasn't exited yet
@@ -92,14 +89,14 @@ class ProcessManager(Publisher):
         if parameters_path is None:
             parameters_path = self.test_parameters_paths[id]
         if individual_path is None:
-            print(f"Error running ECF test process {id}: No individual path provided")
+            logger.error(f"Error running ECF test process {id}: No individual path provided")
 
         try:
             self.test_processes[id] = self.run_process(self.executable_path, parameters_path, individual_path)
             while self.test_processes[id].poll() is None:
                 pass
         except Exception as e:
-            print(f"Error running ECF test process {id}: {e}")
+            logger.error(f"Error running ECF test process {id}: {e}")
         finally:
             self.cleanup_process(id, is_test=True)
 
@@ -113,7 +110,7 @@ class ProcessManager(Publisher):
                 bufsize=1
             )
         except Exception as e:
-            print(f"Error running ECF process: {e}")
+            logger.error(f"Error running ECF process: {e}")
             raise e
 
     def pause_all_processes(self):
@@ -146,7 +143,6 @@ class ProcessManager(Publisher):
     def stop_all_processes(self):
         if self.global_running:
             self.global_running = False
-        print(f"Thread num: {self.thread_num}")
         for id in range(self.thread_num):
             self.stop_process(id)
 
@@ -164,7 +160,6 @@ class ProcessManager(Publisher):
             self.cleanup_train_process(id)
 
     def cleanup_train_process(self, id):
-        print(f"Cleaning process {id}")
         if id in self.processes and self.processes.get(id):
             try:
                 self.processes[id].terminate()
@@ -178,11 +173,9 @@ class ProcessManager(Publisher):
             self.update_timers[id].cancel()
             del self.update_timers[id]
         if id in self.running:
-            print(f"Cleaning running flag for process {id}")
             del self.running[id]
 
     def cleanup_test_process(self, id):
-        print(f"Cleaning test process {id}")
         if id in self.test_processes:
             try:
                 self.test_processes[id].terminate()
