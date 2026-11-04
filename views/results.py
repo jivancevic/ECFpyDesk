@@ -154,8 +154,6 @@ class ResultsView(BaseView):
                 with np.errstate(divide='ignore', invalid='ignore'):
                     residual_percent = np.abs(residuals / y_data) * 100
                     valid_mask = np.isfinite(residual_percent)
-                    print(f"valid_mask: {valid_mask}")
-                    print(f"Residual percent: {residual_percent}")
                     self.add_to_plot(x_data[valid_mask], residual_percent[valid_mask], 'magenta', 'Residual Error %', plot_type)
                     #self.ax.plot(x_data[valid_mask], residual_percent[valid_mask], 'm-', label='Residual Error %')
             else:

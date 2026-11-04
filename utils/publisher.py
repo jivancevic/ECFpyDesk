@@ -1,3 +1,6 @@
+import logging
+
+logger = logging.getLogger(__name__)
 class Publisher():
     def __init__(self):
         self.callbacks = {}
@@ -12,4 +15,4 @@ class Publisher():
             for callback in self.callbacks[name]:
                 callback(*args, **kwargs)
         else:
-            print(f"No callback registered under the name: {name}:: {args}")
+            logger.warning(f"No callback registered under the name: {name}:: {args}")

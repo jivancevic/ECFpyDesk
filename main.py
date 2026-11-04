@@ -1,5 +1,6 @@
 from models.main import Model
 
+import logging
 import os
 import platform
 
@@ -11,6 +12,7 @@ from views.main import View
 from controllers.main import Controller
 
 def main():
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
     app_directory = os.path.dirname(os.path.abspath(__file__))  # Get the directory of main.py
     # Initialize the MVC components
     model = Model()

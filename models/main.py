@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np
@@ -8,6 +9,8 @@ from .parameters import param_paths
 from utils.helper import set_to_string, string_to_set
 from utils.file import create_directory, delete_file_if_exists
 from utils.publisher import Publisher
+
+logger = logging.getLogger(__name__)
 
 class Model(Publisher):
     config_path = 'config.json'
@@ -119,7 +122,7 @@ class Model(Publisher):
         elif type == 'test':
             return self.test_input_data
         else:
-            print("Invalid data type requested.")
+            logger.warning("Invalid data type requested.")
             return None
         
     def get_data_type(self):
@@ -139,7 +142,7 @@ class Model(Publisher):
     
     def update_function_solutions(self, function, solutions, data_type):
         if data_type != 'train' and data_type != 'test':
-            print("Invalid data type. Cannot update function_solutions. Must be 'train' or 'test'")
+            logger.warning("Invalid data type. Cannot update function_solutions. Must be 'train' or 'test'")
             return
         
         if function not in self.function_solutions:
@@ -149,7 +152,6 @@ class Model(Publisher):
 
     def update_best_functions(self, is_test=False, copy=True):
         is_test = self.data_type == 'test'
-        print(f"Inside models/update_best_functions, is_test={is_test}")
         return self.update_aggregate_best_functions(is_test).copy() if copy else self.update_aggregate_best_functions(is_test)
         
     def get_best_functions(self, id=None, data_type=None, copy=True):
@@ -162,7 +164,6 @@ class Model(Publisher):
                 return None
         else:
             functions_key = 'best_test_functions' if data_type == 'test' else 'best_functions'
-            print(f"Inside model/get_best_functions, functions_key={functions_key}, len={len(self.process_states[id][functions_key])}")
 
             return self.process_states[id][functions_key].copy() if copy else self.process_states[id][functions_key]
         
@@ -175,30 +176,25 @@ class Model(Publisher):
     
     def get_evaluation_configurations(self, id):
         if id not in self.config_manager.eval_configurations:
-            print(f"Configuration with id {id} not found")
+            logger.warning(f"Configuration with id {id} not found")
         return self.config_manager.eval_configurations[id]
         
     def update_aggregate_best_functions(self, is_test=False):
         all_best_functions = []
         best_functions_key = 'best_test_functions' if is_test else 'best_functions'
-        print("Best_functions_key:", best_functions_key, "\n\n\n")
         for id, value in self.process_states.items():
-            print(f"len(bf): {len(value['best_functions'])}")
-            print(f"len(tbf): {len(value['best_test_functions'])}")
             all_best_functions.extend(value[best_functions_key].copy())
         
         best_functions = self.filter_best_functions(all_best_functions, 'test' if is_test else 'train')
         if is_test:
             best_functions = self.filter_errors(best_functions)
         if len(best_functions) > 0 and 'test_error' in best_functions[0]:
-            print(f"Is error and test_error same: {best_functions[0]['error'] == best_functions[0]['test_error']}")
-            print(best_functions[0])
+            pass  # FIXME-sole
         self.best_functions = best_functions
 
         return self.best_functions
     
     def filter_errors(self, best_functions):
-        print(f"Inside models/filter_error")
         for func in best_functions:
             if 'test_error' in func:
                 func['error'] = func['test_error']
@@ -240,7 +236,7 @@ class Model(Publisher):
         input_path = self.get_input_path()
         self.input_data = self.load_data(input_path)
         if self.input_data is None:
-            print(f"Error loading data: input path '{input_path}' invalid or unreadable")
+            logger.error(f"Error loading data: input path '{input_path}' invalid or unreadable")
             return None
         self.multivar = len(self.input_data) > 2
         return self.input_data.copy()
@@ -250,7 +246,7 @@ class Model(Publisher):
             input_data = np.loadtxt(file_path, delimiter='\t')
             converted_input_data = self.convert_to_2d_array(input_data)
         except Exception as e:
-            print(f"Error loading data: {e}")
+            logger.error(f"Error loading data: {e}")
             return None
 
         return converted_input_data
@@ -262,7 +258,6 @@ class Model(Publisher):
 
     def parse_best_functions(self, id):
         best_file_path = self.config_manager.configurations[id].best_file_path
-        print("Best file path: ", best_file_path, "for process ", id)
         best_functions = self.parse_best_file(id, best_file_path)
         return best_functions
     
@@ -309,7 +304,7 @@ class Model(Publisher):
     def read_new_data(self, file_path, current_file_size):
         # Get the current size of the file
         if not os.path.exists(file_path):
-            print(f"File {file_path} does not exist")
+            logger.warning(f"File {file_path} does not exist")
             return None, 0
         
         new_file_size = os.path.getsize(file_path)
@@ -345,7 +340,6 @@ class Model(Publisher):
         else:
             error_name = 'error'
         
-        print(f"In models/filter_best_functions, data_type={data_type}")
 
         if len(data) == 0:
             return data
@@ -374,7 +368,7 @@ class Model(Publisher):
             data = self.test_input_data
 
         if data is None:
-            print("No data to plot")
+            logger.warning("No data to plot")
             return None, None
         
         x_index = self.plot_x_index if self.plot_x_index is not None else -1
@@ -414,7 +408,6 @@ class Model(Publisher):
             delete_file_if_exists(best_file_path)
             delete_file_if_exists(log_file_path)
 
-        print(parameters_path)
         return parameters_path
 
     def create_individual_file(self, file_path, error, size, prefix_function):

@@ -1,7 +1,10 @@
+import logging
 import multiprocessing
 from tkinter import filedialog, END
 from utils.parameters import options, search_options
 from .base import BaseController
+
+logger = logging.getLogger(__name__)
 
 class InputController(BaseController):
     def __init__(self, model, controller, view):
@@ -63,9 +66,8 @@ class InputController(BaseController):
         terminal_set_without_vars = self.get_terminal_set_without_variables(curr_terminal_set)
         data = self.model.load_input_data()
         if data is None:
-            print("No input data loaded; skipping terminal frame population")
+            logger.warning("No input data loaded; skipping terminal frame population")
             return
-        print("Variable number: ", len(data)-1)
         var_num = len(data)-1
         self.frame.clear_terminal_scroll_frame()
         self.frame.populate_terminal_scroll_frame(var_num, curr_terminal_set, terminal_set_without_vars)
@@ -75,7 +77,6 @@ class InputController(BaseController):
 
     def on_apply_button_click(self):
         if not self.frame.edit_mode:
-            print("Applying configurations")
             self.controller.apply_configurations()
         else:
             if hasattr(self.frame, 'config_editor'):

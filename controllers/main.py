@@ -1,3 +1,4 @@
+import logging
 import json
 import numpy as np
 import threading
@@ -9,6 +10,8 @@ from controllers.process import ProcessManager
 from controllers.navigation import NavigationController
 from controllers.input import InputController
 from controllers.results import ResultsController
+
+logger = logging.getLogger(__name__)
 
 class Controller:
     REFRESH_RATE = 0.5
@@ -49,18 +52,16 @@ class Controller:
         return self.config["SRM_parameters_path"]
     
     def handle_timer_finished(self, id):
-        print(f"\nTimer finished for id: {id}")
         self.update_solutions(id)
 
     def update_solutions(self, id=None):
         if id is not None:
             if id in self.process_threads and self.process_threads[id].is_alive():
-                print(f"Update already in progress for process ID: {id}")
+                logger.warning(f"Update already in progress for process ID: {id}")
             else:
                 # Start or restart the thread for specific process ID
                 self.process_threads[id] = threading.Thread(target=self.update_best_functions, args=(id,))
                 self.process_threads[id].start()
-                print(f"Started test thread for process ID: {id}, and thread_id: {self.process_threads[id].native_id}")
         else:
             # Update all processes
             for id in self.process_manager.processes.keys():
@@ -83,10 +84,8 @@ class Controller:
 
                     error, solutions = self.model.config_manager.parse_best_individual_file(config.best_file_path)
                     self.model.update_function_solutions(function=generation_data['function'], solutions=solutions, data_type='test')
-                    print(f"e & te same? {generation_data['error'] == error}")
                     generation_data['test_error'] = error  # Update error after test process execution
                     best_test_functions.append(generation_data.copy())
-            print(f"Inside controllers/update_best_functions")
             pareto_test_functions = self.model.filter_best_functions(best_test_functions, data_type='test')
             self.model.set_best_functions(best_functions=pareto_test_functions, id=id, data_type='test')
             
@@ -128,7 +127,6 @@ class Controller:
             self.start_all_processes()
 
     def start_all_processes(self):
-        print(f"\n{5*'*'}Starting all processes{5*'*'}\n")
         if self.model.input_data is None:
             self.model.load_input_data()
         self.model.split_train_test()
@@ -177,20 +175,18 @@ class Controller:
         self.navigation_controller.set_toggle_process_button_icon("start")
         self.navigation_controller.set_stop_process_button_icon(False)
         self.update_solutions_frame()
-        print(f"self.process_manager.running[0]: {0 in self.process_manager.running and self.process_manager.running[0]}")
     
     def apply_configurations(self):
         self.model.update_default_parameters_file()
 
     def pre_process_setup(self, id):
         #self.view.results_frame.clear_output_display()
-        print(f"Starting process {id}")
         self.model.reset_file_reading(id)
 
     def handle_input_data_change(self):
         data = self.model.load_input_data()
         if data is None:
-            print("No input data loaded; skipping plot updates")
+            logger.warning("No input data loaded; skipping plot updates")
             return
         var_num = len(data)-1
         self.results_controller.update_plot_x_axis(var_num)
@@ -216,7 +212,7 @@ class Controller:
 
         individual_data_index = find_index_of_dict_with_value_in_array(self.model.get_best_functions(), 'function', function_str)
         if individual_data_index == -1:
-            print(f"Function '{function_str}' not found in best functions")
+            logger.warning(f"Function '{function_str}' not found in best functions")
             return None, None
         
         individual_data = self.model.get_best_functions()[individual_data_index]
@@ -229,7 +225,6 @@ class Controller:
         return solutions
     
     def start_update_timer(self):
-        print("\nStarting global update timer\n")
         self.update_timer = threading.Timer(self.REFRESH_RATE, self.handle_frame_timer_finished)    
         self.update_timer.start()
 

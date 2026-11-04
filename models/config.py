@@ -1,3 +1,4 @@
+import logging
 import xml.etree.ElementTree as ET
 import re
 import math
@@ -11,6 +12,8 @@ def _lazy_pandas_and_sklearn():
     return pd, train_test_split
 from utils.file import delete_file_if_exists
 from utils.helper import choose_random_element_with_probability
+
+logger = logging.getLogger(__name__)
 
 class ProcessConfiguration:
     def __init__(self, parameters_path, input_file_path, best_file_path, log_file_path=None, tree=None, root=None):
@@ -179,7 +182,7 @@ class ConfigurationManager:
             # Navigate to the parent element
             parent = root.find(parent_path)
             if parent is None:
-                print(f"Could not find the parent path: {parent_path}")
+                logger.warning(f"Could not find the parent path: {parent_path}")
                 return False
 
             # Check if the element already exists
@@ -195,7 +198,7 @@ class ConfigurationManager:
             ET.indent(tree, space="\t", level=0)
             return tree
         except Exception as e:
-            print(f"Error when adding parameter: {e}")
+            logger.error(f"Error when adding parameter: {e}")
             return None
         
     def prepare_config(self, tree, parameters_path):
@@ -233,9 +236,9 @@ class ConfigurationManager:
             try:
                 shutil.copyfile(input_data_path, train_output_path)
             except FileNotFoundError:
-                print(f"Source file '{input_data_path}' not found.")
+                logger.warning(f"Source file '{input_data_path}' not found.")
             except Exception as e:
-                print(f"Error occurred while copying file: {e}")
+                logger.error(f"Error occurred while copying file: {e}")
             return True
 
         # Load the data
