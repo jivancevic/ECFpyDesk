@@ -19,9 +19,16 @@ while count < {limit}:
     count += 1
     with open(os.path.join(folder, 'count.tmp'), 'w') as file:
         file.write(str(count))
-    os.replace(os.path.join(folder, 'count.tmp'), os.path.join(folder, 'count'))
+    try:
+        os.replace(os.path.join(folder, 'count.tmp'), os.path.join(folder, 'count'))
+    except PermissionError:
+        pass  # Windows, while the test is reading the file
     time.sleep(0.01)
 """
+
+
+# On Windows a venv's python.exe is a launcher, and pausing it would not pause the real interpreter
+PYTHON = getattr(sys, "_base_executable", sys.executable)
 
 
 def wait_until(condition, timeout=10):
@@ -39,7 +46,7 @@ class Run:
         folder.mkdir(exist_ok=True)
         self.script = folder / "fake_srm.py"
         self.script.write_text(textwrap.dedent(script or COUNTER.format(limit=limit)))
-        self.manager = ProcessManager(sys.executable, str(folder))
+        self.manager = ProcessManager(PYTHON, str(folder))
         self.manager.set_parameters_paths([str(self.script)])
 
     def count(self):
