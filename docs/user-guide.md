@@ -6,36 +6,41 @@ Contents: [Start the app](#1-start-the-app) · [Input data format](#2-input-data
 
 ## 1. Start the app
 
-Download the package for your system from the project's GitHub Releases page: Windows (x64) or macOS (Apple Silicon). Unpack it and start `ECFpyDesk`. Nothing else needs to be installed.
+Download the package for your system from the project's GitHub Releases page:
 
-The packages are **not signed**, because signing costs money. Windows and macOS therefore warn you the first time you open the app. The warning is expected, and you only have to deal with it once.
+| System | Asset | Minimum |
+| --- | --- | --- |
+| macOS | `ECFpyDesk-<version>-macos-arm64.zip` | macOS 14 on Apple Silicon |
+| Windows | `ECFpyDesk-<version>-windows-x64.zip` | Windows 10, 64-bit |
 
-> **Maintainer note:** the steps below are written from how these warnings behave on current systems. The packaging change ships the exact file names and formats; check them against a real download and correct this section if they differ.
+Nothing else needs to be installed. Take packages only from a Release: a package built on someone's own machine may need a newer system.
 
-### macOS (Gatekeeper)
+The packages are **not signed**, because signing costs money. Both systems therefore warn you the first time you open the app. The warning is expected, and you only have to deal with it once.
 
-macOS says the app "cannot be opened" or that Apple "could not verify" it is free of malware. This is Gatekeeper reacting to an unsigned app downloaded from the internet.
+> **Not tested on a real download.** The steps below come from how Gatekeeper and SmartScreen behave on current systems and from the packaging notes, not from clicking through them on a downloaded package. If a screen looks different, correct this section.
 
-1. Open the app once and dismiss the warning (choose **Done**, not **Move to Bin**).
-2. Open **System Settings → Privacy & Security** and scroll down to **Security**. There is a line saying `ECFpyDesk` was blocked. Click **Open Anyway** and confirm with your password or Touch ID.
-3. Open the app again and choose **Open**.
+### macOS (Gatekeeper), macOS 14 or newer, Apple Silicon
 
-On macOS 14 and older, the shortcut is simpler: hold Control and click the app, choose **Open**, then **Open** again.
+1. Unzip and move `ECFpyDesk.app` to Applications.
+2. Double-click it. macOS says it cannot verify the app is free of malware. Close the dialog.
+3. Open **System Settings → Privacy & Security**, scroll to **Security**, click **Open Anyway** next to the `ECFpyDesk` line, and confirm with your password or Touch ID.
 
-If you prefer the Terminal, this removes the quarantine mark that triggers the warning. Run it on the unpacked app (adjust the path):
+Or, in the Terminal, remove the quarantine mark that triggers the warning:
 
 ```bash
-xattr -dr com.apple.quarantine /path/to/ECFpyDesk.app
+xattr -dr com.apple.quarantine /Applications/ECFpyDesk.app
 ```
 
-### Windows (SmartScreen)
+### Windows (SmartScreen), Windows 10 or newer, 64-bit
 
-Windows shows a blue **Windows protected your PC** window.
+1. Unzip the **whole** folder, and keep the `_internal` folder next to `ECFpyDesk.exe`. The app does not start without it.
+2. Run `ECFpyDesk.exe`. At **Windows protected your PC**, click **More info**, then **Run anyway**.
 
-1. Click **More info**.
-2. Click **Run anyway**.
+If the app does not start at all, the downloaded zip may be blocked: right-click the zip, choose **Properties**, tick **Unblock** at the bottom, and unpack it again.
 
-If the app does not start at all, the downloaded zip may be blocked: right-click the zip, choose **Properties**, tick **Unblock** at the bottom, then unpack it again.
+### Sample data in the package
+
+The app opens with `data_2var.txt` already loaded. The other sample files are inside the package, in `ECFpyDesk.app/Contents/Resources/srm/` on macOS and `ECFpyDesk\_internal\srm\` on Windows. On macOS a file dialog does not easily enter an `.app`: either press **Cmd+Shift+G** in the dialog and paste the path to that folder, or use copies from the `srm/` folder of the repository.
 
 ### Running from source
 
@@ -73,7 +78,7 @@ The folder `srm/` has three sample files:
 | `data_2var.txt` | `x1`, `x2` | `x1 * x2` |
 | `data_2var_log.txt` | `x1`, `x2` | `log(x1) / log(x2)` |
 
-We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy; the 15-row `data_2var_log.txt` gets an exact answer within seconds.) In the packaged app, the sample data is inside the app bundle; you can also copy the files from the repository. Any file in the format above works.
+We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy; the 15-row `data_2var_log.txt` gets an exact answer within seconds.) See [Sample data in the package](#sample-data-in-the-package) for where the files are in the packaged app. Any file in the format above works.
 
 ### Step 1: set up the Input screen
 
