@@ -5,22 +5,57 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
+      # Linux covers the installed Boost; macOS and Windows cover the CMake download.
+      - name: Install Boost
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libboost-dev
+      - name: Build SRM
+        run: |
+          cmake -S native -B build
+          cmake --build build --config Release --parallel 4
+      - name: Smoke run
+        run: python native/smoke_test.py
       - run: pip install -r requirements.txt
       - run: python -m compileall -q main.py models views controllers utils
       - name: Generate a parameter file from every template
         run: |
-          python - <<'EOF'
+          python - <<'PY'
           from models.config import ConfigurationManager
           manager = ConfigurationManager()
           for template, _ in manager.default_parameters_paths + manager.default_evaluation_parameters_paths:
               tree, _ = manager.parse_XML(template)
               manager.prepare_config(tree, template)
-          EOF
+          PY
+      - name: Run tests
+        if: hashFiles('tests/**') != ''
+        run: |
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; else pip install pytest; fi
+          python -m pytest
+
+  # The required check. It passes only when every system in the matrix passed.
+  ci:
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: test "${{ needs.build.result }}" = success
