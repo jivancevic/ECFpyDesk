@@ -188,8 +188,6 @@ class Model(Publisher):
         best_functions = self.filter_best_functions(all_best_functions, 'test' if is_test else 'train')
         if is_test:
             best_functions = self.filter_errors(best_functions)
-        if len(best_functions) > 0 and 'test_error' in best_functions[0]:
-            pass  # FIXME-sole
         self.best_functions = best_functions
 
         return self.best_functions
