@@ -58,6 +58,7 @@ class ResultsView(BaseView):
         for i, weight in enumerate(self.COLUMN_WEIGHTS):
             self.solutions_list_frame.grid_columnconfigure(i, weight=weight, uniform="Silent_Creme")
         add_tooltip(self.solutions_list_frame, "solutions")
+        add_tooltip(self.header_frame, "solutions")
         self.solutions_master_frame.grid_rowconfigure(1, weight=1)  # Allocate most space to the list frame
         self.solutions_master_frame.grid_columnconfigure(0, weight=1)  # Allocate most space to the list frame
 
@@ -65,7 +66,8 @@ class ResultsView(BaseView):
         """Setup the information display frame."""
         old_info_frame = getattr(self, "info_frame", None)
         if old_info_frame is not None:
-            old_info_frame.destroy()  # a rebuilt frame must not pile up on the old one
+            if old_info_frame.winfo_exists():
+                old_info_frame.destroy()  # a rebuilt frame must not pile up on the old one
         self.info_frame = ctk.CTkFrame(self, fg_color=self.CARD_COLOR)
         self.info_frame.grid(row=3, column=0, columnspan=3, rowspan=3, sticky="nsew", padx=(0, self.PAD))
         start_row = 1 if test_option else 0
@@ -165,7 +167,7 @@ class ResultsView(BaseView):
                     self.add_to_plot(x_data[valid_mask], residual_percent[valid_mask], 'magenta', 'Residual Error %', plot_type)
                     #self.ax.plot(x_data[valid_mask], residual_percent[valid_mask], 'm-', label='Residual Error %')
             else:
-                self.add_to_plot(x_data, function_results, 'red', 'Target variable', plot_type)
+                self.add_to_plot(x_data, function_results, 'red', 'Function', plot_type)
                 #self.ax.plot(x_data, function_results, color='red', label='Function')  # Scatter plot of function evaluation
 
         if plot_scale == 1:  # Log scale for y-axis
@@ -200,6 +202,7 @@ class ResultsView(BaseView):
 
         # Bind the click event to the entire row
         for label in [size_label, error_label, function_label]:
+            add_tooltip(label, "solutions")
             label.bind("<Button-1>", lambda event, row=row_index: self.invoke_callback('select_row', row))
 
     def update_solution_row(self, func, row_index):

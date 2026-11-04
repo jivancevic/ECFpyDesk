@@ -20,7 +20,7 @@ class View(ctk.CTk):
     def initialize_ui(self):
         self.title("ECFpyDesk")
         self.geometry("1000x780")
-        self.minsize(900, 740)
+        self.minsize(900, 560)
 
         self.grid_columnconfigure(0, weight=1)   # one column: the navigation bar and the screens share it
         self.grid_rowconfigure(0, weight=0)      # navigation bar keeps its height

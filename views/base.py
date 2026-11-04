@@ -35,13 +35,51 @@ class PillButton(ctk.CTkButton):
         super().configure(require_redraw=require_redraw, **kwargs)
 
 
+class FilePicker(ctk.CTkFrame):
+    """A fixed-size "Select File" button with the chosen file name in a label beside it.
+
+    Controllers show the choice with `button.configure(text=file_name)`; `configure(text=)` here
+    puts the name in the label and keeps the button's own text, so the button never changes size.
+    """
+    BUTTON_TEXT = "Select File"
+    NAME_WIDTH = 150
+
+    def __init__(self, master, command, tooltip_key, side_pad=28, height=48, font=None):
+        super().__init__(master, fg_color="transparent")
+        self._font = font or ctk.CTkFont(size=13)
+        self._full_name = ""
+        width = self._font.measure(self.BUTTON_TEXT) + 2 * side_pad
+        self.button = ctk.CTkButton(self, text=self.BUTTON_TEXT, command=command, width=width, height=height,
+                                    corner_radius=height // 2, font=self._font)
+        self.button.grid(row=0, column=0)
+        self.name_label = ctk.CTkLabel(self, text="", width=self.NAME_WIDTH, anchor="w", font=self._font)
+        self.name_label.grid(row=0, column=1, padx=(8, 0))
+        add_tooltip(self.button, tooltip_key)
+        add_tooltip(self.name_label, lambda: self._full_name)
+
+    def configure(self, require_redraw=False, **kwargs):
+        if "text" in kwargs:
+            self._full_name = kwargs.pop("text")
+            self.name_label.configure(text=self._ellipsize(self._full_name))
+        if kwargs:
+            self.button.configure(**kwargs)
+
+    def _ellipsize(self, text):
+        room = self.NAME_WIDTH - 8
+        if self._font.measure(text) <= room:
+            return text
+        while text and self._font.measure(text + "...") > room:
+            text = text[:-1]
+        return text + "..."
+
+
 class BaseView(ctk.CTkFrame, Publisher):
     # Layout constants shared by all screens
     PAD = 8                 # space between widgets and around cards
     BUTTON_HEIGHT = 48      # buttons are content-width pills, at least this tall
     BUTTON_SIDE_PAD = 28    # horizontal padding inside a button, each side
     FIELD_HEIGHT = 36       # entries and dropdowns
-    DROPDOWN_WIDTH = 280
+    DROPDOWN_WIDTH = 300
     ENTRY_WIDTH = 140
     CARD_COLOR = "#e4e4e4"
     LIST_COLOR = "#f0f0f0"

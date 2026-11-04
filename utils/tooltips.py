@@ -21,12 +21,12 @@ TOOLTIPS = {
     "thread_num": "Number of SRM processes that run at the same time.\nSensible: up to the number of CPU cores (the + button stops there).",
     "linear_scaling": "Fits a scale and an offset to each expression's output before measuring the error.\nUsually best left on.",
     # Registry parameters
-    "ECF/Registry/Entry/term.maxgen": "Each process stops after this many generations.\nSensible: 100 to 1000.",
+    "ECF/Registry/Entry/term.maxgen": "Generation limit of one SRM run (term.stagnation and term.eval also end it).\nA process starts a new run until you press Stop. Sensible: 100 to 1000.",
     "ECF/Registry/Entry/population.size": "Expressions in the population of each process.\nSensible: 500 to 5000. Larger finds more but runs slower.",
     "ECF/Registry/Entry/mutation.indprob": "Chance that an expression is mutated, from 0 to 1.\nSensible: 0.3 to 0.9.",
-    "ECF/Registry/Entry/log.frequency": "Generations between progress log entries.\nSensible: 10.",
+    "ECF/Registry/Entry/log.frequency": "Every this many generations the best expression is written out and shown on the Results screen.\nMust be above 0.",
     # Action buttons
-    "apply": "Write the settings above into the parameter files the next run uses.",
+    "apply": "Save these settings as the defaults for the next start.\nA run always uses what is on screen.",
     "apply_edit": "Save the text below as the parameter file.",
     "change": "Edit the parameter file as plain XML, for options this screen does not list.",
     "change_back": "Leave the XML editor and return to the settings.",
@@ -40,7 +40,7 @@ TOOLTIPS = {
     # Results
     "solutions": "The best expressions found by all processes, by size and error.\nClick a row, or use the up and down keys, to plot it.",
     "show_test_data": "Plot the test set instead of the train set.",
-    "plot_y_index": "What the y axis shows: the target, or how far the expression is from it\n(residual, absolute or in percent).",
+    "plot_y_index": "What the y axis shows: the target and the function, the signed residual (data minus function),\nor the absolute residual in percent.",
     "plot_x_index": "What the x axis shows: the row number, or one of the input variables.",
     "plot_type": "Draw the points as a scatter plot or joined by a line.",
     "plot_scale": "Use a logarithmic scale on one or both axes.\nLog scales need positive values.",
@@ -51,10 +51,10 @@ TOOLTIPS.update({
     "+": "Addition of two values.",
     "-": "Subtraction of two values.",
     "*": "Multiplication of two values.",
-    "/": "Division of two values.",
+    "/": "Protected division: 1 if the divisor is close to 0.",
     "avg": "Average of two values.",
-    "log": "Natural logarithm.",
-    "sqrt": "Square root.",
+    "log": "Base-10 logarithm; 0 if the value is not positive.",
+    "sqrt": "Square root; 0 for values of 0 or below.",
     "min": "Smaller of two values.",
     "max": "Larger of two values.",
     "pos": "Positive part: the value if it is above 0, otherwise 0.",
@@ -82,7 +82,8 @@ class Tooltip:
         self._after_id = None
         self._window = None
         for event, handler in (("<Enter>", self._schedule), ("<Leave>", self._hide),
-                               ("<ButtonPress>", self._hide), ("<Destroy>", self._hide)):
+                               ("<ButtonPress>", self._hide), ("<Destroy>", self._hide),
+                               ("<Unmap>", self._hide), ("<FocusOut>", self._hide)):
             widget.bind(event, handler, add="+")
 
     def _current_text(self):
@@ -103,9 +104,9 @@ class Tooltip:
     def _show(self):
         self._after_id = None
         text = self._current_text()
-        if not text or self._window is not None or not self.widget.winfo_exists():
+        if not text or self._window is not None or not self.widget.winfo_exists() or not self._pointer_inside():
             return
-        window = tk.Toplevel(self.widget)
+        window = tk.Toplevel(self.widget.winfo_toplevel())  # not a child of the widget: containers list their children
         window.wm_overrideredirect(True)
         try:
             window.wm_attributes("-topmost", True)
@@ -122,6 +123,11 @@ class Tooltip:
         x = max(0, min(x, self.widget.winfo_screenwidth() - window.winfo_reqwidth() - 4))
         window.wm_geometry(f"+{x}+{y}")
         self._window = window
+
+    def _pointer_inside(self):
+        px, py = self.widget.winfo_pointerxy()
+        x, y = self.widget.winfo_rootx(), self.widget.winfo_rooty()
+        return x <= px < x + self.widget.winfo_width() and y <= py < y + self.widget.winfo_height()
 
     def _hide(self, _event=None):
         self._cancel()
