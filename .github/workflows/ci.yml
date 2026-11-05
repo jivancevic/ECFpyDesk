@@ -10,11 +10,43 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Windows and macOS minutes cost far more than Linux, so a PR runs on Linux
+  # unless it touches what differs between systems. main always runs all three.
+  # A docs-only PR builds nothing.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      code: ${{ steps.diff.outputs.code }}
+      os: ${{ steps.diff.outputs.os }}
+    steps:
+      - id: diff
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          all='["ubuntu-latest","macos-latest","windows-latest"]'
+          if [ -z "$PR" ]; then
+            printf 'code=true\nos=%s\n' "$all" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files=$(gh pr diff "$PR" --repo "$GITHUB_REPOSITORY" --name-only) || files=.github/unknown
+          code=false
+          printf '%s\n' "$files" | grep -qvE '^(docs/.*|[^/]+\.md)$' && code=true
+          os='["ubuntu-latest"]'
+          printf '%s\n' "$files" | grep -qE '^(native/|packaging/|srm/|requirements|\.github/)' && os=$all
+          printf 'code=%s\nos=%s\n' "$code" "$os" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: ${{ fromJSON(needs.changes.outputs.os) }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     defaults:
@@ -52,10 +84,14 @@ jobs:
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; else pip install pytest; fi
           python -m pytest
 
-  # The required check. It passes only when every system in the matrix passed.
+  # The required check. It passes only when every system that ran passed, or
+  # when a docs-only PR had nothing to build.
   ci:
-    needs: build
+    needs: [changes, build]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - run: test "${{ needs.build.result }}" = success
+      - run: |
+          test "${{ needs.changes.result }}" = success
+          case "${{ needs.build.result }}" in success|skipped) ;; *) exit 1 ;; esac
