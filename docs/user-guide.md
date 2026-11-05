@@ -110,7 +110,7 @@ A process that finishes its generations starts again by itself, so results keep 
 
 ![The Results screen with the test data shown](images/results.png)
 
-The front runs from `-0.531186` (a single constant, error 0.1928) to a size-19 expression with error 0.0728: each step up in size buys a smaller error, with diminishing returns. The chosen row (size 11, error 0.0988, measured on the test rows) is plotted against `x1`, with the data in blue and the expression in red. Where only red is visible, the expression hits the data. The next section explains each part. Your own run will show different numbers: searches are random.
+The screenshot has **Show Test Data** ticked. The front runs from `-0.531186` (a single constant, error 0.1928) to a size-19 expression with error 0.0728: each step up in size buys a smaller error, with diminishing returns. The chosen row (size 11, error 0.0988, measured on the test rows) is plotted against `x1`, with the data in blue and the expression in red. Where only red is visible, the expression hits the data. The next section explains each part. Your own run will show different numbers: searches are random.
 
 ## 4. Reading the results
 
@@ -121,7 +121,7 @@ The list at the top is the **Pareto front** across all processes: expressions th
 - the top rows are small and simple, the bottom rows are larger and (a little) more accurate;
 - the first row whose error is "good enough" for your purpose is usually the one to take.
 
-The list refreshes while the run goes on (every half a second by default). The **Error** is measured with the search metric you chose. When you picked a train/test split, the front is ranked by the **test error**, which says how well an expression does on rows the search never saw. That is the honest number, since an expression can fit its training rows by memorising them.
+The list refreshes while the run goes on (every half a second by default). The **Error** is measured with the search metric you chose. When you picked a train/test split, the list starts on the training error. Tick **Show Test Data** to rank the front by the **test error**, which says how well an expression does on rows the search never saw. That is the honest number, since an expression can fit its training rows by memorising them.
 
 Click a row, or use the up and down arrow keys, to select an expression. Its full text shows under **Function**, with its error, and the plot shows how it fits.
 
@@ -135,7 +135,7 @@ The plot is drawn from values computed by SRM itself, so it shows exactly what t
 | **Plot x axis** | **Row number**, or one of the input variables |
 | **Plot type** | **Scatter**, or **Line** (joined in order of the x axis) |
 | **Plot scale** | **Regular**, **log y**, **log x**, **log x and log y** (log scales need positive values) |
-| **Show Test Data** | tick to plot the test rows instead of the training rows (appears when you chose a split) |
+| **Show Test Data** | tick to rank the front by test error and plot the test rows instead of the training rows (appears when you chose a split) |
 
 With the target plotted, a blue dot hidden under a red one means the expression fits there; a gap between them is a miss. The residual plot shows the misses directly, as data minus expression:
 

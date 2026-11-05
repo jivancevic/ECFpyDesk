@@ -24,4 +24,4 @@
 
 **Pareto front**: the Individuals that no other Individual beats on both size and error. This is what the results screen lists.
 
-**Train set, test set**: the two parts the input data is split into. Evolution sees only the train set. With a test set selected, the Pareto front ranks Individuals by test error.
+**Train set, test set**: the two parts the input data is split into. Evolution sees only the train set. With Show Test Data ticked, the Pareto front ranks Individuals by test error; otherwise by train error.
