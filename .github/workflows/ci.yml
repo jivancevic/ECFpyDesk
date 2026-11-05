@@ -11,8 +11,8 @@ concurrency:
 
 jobs:
   # Windows and macOS minutes cost far more than Linux, so a PR runs on Linux
-  # unless it touches what differs between systems. main always runs all three.
-  # A docs-only PR builds nothing.
+  # unless it touches the native build, packaging or CI. main runs all three.
+  # A docs-only change builds nothing, on a PR or on main.
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -27,17 +27,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.number }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
         run: |
           all='["ubuntu-latest","macos-latest","windows-latest"]'
-          if [ -z "$PR" ]; then
-            printf 'code=true\nos=%s\n' "$all" >> "$GITHUB_OUTPUT"
-            exit 0
+          # When the list cannot be read, this path takes the full build.
+          unlisted=.github/could-not-list
+          if [ -n "$PR" ]; then
+            files=$(gh pr diff "$PR" --repo "$GITHUB_REPOSITORY" --name-only) || files=$unlisted
+            os='["ubuntu-latest"]'
+          else
+            files=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$AFTER" --jq '.files[].filename') || files=$unlisted
+            os=$all
           fi
-          files=$(gh pr diff "$PR" --repo "$GITHUB_REPOSITORY" --name-only) || files=.github/unknown
           code=false
-          printf '%s\n' "$files" | grep -qvE '^(docs/.*|[^/]+\.md)$' && code=true
-          os='["ubuntu-latest"]'
-          printf '%s\n' "$files" | grep -qE '^(native/|packaging/|srm/|requirements|\.github/)' && os=$all
+          printf '%s\n' "$files" | grep -qvE '^(docs/.*|.*\.md)$' && code=true
+          printf '%s\n' "$files" | grep -vE '\.md$' | grep -qE '^(native/|packaging/|srm/|requirements|\.github/)' && os=$all
           printf 'code=%s\nos=%s\n' "$code" "$os" >> "$GITHUB_OUTPUT"
 
   build:
