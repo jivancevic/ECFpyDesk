@@ -41,6 +41,15 @@ def test_it_fails_when_pause_does_not_suspend_srm(tmp_path):
     assert [step["name"] for step in report["steps"]][-1] == "Processes share a Pareto front"
 
 
+def test_it_passes_when_one_formula_dominates_the_front(tmp_path):
+    """AP on every Process ends with a front of one, which is a valid result."""
+    every_process_on_ap = "import models.config; models.config.choose_random_element_with_probability = lambda choices: choices[2 if len(choices) > 1 else 0][0]"
+    exit_code, report = run_self_test(tmp_path, every_process_on_ap)
+
+    assert report["failure"] is None
+    assert exit_code == 0
+
+
 def test_it_fails_when_srm_is_missing(tmp_path):
     exit_code, report = run_self_test(tmp_path, "paths.srm_executable = lambda _path: 'missing'")
 
