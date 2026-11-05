@@ -274,7 +274,8 @@ class SelfTest:
         self.press_start_or_pause()
 
         states = self.model.process_states
-        self.pump_until(lambda: len(self.front()) > 1 and all(state["best_functions"] for state in states.values()), "results from every Process")
+        # One formula can dominate all the others: AP on every Process often ends there
+        self.pump_until(lambda: self.front() and all(state["best_functions"] for state in states.values()), "results from every Process")
         manager = self.controller.process_manager
         check(len(manager.processes) == self.model.thread_num, f"{len(manager.processes)} Processes run, {self.model.thread_num} should")
 
