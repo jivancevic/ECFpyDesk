@@ -20,7 +20,7 @@
 		</GEPChromosome>
 	</Genotype>
 	<Registry>
-		<Entry key="input_file">/Users/jivancevic/projects/diplomski/ECFpyDesk/srm/data_2var.txt</Entry>
+		<Entry key="input_file">srm/data_2var.txt</Entry>
 		<Entry key="linear_scaling">true</Entry>
 		<Entry key="bestfile">best2.txt</Entry>
 		<Entry key="randomizer.seed">0</Entry>

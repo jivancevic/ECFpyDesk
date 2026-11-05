@@ -1,7 +1,12 @@
+import logging
 import multiprocessing
+import os
+import re
 from tkinter import filedialog, END
 from utils.parameters import options, search_options
 from .base import BaseController
+
+logger = logging.getLogger(__name__)
 
 class InputController(BaseController):
     def __init__(self, model, controller, view):
@@ -19,6 +24,12 @@ class InputController(BaseController):
         self.frame.register_callback('dropdown_option_change', self.handle_dropdown_option_change)
 
     def initialize_frame(self):
+        # Building a dropdown publishes its value, so it must start on the saved value
+        self.frame.initial_values = {
+            "search_metric": self.model.get_current_variable("search_metric"),
+            "train_test_split": self.model.train_test_split,
+            "test_sample": self.model.test_sample,
+        }
         super().initialize_frame()
         self.frame.max_threads = multiprocessing.cpu_count()
         self.frame.populate_scroll_frame(options)
@@ -28,21 +39,25 @@ class InputController(BaseController):
         input_path = self.model.get_current_input_path()
         if input_path is not None:
             self.model.set_input_path(input_path)
-            self.frame.input_file_button.configure(text=input_path.split('/')[-1])
-        
+            self.frame.input_file_button.configure(text=os.path.basename(input_path))
+
+        error_path = self.model.get_error_path()
+        if error_path:
+            self.frame.error_file_button.configure(text=os.path.basename(error_path))
+
         self.populate_terminal_scroll_frame()
         self.controller.handle_input_data_change()
         
         function_set = self.model.get_current_function_set()
         self.model.set_function_set(function_set)
+        functions = function_set.split()
         for func, checkbox in self.frame.checkbox_vars.items():
-            checkbox.select() if func in function_set else checkbox.deselect()
+            checkbox.select() if func in functions else checkbox.deselect()
 
         for path, var in self.frame.params_vars.items():
             current_value = self.model.config_manager.get_current_param_value(path)
             var.set(current_value if current_value is not None else "")
 
-        self.model.get_current_variable("linear_scaling")
         self.frame.linear_scaling_checkbox.select() if self.model.get_current_variable("linear_scaling") == "true" else self.frame.linear_scaling_checkbox.deselect()
 
     def handle_browse_file(self, button_type):
@@ -56,28 +71,34 @@ class InputController(BaseController):
             else:
                 button = self.frame.error_file_button
                 self.model.set_error_path(filepath)
-            button.configure(text=filepath.split('/')[-1])
+            button.configure(text=os.path.basename(filepath))
 
     def populate_terminal_scroll_frame(self):
         curr_terminal_set = self.model.get_current_terminal_set()
         terminal_set_without_vars = self.get_terminal_set_without_variables(curr_terminal_set)
         data = self.model.load_input_data()
-        print("Variable number: ", len(data)-1)
+        if data is None:
+            logger.warning("No input data loaded; skipping terminal frame population")
+            return
         var_num = len(data)-1
         self.frame.clear_terminal_scroll_frame()
-        self.frame.populate_terminal_scroll_frame(var_num, curr_terminal_set, terminal_set_without_vars)
+        self.frame.populate_terminal_scroll_frame(var_num, curr_terminal_set.split(), terminal_set_without_vars)
+        # The file decides which variables exist, so the saved terminal set can be out of date
+        self.handle_terminal_set_change(self.frame.variable_checkboxes, self.frame.terminal_set.get())
 
     def get_terminal_set_without_variables(self, terminal_set):
-        return " ".join(t for t in terminal_set.split(" ") if "x" not in t)
+        return " ".join(t for t in terminal_set.split(" ") if not re.fullmatch(r"x\d+", t))
 
     def on_apply_button_click(self):
         if not self.frame.edit_mode:
-            print("Applying configurations")
             self.controller.apply_configurations()
         else:
             if hasattr(self.frame, 'config_editor'):
-                with open(self.controller.get_parameters_file_path(), 'w') as file:
-                    file.write(self.frame.config_editor.get("1.0", END))
+                try:
+                    self.model.config_manager.save_manual_parameters(self.frame.config_editor.get("1.0", END))
+                except ValueError as e:
+                    self.view.display_error(str(e))
+                    return
                 self.initialize_frame()
                 self.on_change_button_click()
 
@@ -86,8 +107,7 @@ class InputController(BaseController):
             self.frame.edit_mode = True
             self.frame.change_button.configure(text="Back")
             self.frame.apply_button.configure(text="Save")
-            with open(self.controller.get_parameters_file_path(), 'r') as file:
-                self.frame.display_config_editor(file.read())
+            self.frame.display_config_editor(self.model.config_manager.read_manual_parameters())
         else:
             self.frame.edit_mode = False
             self.frame.change_button.configure(text="Change Manually")
@@ -101,7 +121,8 @@ class InputController(BaseController):
 
     def generate_terminal_set_string(self, variable_checkboxes, terminal_text):
         selected_variables = [f"x{i+1}" for i, checkbox in variable_checkboxes.items() if checkbox.get()]
-        selected_variables.append(terminal_text)
+        if terminal_text:
+            selected_variables.append(terminal_text)
         return " ".join(selected_variables)
 
     def handle_function_toggle(self, func):
