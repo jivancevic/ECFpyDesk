@@ -1,5 +1,12 @@
-./venv/
+venv/
 __pycache__/
+*.pyc
+.DS_Store
+build/
+dist/
+srm/SRM
+srm/SRM.exe
 srm/best.txt
 srm/log.txt
 srm/temp/
+srm/mc.txt

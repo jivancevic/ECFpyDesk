@@ -1,204 +1,184 @@
+import logging
+import os
 import subprocess
-import signal
-import time
 import threading
+import psutil
 from utils.publisher import Publisher
 
-class ProcessManager(Publisher):
-    REFRESH_RATE = 1
+logger = logging.getLogger(__name__)
 
-    def __init__(self, executable_path):
+IDLE = 'idle'
+RUNNING = 'running'
+PAUSED = 'paused'
+
+class ProcessManager(Publisher):
+    """Runs the SRM Processes of a run.
+
+    A run is IDLE, RUNNING or PAUSED. Each Process has a thread that keeps SRM going: when SRM
+    finishes it starts again, so results keep improving until the user stops the run. Pause
+    suspends SRM and holds the threads, abort kills SRM and ends them.
+    """
+    EVALUATION_TIMEOUT = 60  # seconds, an evaluation run normally takes milliseconds
+    JOIN_TIMEOUT = 5
+
+    def __init__(self, executable_path, working_directory=None):
         super().__init__()
         self.executable_path = executable_path
+        self.working_directory = working_directory
+        self.state = IDLE
+        self.lock = threading.Lock()
+        self.resume_event = threading.Event()
         self.processes = {}
         self.parameters_paths = []
         self.test_processes = {}
-        self.test_parameters_paths = []
-        self.evaluation_processes = {}
-        self.evaluation_processes_paths = []
         self.process_threads = {}
-        self.running = {}
-        self.global_running = False
-        self.update_timers = {}
-        self.thread_num = 1
-
-    def set_thread_num(self, thread_num):
-        self.thread_num = thread_num
+        self.failed_processes = set()
 
     def set_parameters_paths(self, parameters_paths):
         self.parameters_paths = parameters_paths
 
-    def set_test_parameters_paths(self, parameters_paths):
-        self.test_parameters_paths = parameters_paths
-
-    def reset_running_flags(self):
-        self.running = {i: False for i in range(self.thread_num)}
+    def active_process_count(self):
+        return sum(thread.is_alive() for thread in self.process_threads.values())
 
     def start_all_processes(self):
-        self.global_running = True
-        for i, params_path in enumerate(self.parameters_paths):
-            self.start_process(i, params_path)
-
-    def start_process(self, id, params_path):
-        print(f"Starting process with id: {id}")
-        if id not in self.running or not self.running[id]:
-            print(f"Starting process {id}")
-            self.running[id] = True
-            self.process_threads[id] = threading.Thread(target=self.run_process_loop, args=(id, params_path))
+        with self.lock:
+            if self.state != IDLE:
+                return
+            self.state = RUNNING
+            self.resume_event.set()
+        self.failed_processes.clear()
+        self.process_threads = {}
+        for id, params_path in enumerate(self.parameters_paths):
+            self.process_threads[id] = threading.Thread(target=self.run_process_loop, args=(id, params_path), daemon=True)
             self.process_threads[id].start()
-            print(f"Native ID: {self.process_threads[id].native_id}.")
-            self.start_update_timer(id)
 
     def run_process_loop(self, id, params_path):
-        print(f"Running process loop with id: {id}")
-        while self.global_running:
-            while not self.running[id]:
-                print(f"Process {id} paused, waiting...")
-                time.sleep(0.2)
+        try:
+            self.keep_process_running(id, params_path)
+        except Exception as e:
+            logger.exception(f"Process {id} ended on an error")
+            self.failed_processes.add(id)
+            self.invoke_callback('process_failed', id, str(e))
+
+    def keep_process_running(self, id, params_path):
+        while True:
+            self.resume_event.wait()
+            if self.state == IDLE:
+                return
             self.invoke_callback('pre_process_start', id)
-            self.run_train_process(self.executable_path, params_path, id)
-            if not self.global_running:
-                break
-            time.sleep(0.2)
+            process = self.start_train_process(id, params_path)
+            if process is None:
+                return
+            returncode = process.wait()
+            with self.lock:
+                self.processes.pop(id, None)
+                if self.state == IDLE:
+                    return
+            self.invoke_callback('process_finished', id, returncode)
+            if id in self.failed_processes:
+                return
 
-    def run_train_process(self, executable_path, parameters_path, id):
-        # Run the executable with subprocess
-        self.running[id] = True
+    def start_train_process(self, id, params_path):
+        with self.lock:
+            if self.state == IDLE:
+                return None
+            try:
+                output_path = os.path.join(os.path.dirname(params_path), 'output.txt')
+                with open(output_path, 'w') as output:
+                    process = self.run_process(self.executable_path, params_path, stdout=output)
+            except OSError as e:
+                logger.error(f"Error running train ECF process: {e}")
+                self.failed_processes.add(id)
+                self.invoke_callback('process_failed', id, str(e))
+                return None
+            self.processes[id] = process
+            if self.state == PAUSED:
+                self.suspend_process(process)
+            return process
 
+    def run_test_process(self, id, parameters_path, individual_path, output_path):
+        """Runs SRM on one Individual and waits for it. Returns True if SRM finished normally."""
         try:
-            self.processes[id] = self.run_process(executable_path, parameters_path)
-            while id in self.processes and self.processes[id].poll() is None:
-                output = self.processes[id].stdout.readline()
-        except Exception as e:
-            print(f"Error running train ECF process: {e}")    
+            with open(output_path, 'w') as output:
+                process = self.run_process(self.executable_path, parameters_path, individual_path, stdout=output)
+        except OSError as e:
+            logger.error(f"Error running ECF test process {id}: {e}")
+            return False
+
+        with self.lock:
+            self.test_processes[id] = process
+        try:
+            return process.wait(timeout=self.EVALUATION_TIMEOUT) == 0
+        except subprocess.TimeoutExpired:
+            logger.error(f"ECF test process {id} did not finish in {self.EVALUATION_TIMEOUT} s")
+            process.kill()
+            process.wait()
+            return False
         finally:
-            print(f"Cleaning up process {id}")
-            self.running[id] = False
-            if id in self.processes and self.processes[id]:
-                # Cleanup the process if it hasn't exited yet
-                self.processes[id].terminate()
-                self.processes[id].wait()
-                del self.processes[id]
+            with self.lock:
+                self.test_processes.pop(id, None)
 
-            # Cancel the update timer safely
-            if id in self.update_timers:
-                self.update_timers[id].cancel()
-            self.invoke_callback('timer_finished', id)
-                
+    def run_process(self, *args, stdout):
+        """SRM's output goes straight to a file. A pipe the app does not keep reading fills up
+        after about 64 KB, and SRM then blocks forever on its next write."""
+        command = [args[0]] + [self.relative_path(arg) for arg in args[1:]]
+        return subprocess.Popen(
+            command,
+            cwd=self.working_directory,
+            stdin=subprocess.DEVNULL,
+            stdout=stdout,
+            stderr=subprocess.STDOUT,
+            # Without this a packaged Windows app opens a console for every run
+            creationflags=subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0,
+        )
 
-    def run_test_process(self, id, executable_path=None, parameters_path=None, individual_path=None):
-        if executable_path is None:
-            executable_path = self.executable_path
-        if parameters_path is None:
-            parameters_path = self.test_parameters_paths[id]
-        if individual_path is None:
-            print(f"Error running ECF test process {id}: No individual path provided")
-
-        try:
-            self.test_processes[id] = self.run_process(self.executable_path, parameters_path, individual_path)
-            while self.test_processes[id].poll() is None:
-                pass
-        except Exception as e:
-            print(f"Error running ECF test process {id}: {e}")
-        finally:
-            self.cleanup_process(id, is_test=True)
-
-    def run_process(self, *args):
-        try:
-            return subprocess.Popen(
-                [*args],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                bufsize=1
-            )
-        except Exception as e:
-            print(f"Error running ECF process: {e}")
-            raise e
+    def relative_path(self, path):
+        if self.working_directory is None:
+            return path
+        return os.path.relpath(path, self.working_directory)
 
     def pause_all_processes(self):
-        if self.global_running:
-            self.global_running = False
-            for id in range(self.thread_num):
-                self.pause_process(id)
-
-    def pause_process(self, id):
-        if self.running.get(id):
-            self.running[id] = False
-        if id in self.processes and self.processes[id]:
-            self.processes[id].send_signal(signal.SIGSTOP)
-        if id in self.update_timers:
-            self.update_timers[id].cancel()
+        with self.lock:
+            if self.state != RUNNING:
+                return
+            self.state = PAUSED
+            self.resume_event.clear()
+            for process in self.processes.values():
+                self.suspend_process(process)
 
     def continue_all_processes(self):
-        if not self.global_running:
-            self.global_running = True
-            for id in range(self.thread_num):
-                self.continue_process(id)
-
-    def continue_process(self, id):
-        if not self.running.get(id):
-            self.running[id] = True
-        if self.processes[id]:
-            self.processes[id].send_signal(signal.SIGCONT)
-        self.start_update_timer(id)
+        with self.lock:
+            if self.state != PAUSED:
+                return
+            self.state = RUNNING
+            for process in self.processes.values():
+                self.resume_process(process)
+            self.resume_event.set()
 
     def stop_all_processes(self):
-        if self.global_running:
-            self.global_running = False
-        print(f"Thread num: {self.thread_num}")
-        for id in range(self.thread_num):
-            self.stop_process(id)
+        with self.lock:
+            self.state = IDLE
+            self.resume_event.set()
+            # kill, not terminate: a suspended process does not act on SIGTERM until it resumes
+            for process in list(self.processes.values()) + list(self.test_processes.values()):
+                process.kill()
+        for thread in self.process_threads.values():
+            if thread is not threading.current_thread():
+                thread.join(self.JOIN_TIMEOUT)
 
-    def stop_process(self, id):
-        self.cleanup_process(id, is_test=True)
-        self.cleanup_process(id, is_test=False)
-        if id in self.process_threads and self.process_threads[id].is_alive():
-            self.process_threads[id].join()
-            del self.process_threads[id]
+    def mark_failed(self, id):
+        self.failed_processes.add(id)
 
-    def cleanup_process(self, id, is_test=False):
-        if is_test:
-            self.cleanup_test_process(id)
-        else:
-            self.cleanup_train_process(id)
+    def suspend_process(self, process):
+        # psutil suspends the same way on every platform: SIGSTOP on macOS and Linux,
+        # NtSuspendProcess on Windows, which has no such signals
+        try:
+            psutil.Process(process.pid).suspend()
+        except psutil.NoSuchProcess:
+            pass
 
-    def cleanup_train_process(self, id):
-        print(f"Cleaning process {id}")
-        if id in self.processes and self.processes.get(id):
-            try:
-                self.processes[id].terminate()
-                self.processes[id].wait(timeout=0.5)
-            except subprocess.TimeoutExpired:
-                self.processes[id].kill()
-            finally:
-                if id in self.processes:
-                    del self.processes[id]
-        if self.update_timers.get(id):
-            self.update_timers[id].cancel()
-            del self.update_timers[id]
-        if id in self.running:
-            print(f"Cleaning running flag for process {id}")
-            del self.running[id]
-
-    def cleanup_test_process(self, id):
-        print(f"Cleaning test process {id}")
-        if id in self.test_processes:
-            try:
-                self.test_processes[id].terminate()
-                self.test_processes[id].wait(timeout=0.5)
-            except subprocess.TimeoutExpired:
-                self.test_processes[id].kill()
-            finally:
-                if id in self.test_processes:
-                    del self.test_processes[id]
-
-    def start_update_timer(self, id):
-        if not self.running.get(id) and not self.global_running:
-            return
-        if id not in self.update_timers:
-            self.update_timers[id] = threading.Timer(self.REFRESH_RATE, lambda: self.invoke_callback('timer_finished', id))
-            self.update_timers[id].start()
-        elif not self.update_timers[id].is_alive():
-            self.update_timers[id] = threading.Timer(self.REFRESH_RATE, lambda: self.invoke_callback('timer_finished', id))
-            self.update_timers[id].start()
+    def resume_process(self, process):
+        try:
+            psutil.Process(process.pid).resume()
+        except psutil.NoSuchProcess:
+            pass
