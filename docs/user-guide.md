@@ -56,7 +56,7 @@ A plain text file:
 - the columns before it are the **input variables**, named `x1`, `x2` and so on in the order they appear;
 - numbers use a decimal point; empty lines are ignored.
 
-For example, `srm/data_2var.txt`, with variables `x1` and `x2` and target `x1 * x2`:
+For example, `srm/data_2var.txt`, with variables `x1` and `x2` and target `x1 * x2 + sin((x1 + 1) * (x2 - 1))`:
 
 ```
 -1	-1	1
@@ -75,10 +75,10 @@ The folder `srm/` has three sample files:
 | File | Variables | The target is |
 | --- | --- | --- |
 | `data_1var.txt` | `x1` | `3 * x1` |
-| `data_2var.txt` | `x1`, `x2` | `x1 * x2` |
+| `data_2var.txt` | `x1`, `x2` | `x1 * x2 + sin((x1 + 1) * (x2 - 1))` |
 | `data_2var_log.txt` | `x1`, `x2` | `log(x1) / log(x2)` |
 
-We use `data_2var.txt`: 100 rows, target `x1 * x2`. To make the search interesting we take away the easy answer: the pictures below come from a deliberately hard setup in which multiplication is switched off, so no expression can reproduce the data exactly and the Pareto front shows a real trade-off. (With multiplication available, this sample is easy; the 15-row `data_2var_log.txt` gets an exact answer within seconds.) See [Sample data in the package](#sample-data-in-the-package) for where the files are in the packaged app. Any file in the format above works.
+We use `data_2var.txt`: 100 rows, target `x1 * x2 + sin((x1 + 1) * (x2 - 1))`. The pictures below come from a deliberately hard setup: multiplication is switched off and sine is not among the default functions, so the search cannot build the formula and the Pareto front shows a real trade-off. (Multiplication helps, but this sample is not easy. A single process with the default functions and settings ran for about a minute and ended at a mean squared error between 0.0009 and 0.01 in five tries, against 0.187 for a constant. Ticking **sin(x)** as well gave 0.0006 to 0.003. All of these were close fits of 17 to 61 nodes, none of them the formula. For an exact answer, try the 15-row `data_2var_log.txt`, which gets one within seconds.) See [Sample data in the package](#sample-data-in-the-package) for where the files are in the packaged app. Any file in the format above works.
 
 ### Step 1: set up the Input screen
 
