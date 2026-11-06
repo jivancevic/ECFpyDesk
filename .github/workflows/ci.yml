@@ -93,9 +93,12 @@ jobs:
   # The required check. It passes only when every system that ran passed, or
   # when a docs-only change had nothing to build.
   ci:
-    needs: build
+    needs: [changes, build]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - run: case "${{ needs.build.result }}" in success|skipped) ;; *) exit 1 ;; esac
+      - env:
+          BUILD: ${{ needs.build.result }}
+          CODE: ${{ needs.changes.outputs.code }}
+        run: test "$BUILD" = success || { test "$BUILD" = skipped && test "$CODE" = false; }
