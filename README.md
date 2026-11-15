@@ -66,4 +66,4 @@ A Python app (customtkinter, in the model–view–controller pattern) that driv
 
 ## Licence
 
-The Python app is under the MIT licence (`LICENSE`). SRM derives from the 2016 thesis above and its source has no author or licence of its own, so that licence does not cover it, and the repository is private until the mentor has confirmed what may be published. See [ADR 0001](docs/adr/0001-vendor-ecf-and-srm-private-until-confirmed.md).
+The MIT licence in `LICENSE` covers the whole repository, the Python app and SRM, except `native/ecf`: ECF has its own MIT licence in `native/ecf/license.txt`. SRM is published with the mentor's confirmation, see [ADR 0002](docs/adr/0002-publish-the-repo-with-srm-under-mit.md).
