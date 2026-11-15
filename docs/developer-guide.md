@@ -138,7 +138,7 @@ The first value is the label and the second is the path of the entry in the XML.
 - English in code, docs and UI.
 - No absolute paths in the repo. A test (`tests/test_paths.py`) keeps `srm/` and `config.json` clean.
 - Work goes in small pull requests; `ci` must be green. The repo's own rules are in [AGENTS.md](../AGENTS.md).
-- The reason for keeping ECF and SRM in the repo, and for it being private for now, is in [ADR 0001](adr/0001-vendor-ecf-and-srm-private-until-confirmed.md).
+- The reason for keeping ECF and SRM in the repo is in [ADR 0001](adr/0001-vendor-ecf-and-srm-private-until-confirmed.md), and why SRM is published under MIT in [ADR 0002](adr/0002-publish-the-repo-with-srm-under-mit.md).
 
 ## 6. Releases
 

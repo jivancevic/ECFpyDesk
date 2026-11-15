@@ -17,3 +17,7 @@ The reproducible build added three more changes to the vendored code:
 We vendor instead of using a submodule because upstream has no SRM, and the patch would need a fork anyway. We stay on 1.6.1 because moving to 1.7 adds risk and no user-visible gain.
 
 ECF is MIT licensed, which does not cover SRM. SRM derives from D. Stanković's 2016 master's thesis and its source carries no author or licence, so we do not know who may publish it. The repo therefore went private on 2026-11-04. Josip asks the mentor at handover. Once confirmed, the repo goes public with the right licence, and direct merge gives way to branch protection.
+
+Update, 2026-11-12: branch protection came first, with GitHub Pro, while the repo was still private.
+
+Update, 2026-11-15: the mentor confirmed. SRM is under MIT and the repo is public, see [ADR 0002](0002-publish-the-repo-with-srm-under-mit.md).

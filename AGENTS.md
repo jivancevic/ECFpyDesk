@@ -13,13 +13,11 @@ A desktop GUI for symbolic regression: a Python app (customtkinter, MVC) that dr
 
 This repo follows `~/.agents/STANDARDS.md` (the loop, the gates, the never-list, `/ship`). Below are only this repo's facts.
 
-- **Merge mode: direct.** The repo is private on GitHub Free, which has no branch protection. This ends when the repo goes public (ADR 0001); branch protection replaces it then.
 - **A merge to `main` deploys nothing.** Users get the app only through a tagged release.
 - **Post-merge check**: `ci` on `main` is green.
 - **Rollback**: a revert PR. A bad release is deleted from GitHub Releases and the previous one stays the latest.
-- **Required checks**: `ci`. A PR runs on Linux, and on all three systems only when it touches `native/`, `packaging/`, `srm/`, `requirements*` or `.github/`; a docs-only change builds nothing, on a PR or on `main`, and `ci` still reports. Other changes on `main` run all three, so a Windows or macOS break can first show up in the post-merge check.
+- **Required checks**: `ci` and `ship-review` (branch protection on `main`). `ship-review` is the commit status `/ship`'s `merge-guard mark` sets. In `ci`, a PR runs on Linux, and on all three systems only when it touches `native/`, `packaging/`, `srm/`, `requirements*` or `.github/`; a docs-only change builds nothing, on a PR or on `main`, and `ci` still reports. Other changes on `main` run all three, so a Windows or macOS break can first show up in the post-merge check.
 
 ## Hard rules
 
-- Do not make this repo public and do not put a licence on SRM until the mentor has confirmed it (ADR 0001).
 - `srm/mc.txt` stays out of the repo: its origin is unknown.
