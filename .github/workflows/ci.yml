@@ -10,10 +10,11 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  # Windows and macOS minutes cost far more than Linux, so a PR runs on Linux
-  # unless it touches the native build, packaging or CI. main runs all three.
+  # The repo is public, so standard runners cost nothing and every code change,
+  # on a PR or on main, builds on all three systems. (A private repo would bring
+  # back the Linux-on-PRs rule of the CI budget in ~/.agents/STANDARDS.md.)
   # A docs-only change builds nothing, on a PR or on main. If this job fails,
-  # the build runs on all three.
+  # the build runs.
   changes:
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -22,7 +23,6 @@ jobs:
       pull-requests: read
     outputs:
       code: ${{ steps.diff.outputs.code }}
-      os: ${{ steps.diff.outputs.os }}
     steps:
       - id: diff
         env:
@@ -31,21 +31,17 @@ jobs:
           BEFORE: ${{ github.event.before }}
           AFTER: ${{ github.sha }}
         run: |
-          all='["ubuntu-latest","macos-latest","windows-latest"]'
           # When the list cannot be read, or compare may have cut it at 300
-          # files, this path takes the full build.
+          # files, this path counts as code.
           unlisted=.github/could-not-list
           if [ -n "$PR" ]; then
             files=$(gh pr diff "$PR" --repo "$GITHUB_REPOSITORY" --name-only) || files=$unlisted
-            os='["ubuntu-latest"]'
           else
             files=$(gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$AFTER" --jq 'if (.files | length) >= 300 then error("compare lists at most 300 files") else .files[].filename end') || files=$unlisted
-            os=$all
           fi
           code=false
           printf '%s\n' "$files" | grep -qvE '^(docs/.*|.*\.md)$' && code=true
-          printf '%s\n' "$files" | grep -vE '\.md$' | grep -qE '^(native/|packaging/|srm/|requirements|\.github/)' && os=$all
-          printf 'code=%s\nos=%s\n' "$code" "$os" >> "$GITHUB_OUTPUT"
+          printf 'code=%s\n' "$code" >> "$GITHUB_OUTPUT"
 
   build:
     needs: changes
@@ -53,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ fromJSON(needs.changes.outputs.os || '["ubuntu-latest","macos-latest","windows-latest"]') }}
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     defaults:

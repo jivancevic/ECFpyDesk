@@ -1,7 +1,8 @@
 name: release
 
 # A tag builds both packages from the tagged commit. The release exists only if both passed
-# their smoke run. macOS minutes count 10x on a private repo, so nothing else triggers this.
+# their smoke run. Packages are only needed for a release, so nothing else triggers this;
+# ci builds SRM and runs the tests on every system, but not the packages.
 on:
   push:
     tags: ['v*']

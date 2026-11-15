@@ -16,7 +16,7 @@ This repo follows `~/.agents/STANDARDS.md` (the loop, the gates, the never-list,
 - **A merge to `main` deploys nothing.** Users get the app only through a tagged release.
 - **Post-merge check**: `ci` on `main` is green.
 - **Rollback**: a revert PR. A bad release is deleted from GitHub Releases and the previous one stays the latest.
-- **Required checks**: `ci` and `ship-review` (branch protection on `main`). `ship-review` is the commit status `/ship`'s `merge-guard mark` sets. In `ci`, a PR runs on Linux, and on all three systems only when it touches `native/`, `packaging/`, `srm/`, `requirements*` or `.github/`; a docs-only change builds nothing, on a PR or on `main`, and `ci` still reports. Other changes on `main` run all three, so a Windows or macOS break can first show up in the post-merge check.
+- **Required checks**: `ci` and `ship-review` (branch protection on `main`). `ship-review` is the commit status `/ship`'s `merge-guard mark` sets. In `ci`, every code change, on a PR or on `main`, builds and tests on Linux, macOS and Windows (the repo is public, so standard runners cost nothing); a docs-only change (only `docs/` or `*.md`) builds nothing, and `ci` still reports. Packages are built only by a `v*` tag in `release.yml`.
 
 ## Hard rules
 
